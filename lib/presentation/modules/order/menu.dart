@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food365/presentation/modules/cart/cart_items.dart';
 import 'package:food365/presentation/shared/customsidedrawer.dart';
 
 //SINCE THE MENU WILL BE CUSTOMIZABLE BY THE ADMIN THEREFORE WE
@@ -6,6 +7,7 @@ import 'package:food365/presentation/shared/customsidedrawer.dart';
 //USE THAT DYNAMIC DATA TO FILL THE MENU
 
 class Menu extends StatelessWidget {
+  static const String id = 'menu';
   const Menu({Key? key}) : super(key: key);
 
   @override
@@ -17,7 +19,9 @@ class Menu extends StatelessWidget {
           title: Text("Menu"),
           actions: [
             IconButton(icon: Icon(Icons.shopping_cart_sharp),
-            onPressed: (){},
+            onPressed: (){
+              Navigator.of(context).pushNamed(CartItem.id);
+            },
             )
           ],
         ),
