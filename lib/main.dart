@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food365/presentation/modules/cart/cart_items.dart';
 import 'package:food365/presentation/modules/order/menu.dart';
 
 import 'generated_routes.dart';
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
     return const MaterialApp(
       title: 'Flutter Demo',
       onGenerateRoute: RouteGenerator.generateRoute,
-      home: Menu(),
+      home: CartItem(),
     );
   }
 }
