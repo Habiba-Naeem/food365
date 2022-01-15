@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
     return const MaterialApp(
       title: 'Flutter Demo',
       onGenerateRoute: RouteGenerator.generateRoute,
-      home: CartItem(),
+      home: Menu(),
     );
   }
 }
