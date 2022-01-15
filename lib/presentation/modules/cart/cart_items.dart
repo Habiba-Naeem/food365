@@ -15,11 +15,15 @@ class CartItem extends StatelessWidget {
         itemCount: cartItems.length,
         itemBuilder: (BuildContext context, int i) {
           return ListTile(
-              title: Text("${cartItems[i].category}"),
-              leading: Text("${cartItems[i].itemName}"),
-              trailing: Text("${cartItems[i].price}"),
-              
-              );
+            title: Text("${cartItems[i].itemName}"),
+            leading: Text("${cartItems[i].category}"),
+            trailing: Row(
+              children: [
+                Text("${cartItems[i].quantity}"),
+                Text("${cartItems[i].price}"),
+              ],
+            ),
+          );
         },
       ),
     );
