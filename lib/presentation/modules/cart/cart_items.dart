@@ -13,14 +13,21 @@ class CartItem extends StatelessWidget {
       ),
       body: ListView.builder(
         itemCount: cartItems.length,
+        shrinkWrap: true,
+        scrollDirection: Axis.vertical,
         itemBuilder: (BuildContext context, int i) {
           return ListTile(
+            
             title: Text("${cartItems[i].itemName}"),
             leading: Text("${cartItems[i].category}"),
-            trailing: Row(
+            trailing: Column(
+              mainAxisSize: MainAxisSize.min,
               children: [
-                Text("${cartItems[i].quantity}"),
-                Text("${cartItems[i].price}"),
+                 Text("Quanity: ${cartItems[i].quantity}"),
+                 SizedBox(
+                   width: 15,
+                 ),
+                Text("Rs. ${cartItems[i].price}"),
               ],
             ),
           );
