@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food365/presentation/modules/order/menu.dart';
+import 'package:food365/presentation/modules/staff/waiter/waiter_dashboard.dart';
 
 class AccountType extends StatelessWidget {
   static const String id = 'account type';
@@ -19,7 +20,7 @@ class AccountType extends StatelessWidget {
                   style: TextStyle(fontSize: 24),
                 ),
                 onTap: () {
-                  Navigator.of(context).pushReplacementNamed(Menu.id);
+                  Navigator.of(context).pushReplacementNamed(WaiterDashboard.id);
                 },
               ),
               InkWell(

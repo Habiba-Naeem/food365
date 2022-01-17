@@ -1,11 +1,5 @@
+
 import 'package:flutter/material.dart';
-
-
-//THE DRAWRER ITEMS IN MENU WILL BE POPULATED FROM THE DATABASE
-//MAKE SEPARATE CYSTOM DRAWER FOR STAFF OR NOT?
-
-// FOR UNDERSTAND WHO HAS ACCESS TO THE CURRENT INSTANCE OF THE APPLICATION
-// THEN POPULATE THE DRAWER ITEM WITH APPROPRIATE TEXT AND TAP 
 
 class CustomSideDrawer extends StatelessWidget {
   const CustomSideDrawer({Key? key}) : super(key: key);
@@ -19,23 +13,16 @@ class CustomSideDrawer extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-          _DrawerItems(text: "Appetizers", onTap: () {}),
+          _DrawerItems(text: "Current Orders", onTap: () {}),
           SizedBox(
             height: 18,
           ),
-          _DrawerItems(text: "BBQ", onTap: () {}),
+          _DrawerItems(text: "Served Orders", onTap: () {}),
           SizedBox(
             height: 18,
           ),
-          _DrawerItems(text: "Soups", onTap: () {}),
-          SizedBox(
-            height: 18,
-          ),
-          _DrawerItems(text: "Grill", onTap: () {}),
-          SizedBox(
-            height: 18,
-          ),
-          _DrawerItems(text: "Extras", onTap: () {}),
+          _DrawerItems(text: "Seating", onTap: () {}),
+         
         ]),
       ),
     );
