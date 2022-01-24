@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:food365/presentation/modules/dashboard/account_type.dart';
-import 'package:food365/presentation/modules/order/menu.dart';
+import 'package:food365/presentation/modules/home/home_screen.dart';
+import 'package:food365/presentation/modules/ordering/menu/menu_screen.dart';
 
-class Home extends StatelessWidget {
-  const Home({Key? key}) : super(key: key);
+class OnboardingScreen extends StatelessWidget {
+  const OnboardingScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +33,7 @@ class Home extends StatelessWidget {
                   style: TextStyle(fontSize: 24),
                 ),
                 onTap: () {
-                  Navigator.of(context).pushReplacementNamed(Menu.id);
+                  Navigator.of(context).pushReplacementNamed(HomeScreen.id);
                 },
               )
             ],

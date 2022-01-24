@@ -10,16 +10,16 @@ class WaiterDashboard extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: Text("Waiter"),
+          title: const Text("Waiter"),
         ),
-        drawer: CustomSideDrawer(),
+        drawer: const CustomSideDrawer(),
         body: Column(
           children: [
             const Text(
               "Current Orders",
               style: TextStyle(fontSize: 32),
             ),
-            SizedBox(
+            const SizedBox(
               height: 16,
             ),
             Table(

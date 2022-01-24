@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:food365/model/cart.dart';
+import 'package:food365/domain/modules/ordering/cart_item.dart';
 
 class CartItem extends StatelessWidget {
   static const String id = 'cart items';

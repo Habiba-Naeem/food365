@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:food365/presentation/modules/order/menu.dart';
+import 'package:food365/presentation/modules/ordering/menu/menu_screen.dart';
 import 'package:food365/presentation/modules/staff/waiter/waiter_dashboard.dart';
 
 class AccountType extends StatelessWidget {
@@ -20,7 +20,8 @@ class AccountType extends StatelessWidget {
                   style: TextStyle(fontSize: 24),
                 ),
                 onTap: () {
-                  Navigator.of(context).pushReplacementNamed(WaiterDashboard.id);
+                  Navigator.of(context)
+                      .pushReplacementNamed(WaiterDashboard.id);
                 },
               ),
               InkWell(
@@ -28,27 +29,21 @@ class AccountType extends StatelessWidget {
                   "Cook",
                   style: TextStyle(fontSize: 24),
                 ),
-                onTap: () {
-                  Navigator.of(context).pushReplacementNamed(Menu.id);
-                },
+                onTap: () {},
               ),
               InkWell(
                 child: const Text(
                   "Manager",
                   style: TextStyle(fontSize: 24),
                 ),
-                onTap: () {
-                  Navigator.of(context).pushReplacementNamed(Menu.id);
-                },
+                onTap: () {},
               ),
               InkWell(
                 child: const Text(
                   "Admin",
                   style: TextStyle(fontSize: 24),
                 ),
-                onTap: () {
-                  Navigator.of(context).pushReplacementNamed(Menu.id);
-                },
+                onTap: () {},
               )
             ],
           ),
