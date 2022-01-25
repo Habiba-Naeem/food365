@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/foundation.dart';
 import 'package:food365/domain/modules/ordering/category.dart' as mycat;
-import 'package:food365/domain/modules/ordering/menu_item.dart';
+import 'package:food365/domain/modules/ordering/menu_item_model.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;

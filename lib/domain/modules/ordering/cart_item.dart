@@ -1,21 +1,27 @@
+import 'package:food365/domain/modules/ordering/category.dart';
+import 'package:food365/domain/modules/ordering/menu_item_model.dart';
+
 class CartItem {
-  String category;
-  String itemName;
-  double price;
+  MenuItemModel menu;
   int quantity;
 
   CartItem({
-    required this.category,
-    required this.itemName,
-    required this.price,
+    required this.menu,
     required this.quantity,
   });
 }
 
 List<CartItem> cartItems = [
-  CartItem(
-      category: "Appetizers", itemName: "Crackers", price: 10.5, quantity: 5),
-  CartItem(category: "Appetizers", itemName: "Water", price: 12, quantity: 1),
-  CartItem(category: "BBQ", itemName: "Tikka", price: 200, quantity: 2),
-  CartItem(category: "BBQ", itemName: "Malai boti", price: 105.5, quantity: 2),
+  CartItem(menu: menuItems[0], quantity: 5),
+  CartItem(menu: menuItems[1], quantity: 5),
+  CartItem(menu: menuItems[2], quantity: 5),
+  CartItem(menu: menuItems[3], quantity: 5),
+  CartItem(menu: menuItems[0], quantity: 5),
+  CartItem(menu: menuItems[1], quantity: 5),
+  CartItem(menu: menuItems[2], quantity: 5),
+  CartItem(menu: menuItems[3], quantity: 5),
+  CartItem(menu: menuItems[4], quantity: 5),
+  CartItem(menu: menuItems[4], quantity: 5),
+  CartItem(menu: menuItems[4], quantity: 5),
+  CartItem(menu: menuItems[4], quantity: 5),
 ];

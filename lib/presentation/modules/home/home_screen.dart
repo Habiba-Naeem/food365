@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food365/domain/modules/ordering/category.dart';
-import 'package:food365/domain/modules/ordering/menu_item.dart';
+import 'package:food365/domain/modules/ordering/menu_item_model.dart';
 import 'package:food365/domain/services/menu_service.dart';
 import 'package:food365/presentation/modules/ordering/cart/cart_items.dart';
 import 'package:food365/presentation/modules/ordering/cart/cart_screen.dart';

@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:food365/domain/modules/ordering/menu_item.dart';
+import 'package:food365/domain/modules/ordering/menu_item_model.dart';
 
 class MenuItem extends StatefulWidget {
-  // final MenuItem menuItem;
-  MenuItem();
+  final MenuItemModel menuItem;
+  MenuItem({required this.menuItem});
 
   _MenuItemState createState() => _MenuItemState();
 }
 
 class _MenuItemState extends State<MenuItem>
     with SingleTickerProviderStateMixin {
-  //MenuItem get menuItem => widget.menuItem;
+  MenuItemModel get menuItem => widget.menuItem;
 
   @override
   void initState() {
@@ -30,21 +30,36 @@ class _MenuItemState extends State<MenuItem>
               crossAxisAlignment: CrossAxisAlignment.stretch,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                // buildImage(),
+                // Container(
+                //   height: MediaQuery.of(context).size.width / 2.5,
+                //   child: ClipRRect(
+                //     borderRadius:
+                //         BorderRadius.vertical(top: Radius.circular(12)),
+                //     child: Image(
+                //       image: AssetImage(
+                //         menuItem.imagePath,
+                //       ),
+                //     ),
+                //     // child: Image.asset(
+                //     //   'assets/images/menu_items/boiled_eggs.png',
+                //     //   width: MediaQuery.of(context).size.width,
+                //     // ),
+                //   ),
+                // ),
                 Container(
                   padding: const EdgeInsets.only(left: 8, right: 8),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text(
-                        menuItems[2].name,
+                        menuItem.name,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                             fontSize: 16, fontWeight: FontWeight.bold),
                       ),
                       Text(
-                        menuItems[2].description,
+                        menuItem.description,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(fontSize: 12, color: Colors.black54),
@@ -61,7 +76,7 @@ class _MenuItemState extends State<MenuItem>
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       Text(
-                        '\$ ${menuItems[2].price}',
+                        '\$ ${menuItem.price}',
                         style: TextStyle(
                             fontSize: 16, fontWeight: FontWeight.bold),
                       ),

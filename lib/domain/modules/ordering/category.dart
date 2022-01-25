@@ -9,7 +9,6 @@ class Category {
   });
 
   factory Category.fromJson(key, data) {
-    
     return Category(id: data['$key'], name: data['$key']['name']);
   }
 }

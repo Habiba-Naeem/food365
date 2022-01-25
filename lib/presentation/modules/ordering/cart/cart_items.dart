@@ -3,8 +3,8 @@ import 'package:food365/domain/modules/ordering/cart_item.dart';
 import 'package:food365/presentation/utils/constants.dart';
 
 class CartItems extends StatelessWidget {
-  
-  const CartItems({ Key? key }) : super(key: key);
+  final CartItem cartItem;
+  const CartItems({Key? key, required this.cartItem}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,15 +17,6 @@ class CartItems extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            ClipRRect(
-              borderRadius: BorderRadius.all(Radius.circular(6)),
-              // child: Image.network(
-              //   '$BASE_URL/uploads/${cartModel.food.images[0]}',
-              //   fit: BoxFit.cover,
-              //   width: 100,
-              //   height: 100,
-              // ),
-            ),
             Flexible(
               flex: 3,
               child: Column(
@@ -35,7 +26,7 @@ class CartItems extends StatelessWidget {
                   Container(
                     height: 45,
                     child: Text(
-                      cartItems[2].itemName,
+                      cartItem.menu.name,
                       style: titleStyle,
                       textAlign: TextAlign.center,
                     ),
@@ -55,8 +46,10 @@ class CartItems extends StatelessWidget {
                         child: Icon(Icons.remove_circle),
                       ),
                       Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 2),
-                        child: Text('${cartItems[2].quantity}', style: titleStyle),
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 16.0, vertical: 2),
+                        child:
+                            Text('${cartItems[2].quantity}', style: titleStyle),
                       ),
                       InkWell(
                         customBorder: roundedRectangle4,
@@ -82,7 +75,7 @@ class CartItems extends StatelessWidget {
                     height: 45,
                     width: 70,
                     child: Text(
-                      '\$ ${cartItems[2].price}',
+                      '\$ ${cartItem.menu.price}',
                       style: titleStyle,
                       textAlign: TextAlign.end,
                     ),

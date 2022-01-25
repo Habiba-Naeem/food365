@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:food365/domain/modules/ordering/cart_item.dart';
+import 'package:food365/domain/modules/ordering/cart_model.dart';
 import 'package:food365/presentation/modules/ordering/cart/cart_items.dart';
 import 'package:food365/presentation/modules/staff/waiter/side_drawer.dart';
 import 'package:food365/presentation/shared/custom_bottom_nav_bar.dart';
@@ -11,9 +13,23 @@ class CartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+       appBar: AppBar(
+          title: Text("Menu"),
+          actions: [
+            IconButton(
+              icon: Icon(Icons.shopping_cart_sharp),
+              onPressed: () {
+                Navigator.of(context).pushNamed(CartScreen.id);
+              },
+            )
+          ],
+        
+        ),
       drawer: CustomSideDrawer(),
       bottomNavigationBar: CustomBottomNavBar(),
       body: SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
+        scrollDirection: Axis.vertical,
         child: Container(
           margin: EdgeInsets.symmetric(horizontal: 16),
           child: Column(
@@ -23,14 +39,12 @@ class CartScreen extends StatelessWidget {
                 padding: const EdgeInsets.only(top: 24.0),
                 child: Text('Cart', style: headerStyle),
               ),
-              // ...buildHeader(),
-              //cart items list
               ListView.builder(
-                itemCount: 10,
+                physics: const NeverScrollableScrollPhysics(), 
+                itemCount: cart.cartItems.length,
                 shrinkWrap: true,
-                // controller: scrollController,
                 itemBuilder: (BuildContext context, int index) {
-                  return CartItems();
+                  return CartItems(cartItem: cart.cartItems[index]);
                 },
               ),
               SizedBox(height: 16),
