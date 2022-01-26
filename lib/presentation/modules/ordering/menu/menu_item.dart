@@ -30,6 +30,8 @@ class _MenuItemState extends State<MenuItem>
               crossAxisAlignment: CrossAxisAlignment.stretch,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
+                // ADD PICTURES IN THIS COMMENTED PART
+                
                 // Container(
                 //   height: MediaQuery.of(context).size.width / 2.5,
                 //   child: ClipRRect(

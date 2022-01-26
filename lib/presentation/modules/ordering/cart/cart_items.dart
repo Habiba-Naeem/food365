@@ -17,6 +17,17 @@ class CartItems extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
+            //ADD PICTURES IN THIS COMMENTED PART
+
+            // ClipRRect(
+            //   borderRadius: BorderRadius.all(Radius.circular(6)),
+            //   child: Image.network(
+            //     '$BASE_URL/uploads/${cartModel.food.images[0]}',
+            //     fit: BoxFit.cover,
+            //     width: 100,
+            //     height: 100,
+            //   ),
+            // ),
             Flexible(
               flex: 3,
               child: Column(
