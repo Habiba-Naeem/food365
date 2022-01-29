@@ -8,8 +8,12 @@ class Category {
     required this.name,
   });
 
-  factory Category.fromJson(key, data) {
-    return Category(id: data['$key'], name: data['$key']['name']);
+  factory Category.fromJson({
+    required Map<String, dynamic> json,
+    required key,
+  }) {
+    //print(json);
+    return Category(id: key, name: json['name']);
   }
 }
 

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food365/domain/modules/ordering/category.dart';
+import 'package:food365/presentation/shared/category_card.dart';
+import 'package:food365/presentation/utils/constants.dart';
 
 //THE DRAWRER ITEMS IN MENU WILL BE POPULATED FROM THE DATABASE
 //MAKE SEPARATE CYSTOM DRAWER FOR STAFF OR NOT?
@@ -23,7 +25,8 @@ class CustomSideDrawer extends StatelessWidget {
             );
           },
           itemBuilder: (context, index) {
-            return _DrawerItems(category: categories[index]);
+            return _DrawerItems(
+                category: categories[index], gradient: gradients[index]);
           }),
     ));
     // child: Padding(
@@ -44,69 +47,15 @@ class CustomSideDrawer extends StatelessWidget {
 
 class _DrawerItems extends StatelessWidget {
   final Category category;
-  const _DrawerItems({Key? key, required this.category}) : super(key: key);
+  final Gradient gradient;
+  const _DrawerItems({Key? key, required this.category, required this.gradient})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: InkWell(
-        child: Container(
-          width: 100,
-          height: 100,
-          decoration: BoxDecoration(borderRadius: BorderRadius.circular(8)),
-          child: Stack(
-            children: <Widget>[
-              Positioned(
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(9),
-                  // child: Image.asset(
-                  //   imagePath,
-                  //   width: width,
-                  //   height: height,
-                  //   fit: BoxFit.cover,
-                  // ),
-                ),
-              ),
-              Positioned(
-                child: Opacity(
-                  opacity: 0.65,
-                  child: Container(
-                    width: 100,
-                    height: 100,
-                    decoration: BoxDecoration(
-                      // gradient: gradient,
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
-                ),
-              ),
-              Positioned(
-                  top: (100 / 2) - 4,
-                  right: 100 / 4,
-                  left: 100 / 4,
-                  child: Row(
-                    children: <Widget>[
-                      Spacer(flex: 1),
-                      Text(
-                        category.name,
-                        textAlign: TextAlign.center,
-                        // style: categoryTextStyle,
-                      ),
-                      Spacer(flex: 1),
-                      Container(
-                        width: 6,
-                        height: 36,
-                        decoration: BoxDecoration(
-                          // color: handleColor,
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                      ),
-                    ],
-                  ))
-            ],
-          ),
-        ),
-      ),
-    );
+        child: CategoryChoiceChip(
+      category: category,
+    ));
   }
 }

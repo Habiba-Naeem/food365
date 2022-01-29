@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:food365/domain/services/menu_service.dart';
 import 'package:food365/presentation/modules/home/home_screen.dart';
 import 'package:food365/presentation/modules/onboarding_screen.dart';
 import 'package:food365/presentation/shared/loading.dart';
@@ -22,6 +23,8 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    //MenuService().postCategories();
+    MenuService().getCategories();
     return MaterialApp(
       title: 'Flutter Demo',
       onGenerateRoute: RouteGenerator.generateRoute,

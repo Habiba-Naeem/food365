@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food365/domain/modules/ordering/cart_item.dart';
 import 'package:food365/domain/modules/ordering/cart_model.dart';
-import 'package:food365/presentation/modules/ordering/cart/cart_items.dart';
+import 'package:food365/presentation/modules/ordering/cart/cart_item.dart';
 import 'package:food365/presentation/modules/staff/waiter/side_drawer.dart';
 import 'package:food365/presentation/shared/custom_bottom_nav_bar.dart';
 import 'package:food365/presentation/utils/constants.dart';

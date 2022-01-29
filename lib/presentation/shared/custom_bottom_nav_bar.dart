@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:food365/domain/modules/ordering/cart_item.dart';
 import 'package:food365/presentation/modules/home/home_screen.dart';
-import 'package:food365/presentation/modules/ordering/cart/cart_items.dart';
+import 'package:food365/presentation/modules/ordering/cart/cart_item.dart';
 import 'package:food365/presentation/modules/ordering/cart/cart_screen.dart';
 import 'package:food365/presentation/modules/ordering/menu/menu_screen.dart';
 
-import 'package:food365/presentation/modules/ordering/cart/cart_items.dart';
+import 'package:food365/presentation/modules/ordering/cart/cart_item.dart';
 
 class CustomBottomNavBar extends StatelessWidget {
   const CustomBottomNavBar({

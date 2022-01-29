@@ -1,225 +1,71 @@
 import 'package:flutter/material.dart';
 import 'package:food365/domain/modules/ordering/menu_item_model.dart';
 
-class MenuItem extends StatefulWidget {
+class MenuItem extends StatelessWidget {
   final MenuItemModel menuItem;
   MenuItem({required this.menuItem});
 
-  _MenuItemState createState() => _MenuItemState();
-}
-
-class _MenuItemState extends State<MenuItem>
-    with SingleTickerProviderStateMixin {
-  MenuItemModel get menuItem => widget.menuItem;
-
-  @override
-  void initState() {
-    super.initState();
-  }
+  //MenuItemModel get menuItem => widget.menuItem;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadiusDirectional.circular(12),
-        ),
-        child: Stack(
-          children: <Widget>[
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                // ADD PICTURES IN THIS COMMENTED PART
-                
-                // Container(
-                //   height: MediaQuery.of(context).size.width / 2.5,
-                //   child: ClipRRect(
-                //     borderRadius:
-                //         BorderRadius.vertical(top: Radius.circular(12)),
-                //     child: Image(
-                //       image: AssetImage(
-                //         menuItem.imagePath,
-                //       ),
-                //     ),
-                //     // child: Image.asset(
-                //     //   'assets/images/menu_items/boiled_eggs.png',
-                //     //   width: MediaQuery.of(context).size.width,
-                //     // ),
-                //   ),
-                // ),
-                Container(
-                  padding: const EdgeInsets.only(left: 8, right: 8),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text(
-                        menuItem.name,
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.bold),
-                      ),
-                      Text(
-                        menuItem.description,
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(fontSize: 12, color: Colors.black54),
-                      ),
-                    ],
-                  ),
+    return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadiusDirectional.circular(12),
+      ),
+      child: Stack(
+        children: <Widget>[
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Container(
+                padding: const EdgeInsets.only(left: 8, right: 8),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    MenuItemName(
+                      name: menuItem.name,
+                    ),
+                    MenuItemDescription(
+                      description: menuItem.description,
+                    ),
+                  ],
                 ),
-                //buildRating(),
-                //buildPriceInfo(),
-                Padding(
-                  padding: const EdgeInsets.only(left: 8, right: 8, bottom: 8),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      Text(
-                        '\$ ${menuItem.price}',
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.bold),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 8, right: 8, bottom: 8),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    MenuItemPrice(
+                      price: menuItem.price,
+                    ),
+                    Card(
+                      margin: EdgeInsets.only(right: 0),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadiusDirectional.circular(12),
                       ),
-                      Card(
-                        margin: EdgeInsets.only(right: 0),
-                        shape: RoundedRectangleBorder(
+                      child: InkWell(
+                        // onTap: addItemToCard,
+                        splashColor: Colors.white70,
+                        customBorder: RoundedRectangleBorder(
                           borderRadius: BorderRadiusDirectional.circular(12),
                         ),
-                        //color: mainColor,
-                        child: InkWell(
-                          // onTap: addItemToCard,
-                          splashColor: Colors.white70,
-                          customBorder: RoundedRectangleBorder(
-                            borderRadius: BorderRadiusDirectional.circular(12),
-                          ),
-                          child: Icon(Icons.add),
-                        ),
-                      )
-                    ],
-                  ),
-                )
-              ],
-            ),
-            Align(
-              alignment: Alignment.topRight,
-              child: Container(
-                padding: EdgeInsets.all(4),
-                decoration: BoxDecoration(
-                  //color: mainColor,
-                  borderRadius:
-                      BorderRadius.only(topRight: Radius.circular(12)),
+                        child: Icon(Icons.add),
+                      ),
+                    )
+                  ],
                 ),
-                child: Text(menuItems[2].name),
-              ),
-            )
-          ],
-        ),
+              )
+            ],
+          ),
+          
+        ],
       ),
     );
   }
-
-  // Widget buildImage() {
-  //   return Container(
-  //     height: MediaQuery.of(context).size.width / 2.5,
-  //     child: ClipRRect(
-  //       borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
-  //       child: Image.network(
-  //         '$BASE_URL/uploads/${food.images[0]}',
-  //         fit: BoxFit.cover,
-  //         loadingBuilder: (context, Widget child, ImageChunkEvent progress) {
-  //           if (progress == null) return child;
-  //           return Center(
-  //             child: Padding(
-  //               padding: EdgeInsets.all(32),
-  //               child: CircularProgressIndicator(
-  //                   value: progress.expectedTotalBytes != null
-  //                       ? progress.cumulativeBytesLoaded /
-  //                           progress.expectedTotalBytes
-  //                       : null),
-  //             ),
-  //           );
-  //         },
-  //       ),
-  //     ),
-  //   );
-  // }
-
-  // Widget buildTitle() {
-  //   return Container(
-  //     padding: const EdgeInsets.only(left: 8, right: 8),
-  //     child: Column(
-  //       crossAxisAlignment: CrossAxisAlignment.start,
-  //       children: <Widget>[
-  //         Text(
-  //           food.name,
-  //           maxLines: 2,
-  //           overflow: TextOverflow.ellipsis,
-  //           style: titleStyle,
-  //         ),
-  //         Text(
-  //           food.description,
-  //           maxLines: 2,
-  //           overflow: TextOverflow.ellipsis,
-  //           style: infoStyle,
-  //         ),
-  //       ],
-  //     ),
-  //   );
-  // }
-
-  // Widget buildRating() {
-  //   return Padding(
-  //     padding: const EdgeInsets.only(left: 4, right: 8),
-  //     child: Row(
-  //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //       crossAxisAlignment: CrossAxisAlignment.center,
-  //       children: <Widget>[
-  //         RatingBar(
-  //           initialRating: 5.0,
-  //           direction: Axis.horizontal,
-  //           itemCount: 5,
-  //           itemSize: 14,
-  //           unratedColor: Colors.black,
-  //           itemPadding: EdgeInsets.only(right: 4.0),
-  //           ignoreGestures: true,
-  //           itemBuilder: (context, index) => Icon(Icons.star, color: mainColor),
-  //           onRatingUpdate: (rating) {},
-  //         ),
-  //         Text('(${food.rating})'),
-  //       ],
-  //     ),
-  //   );
-  // }
-
-  // Widget buildPriceInfo() {
-  //   return Padding(
-  //     padding: const EdgeInsets.only(left: 8, right: 8, bottom: 8),
-  //     child: Row(
-  //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //       crossAxisAlignment: CrossAxisAlignment.center,
-  //       children: <Widget>[
-  //         Text(
-  //           '\$ ${food.price}',
-  //           style: titleStyle,
-  //         ),
-  //         Card(
-  //           margin: EdgeInsets.only(right: 0),
-  //           shape: roundedRectangle4,
-  //           color: mainColor,
-  //           child: InkWell(
-  //             onTap: addItemToCard,
-  //             splashColor: Colors.white70,
-  //             customBorder: roundedRectangle4,
-  //             child: Icon(Icons.add),
-  //           ),
-  //         )
-  //       ],
-  //     ),
-  //   );
-  // }
-
   // addItemToCard() {
   //   bool isAddSuccess =
   //       Provider.of<MyCart>(context).addItem(CartItem(food: food, quantity: 1));
@@ -250,4 +96,73 @@ class _MenuItemState extends State<MenuItem>
   //     builder: (context) => CartBottomSheet(),
   //   );
   // }
+}
+
+class MenuItemImage extends StatelessWidget {
+  const MenuItemImage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container();
+  }
+}
+
+class MenuItemName extends StatelessWidget {
+  final String name;
+  const MenuItemName({Key? key, required this.name}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      name,
+      maxLines: 2,
+      overflow: TextOverflow.ellipsis,
+      style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+    );
+  }
+}
+
+class MenuItemDescription extends StatelessWidget {
+  final String description;
+  const MenuItemDescription({Key? key, required this.description})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      description,
+      maxLines: 2,
+      overflow: TextOverflow.ellipsis,
+      style: TextStyle(fontSize: 12, color: Colors.black54),
+    );
+  }
+}
+
+class MenuItemPrice extends StatelessWidget {
+  final double price;
+  const MenuItemPrice({Key? key, required this.price}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      '\$ ${price}',
+      style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+    );
+  }
+}
+
+class AddItem extends StatelessWidget {
+  const AddItem({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      splashColor: Colors.white70,
+      customBorder: RoundedRectangleBorder(
+        borderRadius: BorderRadiusDirectional.circular(12),
+      ),
+      child: Icon(Icons.add),
+      
+    );
+  }
 }

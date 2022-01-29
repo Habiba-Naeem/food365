@@ -9,6 +9,9 @@ class CartItem {
     required this.menu,
     required this.quantity,
   });
+
+
+  //CartItem.addToCart() => CartItem(menu: menu, quantity: quantity)
 }
 
 List<CartItem> cartItems = [
