@@ -19,15 +19,14 @@ class CartItems extends StatelessWidget {
           children: <Widget>[
             //ADD PICTURES IN THIS COMMENTED PART
 
-            // ClipRRect(
-            //   borderRadius: BorderRadius.all(Radius.circular(6)),
-            //   child: Image.network(
-            //     '$BASE_URL/uploads/${cartModel.food.images[0]}',
-            //     fit: BoxFit.cover,
-            //     width: 100,
-            //     height: 100,
-            //   ),
-            // ),
+            ClipRRect(
+                borderRadius: BorderRadius.all(Radius.circular(6)),
+                child: Image.asset(
+                  cartItem.menu.imagePath,
+                  fit: BoxFit.cover,
+                  width: 100,
+                  height: 100,
+                )),
             Flexible(
               flex: 3,
               child: Column(
