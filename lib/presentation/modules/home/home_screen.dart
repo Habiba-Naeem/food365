@@ -24,7 +24,9 @@ class HomeScreen extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         drawer: CustomSideDrawer(),
-        bottomNavigationBar: CustomBottomNavBar(),
+        bottomNavigationBar: CustomBottomNavBar(
+          id: HomeScreen.id,
+        ),
         appBar: AppBar(
           title: Text("Menu"),
           actions: [

@@ -14,20 +14,21 @@ class MenuScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-       appBar: AppBar(
-          title: Text("Menu"),
-          actions: [
-            IconButton(
-              icon: Icon(Icons.shopping_cart_sharp),
-              onPressed: () {
-                Navigator.of(context).pushNamed(CartScreen.id);
-              },
-            )
-          ],
-        
-        ),
+      appBar: AppBar(
+        title: Text("Menu"),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.shopping_cart_sharp),
+            onPressed: () {
+              Navigator.of(context).pushNamed(CartScreen.id);
+            },
+          )
+        ],
+      ),
       drawer: CustomSideDrawer(),
-      bottomNavigationBar: CustomBottomNavBar(),
+      bottomNavigationBar: CustomBottomNavBar(
+        id: MenuScreen.id,
+      ),
       body: Container(
         margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
         child: Column(

@@ -68,36 +68,6 @@ class MenuItem extends StatelessWidget {
       ),
     );
   }
-  // addItemToCard() {
-  //   bool isAddSuccess =
-  //       Provider.of<MyCart>(context).addItem(CartItem(food: food, quantity: 1));
-
-  //   if (isAddSuccess) {
-  //     final snackBar = SnackBar(
-  //       content: Text('${food.name} added to cart'),
-  //       action: SnackBarAction(
-  //         label: 'view',
-  //         onPressed: showCart,
-  //       ),
-  //       duration: Duration(milliseconds: 1500),
-  //     );
-  //     Scaffold.of(context).showSnackBar(snackBar);
-  //   } else {
-  //     final snackBar = SnackBar(
-  //       content: Text('You can\'t order from multiple shop at the same time'),
-  //       duration: Duration(milliseconds: 1500),
-  //     );
-  //     Scaffold.of(context).showSnackBar(snackBar);
-  //   }
-  // }
-
-  // showCart() {
-  //   showModalBottomSheet(
-  //     shape: roundedRectangle40,
-  //     context: context,
-  //     builder: (context) => CartBottomSheet(),
-  //   );
-  // }
 }
 
 class MenuItemImage extends StatelessWidget {
@@ -174,3 +144,36 @@ class AddItem extends StatelessWidget {
     );
   }
 }
+
+
+
+  // addItemToCard() {
+  //   bool isAddSuccess =
+  //       Provider.of<MyCart>(context).addItem(CartItem(food: food, quantity: 1));
+
+  //   if (isAddSuccess) {
+  //     final snackBar = SnackBar(
+  //       content: Text('${food.name} added to cart'),
+  //       action: SnackBarAction(
+  //         label: 'view',
+  //         onPressed: showCart,
+  //       ),
+  //       duration: Duration(milliseconds: 1500),
+  //     );
+  //     Scaffold.of(context).showSnackBar(snackBar);
+  //   } else {
+  //     final snackBar = SnackBar(
+  //       content: Text('You can\'t order from multiple shop at the same time'),
+  //       duration: Duration(milliseconds: 1500),
+  //     );
+  //     Scaffold.of(context).showSnackBar(snackBar);
+  //   }
+  // }
+
+  // showCart() {
+  //   showModalBottomSheet(
+  //     shape: roundedRectangle40,
+  //     context: context,
+  //     builder: (context) => CartBottomSheet(),
+  //   );
+  // }

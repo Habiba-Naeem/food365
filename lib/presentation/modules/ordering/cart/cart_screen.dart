@@ -25,7 +25,7 @@ class CartScreen extends StatelessWidget {
         
         ),
       drawer: CustomSideDrawer(),
-      bottomNavigationBar: CustomBottomNavBar(),
+      bottomNavigationBar: CustomBottomNavBar(id: CartScreen.id,),
       body: SingleChildScrollView(
         physics: BouncingScrollPhysics(),
         scrollDirection: Axis.vertical,
