@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:food365/domain/modules/ordering/category.dart';
+import 'package:food365/domain/models/modules/ordering/category.dart';
 import 'package:food365/presentation/shared/category_card.dart';
 import 'package:food365/presentation/utils/constants.dart';
 

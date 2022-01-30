@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:food365/domain/modules/ordering/menu_item_model.dart';
+import 'package:food365/domain/models/modules/ordering/menu_item_model.dart';
 
 class MenuItem extends StatelessWidget {
   final MenuItemModel menuItem;
@@ -19,6 +19,9 @@ class MenuItem extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
+              MenuItemImage(
+                imagePath: menuItem.imagePath,
+              ),
               Container(
                 padding: const EdgeInsets.only(left: 8, right: 8),
                 child: Column(
@@ -61,7 +64,6 @@ class MenuItem extends StatelessWidget {
               )
             ],
           ),
-          
         ],
       ),
     );
@@ -99,11 +101,18 @@ class MenuItem extends StatelessWidget {
 }
 
 class MenuItemImage extends StatelessWidget {
-  const MenuItemImage({Key? key}) : super(key: key);
+  final String imagePath;
+  const MenuItemImage({Key? key, required this.imagePath}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Container(
+      height: MediaQuery.of(context).size.width / 2.5,
+      child: ClipRRect(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
+        child: Image.asset(imagePath, fit: BoxFit.cover,)
+      ),
+    );
   }
 }
 
@@ -162,7 +171,6 @@ class AddItem extends StatelessWidget {
         borderRadius: BorderRadiusDirectional.circular(12),
       ),
       child: Icon(Icons.add),
-      
     );
   }
 }

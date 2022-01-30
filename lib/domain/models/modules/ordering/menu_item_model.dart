@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:food365/domain/modules/ordering/category.dart' as mycat;
+import 'package:food365/domain/models/modules/ordering/category.dart' as mycat;
 
 class MenuItemModel {
   // mycat.Category category;
@@ -36,7 +36,7 @@ List<MenuItemModel> menuItems = [
     name: "Crackers",
     description: "LOREM",
     price: 10.2,
-    imagePath: 'assets/images/menu_items/pie.png',
+    imagePath: 'assets/images/menu_items/boiled_eggs.png',
   ),
   MenuItemModel(
     categoryID: "mycat.categories[0]",
@@ -50,14 +50,14 @@ List<MenuItemModel> menuItems = [
     name: "Won Tons",
     description: "Fried wontons",
     price: 13.2,
-    imagePath: 'assets/images/menu_items/mexicans.png',
+    imagePath: 'assets/images/menu_items/mexican.png',
   ),
   MenuItemModel(
     categoryID: "mycat.categories[4]",
     name: "Tikka",
     description: "Spicy tikka",
     price: 20,
-    imagePath: 'assets/images/menu_items/pie.png',
+    imagePath: 'assets/images/menu_items/mexican.png',
   ),
   MenuItemModel(
     categoryID: "mycat.categories[4]",
@@ -85,7 +85,7 @@ List<MenuItemModel> menuItems = [
     name: "Naan",
     description: "LOREM",
     price: 8,
-    imagePath: 'assets/images/menu_items/pie.png',
+    imagePath: 'assets/images/menu_items/mexican.png',
   ),
   MenuItemModel(
     categoryID: "mycat.categories[7]",
