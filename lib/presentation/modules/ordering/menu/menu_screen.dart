@@ -3,7 +3,6 @@ import 'package:food365/domain/modules/ordering/menu_item_model.dart';
 import 'package:food365/domain/modules/ordering/menu_item_model.dart';
 import 'package:food365/presentation/modules/ordering/cart/cart_screen.dart';
 import 'package:food365/presentation/shared/custom_bottom_nav_bar.dart';
-import 'package:food365/presentation/shared/customsidedrawer.dart';
 import 'package:food365/presentation/utils/constants.dart';
 
 import 'menu_item.dart' as menuIemWidget;
@@ -15,19 +14,17 @@ class MenuScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-       appBar: AppBar(
-          title: Text("Menu"),
-          actions: [
-            IconButton(
-              icon: Icon(Icons.shopping_cart_sharp),
-              onPressed: () {
-                Navigator.of(context).pushNamed(CartScreen.id);
-              },
-            )
-          ],
-        
-        ),
-      drawer: CustomSideDrawer(),
+      appBar: AppBar(
+        title: Text("Menu"),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.shopping_cart_sharp),
+            onPressed: () {
+              Navigator.of(context).pushNamed(CartScreen.id);
+            },
+          )
+        ],
+      ),
       bottomNavigationBar: CustomBottomNavBar(),
       body: Container(
         margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
