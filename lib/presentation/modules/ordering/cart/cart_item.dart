@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:food365/domain/modules/ordering/cart_item.dart';
+import 'package:food365/domain/models/modules/ordering/cart_item.dart';
 import 'package:food365/presentation/utils/constants.dart';
 
 class CartItems extends StatelessWidget {
@@ -17,31 +17,14 @@ class CartItems extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            //ADD PICTURES IN THIS COMMENTED PART
-
-            ClipRRect(
-              borderRadius: BorderRadius.all(Radius.circular(6)),
-              child: Image.asset(
-                'assets/images/menu_items/food.jpg',
-                fit: BoxFit.cover,
-                width: 100,
-                height: 100,
-              ),
-            ),
+            CartItemImage(imagePath: cartItem.menu.imagePath),
             Flexible(
               flex: 3,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Container(
-                    height: 45,
-                    child: Text(
-                      cartItem.menu.name,
-                      style: titleStyle,
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
+                  CartItemName(name: cartItem.menu.name),
                   Row(
                     mainAxisSize: MainAxisSize.max,
                     crossAxisAlignment: CrossAxisAlignment.end,
@@ -59,8 +42,7 @@ class CartItems extends StatelessWidget {
                       Padding(
                         padding:
                             EdgeInsets.symmetric(horizontal: 16.0, vertical: 2),
-                        child:
-                            Text('${cartItems[2].quantity}', style: titleStyle),
+                        child: Text('${cartItem.quantity}', style: titleStyle),
                       ),
                       InkWell(
                         customBorder: roundedRectangle4,
@@ -82,15 +64,7 @@ class CartItems extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Container(
-                    height: 45,
-                    width: 70,
-                    child: Text(
-                      '\$ ${cartItem.menu.price}',
-                      style: titleStyle,
-                      textAlign: TextAlign.end,
-                    ),
-                  ),
+                  CartItemPrice(price: cartItem.menu.price),
                   InkWell(
                     // onTap: () {
                     //   cart.removeAllInCart(cartModel.food);
@@ -110,6 +84,63 @@ class CartItems extends StatelessWidget {
   }
 }
 
+class CartItemImage extends StatelessWidget {
+  final String imagePath;
+  const CartItemImage({Key? key, required this.imagePath}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ClipRRect(
+      borderRadius: BorderRadius.all(Radius.circular(6)),
+      child: Image.asset(
+        imagePath,
+        fit: BoxFit.cover,
+        width: 100,
+        height: 100,
+      ),
+    );
+  }
+}
+
+class CartItemName extends StatelessWidget {
+  final String name;
+  const CartItemName({Key? key, required this.name}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 45,
+      child: Text(
+        name,
+        style: titleStyle,
+        textAlign: TextAlign.center,
+      ),
+    );
+  }
+}
+
+class CartItemPrice extends StatefulWidget {
+  final double price;
+  const CartItemPrice({Key? key, required this.price}) : super(key: key);
+
+  @override
+  _CartItemPriceState createState() => _CartItemPriceState();
+}
+
+class _CartItemPriceState extends State<CartItemPrice> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 45,
+      width: 70,
+      child: Text(
+        '\$ ${widget.price}',
+        style: titleStyle,
+        textAlign: TextAlign.end,
+      ),
+    );
+  }
+}
 // class CartItem extends StatelessWidget {
 //   static const String id = 'cart item';
 //   const CartItem({Key? key}) : super(key: key);

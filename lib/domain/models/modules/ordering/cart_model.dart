@@ -1,7 +1,9 @@
-import 'package:food365/domain/modules/ordering/cart_item.dart';
+
+import 'package:food365/domain/models/modules/ordering/cart_item.dart';
 
 class CartModel {
-  List<CartItem> cartItems;
+  List<CartItem> cartItems = [];
+  
   double total = 0;
   CartModel({
     required this.cartItems,

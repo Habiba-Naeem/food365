@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:food365/domain/modules/ordering/menu_item_model.dart';
-import 'package:food365/domain/modules/ordering/menu_item_model.dart';
+import 'package:food365/domain/models/modules/ordering/menu_item_model.dart';
 import 'package:food365/presentation/modules/ordering/cart/cart_screen.dart';
 import 'package:food365/presentation/shared/custom_bottom_nav_bar.dart';
 import 'package:food365/presentation/utils/constants.dart';
+import 'package:food365/presentation/modules/staff/waiter/side_drawer.dart';
 
 import 'menu_item.dart' as menuIemWidget;
 
@@ -25,7 +25,10 @@ class MenuScreen extends StatelessWidget {
           )
         ],
       ),
-      bottomNavigationBar: CustomBottomNavBar(),
+      drawer: CustomSideDrawer(),
+      bottomNavigationBar: CustomBottomNavBar(
+        id: MenuScreen.id,
+      ),
       body: Container(
         margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
         child: Column(

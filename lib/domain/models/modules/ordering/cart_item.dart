@@ -1,5 +1,5 @@
-import 'package:food365/domain/modules/ordering/category.dart';
-import 'package:food365/domain/modules/ordering/menu_item_model.dart';
+
+import 'package:food365/domain/models/modules/ordering/menu_item_model.dart';
 
 class CartItem {
   MenuItemModel menu;
@@ -9,6 +9,9 @@ class CartItem {
     required this.menu,
     required this.quantity,
   });
+
+
+  //CartItem.addToCart() => CartItem(menu: menu, quantity: quantity)
 }
 
 List<CartItem> cartItems = [

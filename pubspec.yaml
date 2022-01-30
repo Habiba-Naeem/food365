@@ -64,11 +64,11 @@ flutter:
   # assets:
   #   - assets/images/
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - assets/images
   assets:
-    - assets/images/menu_items/food.jpg
-    - assets/images/menu_items/Food365.png
+    - assets/images/
+    - assets/images/menu_items/
+    - assets/images/ordering/
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
@@ -81,6 +81,20 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
+  fonts:
+    - family: Josefin Sans
+      fonts:
+        - asset: assets/fonts/.15623.otf
+          weight: 700
+        - asset: assets/fonts/.15627.otf
+    - family: Roboto
+      fonts:
+        - asset: assets/fonts/.15510.otf
+        - asset: assets/fonts/.15498.otf
+          weight: 700
+    - family: .AppleSystemUIFont
+      fonts:
+        - asset: assets/fonts/SFNS.ttf
   # fonts:
   #   - family: Schyler
   #     fonts:
