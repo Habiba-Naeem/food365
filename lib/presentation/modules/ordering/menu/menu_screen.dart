@@ -3,8 +3,10 @@ import 'package:food365/domain/models/modules/ordering/menu_item_model.dart';
 import 'package:food365/presentation/modules/ordering/cart/cart_screen.dart';
 import 'package:food365/presentation/shared/custom_bottom_nav_bar.dart';
 import 'package:food365/presentation/shared/customsidedrawer.dart';
+import 'package:food365/presentation/shared/loading.dart';
 import 'package:food365/presentation/utils/constants.dart';
 
+import 'package:food365/domain/services/menu_service.dart';
 import 'menu_item.dart' as menuIemWidget;
 
 class MenuScreen extends StatelessWidget {
@@ -13,32 +15,39 @@ class MenuScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Menu"),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.shopping_cart_sharp),
-            onPressed: () {
-              Navigator.of(context).pushNamed(CartScreen.id);
-            },
-          )
-        ],
-      ),
-      drawer: CustomSideDrawer(),
-      bottomNavigationBar: CustomBottomNavBar(
-        id: MenuScreen.id,
-      ),
-      body: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
-        child: Column(
-          children: <Widget>[
-            Divider(),
-            MenuItems(),
-          ],
-        ),
-      ),
-    );
+    return FutureBuilder(
+        future: MenuService().getMenuItems(),
+        builder: (context, snapshot) {
+          return snapshot.hasData
+              ? Scaffold(
+                  appBar: AppBar(
+                    title: Text("Menu"),
+                    actions: [
+                      IconButton(
+                        icon: Icon(Icons.shopping_cart_sharp),
+                        onPressed: () {
+                          Navigator.of(context).pushNamed(CartScreen.id);
+                        },
+                      )
+                    ],
+                  ),
+                  drawer: CustomSideDrawer(),
+                  bottomNavigationBar: CustomBottomNavBar(
+                    id: MenuScreen.id,
+                  ),
+                  body: Container(
+                    margin: const EdgeInsets.symmetric(
+                        horizontal: 12, vertical: 16),
+                    child: Column(
+                      children: <Widget>[
+                        Divider(),
+                        MenuItems(),
+                      ],
+                    ),
+                  ),
+                )
+              : Loading();
+        });
   }
 }
 

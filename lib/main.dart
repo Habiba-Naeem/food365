@@ -25,6 +25,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     //MenuService().postCategories();
     MenuService().getCategories();
+    MenuService().getMenuItems();
     return MaterialApp(
       title: 'Flutter Demo',
       onGenerateRoute: RouteGenerator.generateRoute,

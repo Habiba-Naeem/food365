@@ -1,16 +1,17 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:food365/domain/models/modules/ordering/category.dart' as mycat;
 
 class MenuItemModel {
-  // mycat.Category category;
+  String itemID;
   String categoryID;
   String name;
   String description;
   double price;
   String imagePath;
-
   MenuItemModel({
+    required this.itemID,
     required this.categoryID,
     required this.name,
     required this.description,
@@ -18,16 +19,37 @@ class MenuItemModel {
     required this.imagePath,
   });
 
-  // factory MenuItemModel.fromJson(Map<String, dynamic> json) {
-  //   print(json.values.first);
-  //   return MenuItemModel(
-  //       category: mycat.Category.fromJson('d', 'er'),
-  //       name: json['name'],
-  //       description: json['description'],
-  //       price: json['price'],
-  //       imagePath: "null",
-  //       );
-  // }
+  MenuItemModel.postMenu({
+    required this.itemID,
+    required this.categoryID,
+    required this.name,
+    required this.description,
+    required this.price,
+    required this.imagePath,
+  });
+
+  factory MenuItemModel.fromJson({
+    required Map<String, dynamic> json,
+    required key,
+  }) {
+    return MenuItemModel(
+      itemID: key,
+      categoryID: json["categoryID"],
+      name: json['name'],
+      description: json['description'],
+      price: json['price'],
+      imagePath: json['imagePath'],
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+        "itemID": itemID,
+        "categoryID": categoryID,
+        "name": name,
+        "description": description,
+        "price": price,
+        "imagePath": imagePath,
+      };
 }
 
 List<MenuItemModel> menuItems = [
@@ -37,6 +59,7 @@ List<MenuItemModel> menuItems = [
     description: "LOREM",
     price: 10.2,
     imagePath: 'assets/images/menu_items/boiled_eggs.png',
+    itemID: '',
   ),
   MenuItemModel(
     categoryID: "mycat.categories[0]",
@@ -44,6 +67,7 @@ List<MenuItemModel> menuItems = [
     description: "Spicy corn soup",
     price: 12.2,
     imagePath: 'assets/images/menu_items/boiled_eggs.png',
+    itemID: '',
   ),
   MenuItemModel(
     categoryID: "mycat.categories[0]",
@@ -51,6 +75,7 @@ List<MenuItemModel> menuItems = [
     description: "Fried wontons",
     price: 13.2,
     imagePath: 'assets/images/menu_items/mexican.png',
+    itemID: '',
   ),
   MenuItemModel(
     categoryID: "mycat.categories[4]",
@@ -58,47 +83,38 @@ List<MenuItemModel> menuItems = [
     description: "Spicy tikka",
     price: 20,
     imagePath: 'assets/images/menu_items/mexican.png',
+    itemID: '',
   ),
   MenuItemModel(
     categoryID: "mycat.categories[4]",
     name: "Malai Boti",
-    description: "Spicy tikka",
+    description: "Creamy malai boti",
     price: 20,
     imagePath: 'assets/images/menu_items/salad.png',
+    itemID: '',
   ),
   MenuItemModel(
     categoryID: "mycat.categories[4]",
-    name: "Malai Boti",
-    description: "Spicy tikka",
+    name: "Reshmi Kebab",
+    description: "Soft kebab",
     price: 20,
     imagePath: 'assets/images/menu_items/salad.png',
-  ),
-  MenuItemModel(
-    categoryID: "mycat.categories[4]",
-    name: "Malai Boti",
-    description: "Spicy tikka",
-    price: 20,
-    imagePath: 'assets/images/menu_items/pie.png',
+    itemID: '',
   ),
   MenuItemModel(
     categoryID: "mycat.categories[7]",
     name: "Naan",
-    description: "LOREM",
+    description: "Naan",
     price: 8,
     imagePath: 'assets/images/menu_items/mexican.png',
+    itemID: '',
   ),
   MenuItemModel(
     categoryID: "mycat.categories[7]",
-    name: "Naan",
-    description: "LOREM",
+    name: "Strawberry Ice cream",
+    description: "Creamy ice cream",
     price: 8,
     imagePath: 'assets/images/menu_items/pie.png',
-  ),
-  MenuItemModel(
-    categoryID:" mycat.categories[7]",
-    name: "Naan",
-    description: "LOREM",
-    price: 8,
-    imagePath: 'assets/images/menu_items/pie.png',
+    itemID: '',
   ),
 ];
