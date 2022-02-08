@@ -15,16 +15,16 @@ class CartItem {
 }
 
 List<CartItem> cartItems = [
-  CartItem(menu: menuItems[0], quantity: 5),
-  CartItem(menu: menuItems[1], quantity: 5),
-  CartItem(menu: menuItems[2], quantity: 5),
-  CartItem(menu: menuItems[3], quantity: 5),
-  CartItem(menu: menuItems[0], quantity: 5),
-  CartItem(menu: menuItems[1], quantity: 5),
-  CartItem(menu: menuItems[2], quantity: 5),
-  CartItem(menu: menuItems[3], quantity: 5),
-  CartItem(menu: menuItems[4], quantity: 5),
-  CartItem(menu: menuItems[4], quantity: 5),
-  CartItem(menu: menuItems[4], quantity: 5),
-  CartItem(menu: menuItems[4], quantity: 5),
+  // CartItem(menu: menuItems[0], quantity: 5),
+  // CartItem(menu: menuItems[1], quantity: 5),
+  // CartItem(menu: menuItems[2], quantity: 5),
+  // CartItem(menu: menuItems[3], quantity: 5),
+  // CartItem(menu: menuItems[0], quantity: 5),
+  // CartItem(menu: menuItems[1], quantity: 5),
+  // CartItem(menu: menuItems[2], quantity: 5),
+  // CartItem(menu: menuItems[3], quantity: 5),
+  // CartItem(menu: menuItems[4], quantity: 5),
+  // CartItem(menu: menuItems[4], quantity: 5),
+  // CartItem(menu: menuItems[4], quantity: 5),
+  // CartItem(menu: menuItems[4], quantity: 5),
 ];

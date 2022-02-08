@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:food365/domain/models/modules/ordering/cart_item.dart';
+import 'package:food365/domain/models/modules/ordering/cart_model.dart';
 import 'package:food365/domain/models/modules/ordering/menu_item_model.dart';
 import 'package:food365/presentation/modules/ordering/cart/cart_screen.dart';
 import 'package:food365/presentation/shared/custom_bottom_nav_bar.dart';
@@ -7,6 +9,7 @@ import 'package:food365/presentation/shared/loading.dart';
 import 'package:food365/presentation/utils/constants.dart';
 
 import 'package:food365/domain/services/menu_service.dart';
+import 'package:provider/provider.dart';
 import 'menu_item.dart' as menuIemWidget;
 
 class MenuScreen extends StatelessWidget {
@@ -69,17 +72,18 @@ class MenuItems extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-        child: GridView.count(
-      childAspectRatio: 0.65,
-      mainAxisSpacing: 4,
-      crossAxisSpacing: 4,
-      crossAxisCount: 2,
-      physics: BouncingScrollPhysics(),
-      children: [
-        ...menuItems.map(
-          (menuitem) => menuIemWidget.MenuItem(menuItem: menuitem),
-        )
-      ],
-    ));
+      child: GridView.count(
+        childAspectRatio: 0.65,
+        mainAxisSpacing: 4,
+        crossAxisSpacing: 4,
+        crossAxisCount: 2,
+        physics: BouncingScrollPhysics(),
+        children: [
+          ...menuItems.map((menuitem) => menuIemWidget.MenuItem(
+                menuItem: menuitem,
+              )),
+        ],
+      ),
+    );
   }
 }
