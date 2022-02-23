@@ -14,7 +14,7 @@ class MenuItem extends StatelessWidget {
   Widget build(BuildContext context) {
     addItemToCard() {
       bool isAddSuccess = Provider.of<CartModel>(context, listen: false)
-          .addItem(CartItem(menu: menuItem, quantity: 1));
+          .addItem(CartItem( menuItemID: menuItem.itemID, menuName: menuItem.name, price: menuItem.price, quantity: 1));
       print(Provider.of<CartModel>(context, listen: false).allCartItems);
       if (isAddSuccess) {
         final snackBar = SnackBar(
@@ -27,7 +27,7 @@ class MenuItem extends StatelessWidget {
         );
         Scaffold.of(context).showSnackBar(snackBar);
       } else {
-        final snackBar = SnackBar(
+        const  snackBar = const SnackBar(
           content: Text('You can\'t order from multiple shop at the same time'),
           duration: Duration(milliseconds: 1500),
         );

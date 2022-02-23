@@ -4,29 +4,53 @@ import 'package:food365/domain/models/modules/ordering/menu_item_model.dart';
 import 'package:http/http.dart' as http;
 
 var httpClient = http.Client();
-const baseURL = "https://food365-88d9d-default-rtdb.firebaseio.com/";
+const baseURL = "https://food365-afac9-default-rtdb.firebaseio.com/";
 const categoriesURL = "/Categories";
 const menuURL = "/MenuItems";
-const jsonVaribale = '.json';
+const jsonVariable = '.json';
 
 class MenuService {
   Future<List<mycat.Category>> getCategories() async {
     var response =
-        await httpClient.get(Uri.parse(baseURL + categoriesURL + jsonVaribale));
+        await httpClient.get(Uri.parse(baseURL + categoriesURL + jsonVariable));
 
     Map<String, dynamic> data =
         jsonDecode(response.body) as Map<String, dynamic>;
 
     List<mycat.Category> categories = data.entries.map((e) {
+      print(e);
+      // if(e.value['name'] == "Deserts"){
+      //    postMenuItem(
+      //   categoryID: e.key,
+      //   name: menuItems[0].name,
+      //   description: menuItems[0].description,
+      //   price: menuItems[0].price,
+      //   imagePath: menuItems[0].imagePath);
+      // }
       return mycat.Category.fromJson(json: e.value, key: e.key);
     }).toList();
-    print(categories);
+
     return categories;
   }
 
-  getMenuItems() async {
+  postCategories() async {
+    var response = mycat.categories.forEach(
+      (category) => http
+          .post(
+            Uri.parse(baseURL + categoriesURL + jsonVariable),
+            body: json.encode(
+              {
+                'name': category.name,
+              },
+            ),
+          )
+          .then((value) => print(jsonDecode(value.body))),
+    );
+  }
+
+  Future<List<MenuItemModel>> getMenuItems() async {
     var response =
-        await httpClient.get(Uri.parse(baseURL + menuURL + jsonVaribale));
+        await httpClient.get(Uri.parse(baseURL + menuURL + jsonVariable));
 
     Map<String, dynamic> data =
         jsonDecode(response.body) as Map<String, dynamic>;
@@ -48,7 +72,7 @@ class MenuService {
     String id = '/' + itemID + '.json';
     print(id);
     var response = await httpClient.patch(
-      Uri.parse(baseURL + menuURL + '/$itemID' + jsonVaribale),
+      Uri.parse(baseURL + menuURL + '/$itemID' + jsonVariable),
       body: json.encode(
         {
           "name": name,
@@ -76,13 +100,15 @@ class MenuService {
         price: price,
         imagePath: imagePath);
 
-    var response = await httpClient.post(Uri.parse(baseURL + menuURL),
+    var response = await httpClient.post(
+        Uri.parse(baseURL + menuURL + jsonVariable),
         body: jsonEncode(menuItem.toJson()));
   }
 
   getMenu() async {
-    List<mycat.Category> allCategories = await getCategories();
-    List<MenuItemModel> allmenuItems = await getMenuItems();
+    List<mycat.Category> categories = await getCategories();
+    List<MenuItemModel> menu = await getMenuItems();
+
   }
 }
 
@@ -100,20 +126,6 @@ class MenuService {
       //   //index++;
       // });
 
-      // postCategories() async {
-  //   var response = mycat.categories.forEach(
-  //     (category) => http
-  //         .post(
-  //           Uri.parse(baseURL + categoriesURL),
-  //           body: json.encode(
-  //             {
-  //               'name': category.name,
-  //             },
-  //           ),
-  //         )
-  //         .then((value) => print(jsonDecode(value.body))),
-  //   );
-  // }
 
 //   List appetizers = [
 //   {

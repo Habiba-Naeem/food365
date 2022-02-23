@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food365/domain/models/modules/ordering/cart_item.dart';
 import 'package:food365/domain/models/modules/ordering/cart_model.dart';
+import 'package:food365/domain/models/modules/ordering/menu_item_model.dart';
 import 'package:food365/presentation/utils/constants.dart';
 import 'package:provider/provider.dart';
 
@@ -10,6 +11,9 @@ class CartItems extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final menuItems = Provider.of<List<MenuItemModel>>(context);
+    print("my menuitems in cart");
+    print(menuItems);
     return Card(
       margin: EdgeInsets.only(bottom: 16),
       child: Container(
@@ -19,14 +23,20 @@ class CartItems extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            CartItemImage(imagePath: cartItem.menu.imagePath),
+            ...menuItems.map((menuItem){
+              if(menuItem.itemID == cartItem.menuItemID){
+                return CartItemImage(imagePath: menuItem.imagePath);
+              }
+              return Container();
+            }),
+            //CartItemImage(imagePath: imagePath),
             Flexible(
               flex: 3,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  CartItemName(name: cartItem.menu.name),
+                  CartItemName(name: cartItem.menuName),
                   Row(
                     mainAxisSize: MainAxisSize.max,
                     crossAxisAlignment: CrossAxisAlignment.end,
@@ -64,7 +74,7 @@ class CartItems extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  CartItemPrice(price: cartItem.menu.price ),
+                  CartItemPrice(price: cartItem.price * cartItem.quantity),
                   InkWell(
                     onTap: () {
                       Provider.of<CartModel>(context, listen: false)
@@ -118,26 +128,20 @@ class CartItemName extends StatelessWidget {
   }
 }
 
-class CartItemPrice extends StatefulWidget {
+class CartItemPrice extends StatelessWidget {
   final double price;
   const CartItemPrice({Key? key, required this.price}) : super(key: key);
 
   @override
-  _CartItemPriceState createState() => _CartItemPriceState();
-}
-
-class _CartItemPriceState extends State<CartItemPrice> {
-  @override
   Widget build(BuildContext context) {
     return Container(
-        height: 45,
-        width: 70,
-        child: Text(
-          '\$ ${widget.price}',
-          style: titleStyle,
-          textAlign: TextAlign.end,
-        ),
-      );
-  
+      height: 45,
+      width: 70,
+      child: Text(
+        '\$ ${price}',
+        style: titleStyle,
+        textAlign: TextAlign.end,
+      ),
+    );
   }
 }

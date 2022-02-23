@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food365/domain/models/modules/ordering/cart_model.dart';
 import 'package:food365/presentation/modules/ordering/cart/cart_item.dart';
+import 'package:food365/presentation/modules/ordering/checkout/checkout_screen.dart';
 import 'package:food365/presentation/modules/staff/waiter/side_drawer.dart';
 import 'package:food365/presentation/shared/custom_bottom_nav_bar.dart';
 import 'package:food365/presentation/utils/constants.dart';
@@ -47,6 +48,8 @@ class CartScreen extends StatelessWidget {
                     itemCount: cart.cartItems.length,
                     shrinkWrap: true,
                     itemBuilder: (BuildContext context, int index) {
+                      print(cart.cartItems);
+
                       return CartItems(cartItem: cart.cartItems[index]);
                     },
                   );
@@ -57,7 +60,9 @@ class CartScreen extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Text('Total:6776', style: headerStyle),
+                  Text(
+                      '${Provider.of<CartModel>(context, listen: false).total}',
+                      style: headerStyle),
                 ],
               ),
               Container(
@@ -66,7 +71,8 @@ class CartScreen extends StatelessWidget {
                 child: RaisedButton(
                   child: Text('Checkout', style: titleStyle),
                   onPressed: () {
-                    //onCheckOutClick(cart);
+                    Navigator.of(context)
+                        .pushReplacementNamed(CheckoutScreen.id);
                   },
                   padding: EdgeInsets.symmetric(horizontal: 64, vertical: 12),
                   color: mainColor,
