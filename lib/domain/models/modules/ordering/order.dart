@@ -1,13 +1,15 @@
+import 'package:food365/domain/models/modules/ordering/cart_item.dart';
 import 'package:food365/domain/models/modules/ordering/cart_model.dart';
 
 class OrderModel {
   bool serviceStatus = false;
   bool cookingStatus = false;
-  String orderID;
+  String? orderID;
   DateTime createdAt;
   DateTime updatedAt;
   double totalPrice;
-  CartModel cart;
+  // CartModel cart;
+  List<CartItem> items = [];
 
   OrderModel({
     // required this.serviceStatus,
@@ -16,7 +18,15 @@ class OrderModel {
     required this.createdAt,
     required this.updatedAt,
     required this.totalPrice,
-    required this.cart,
+    //  required this.cart,
+    required this.items,
+  });
+
+  OrderModel.postOrder({
+    required this.createdAt,
+    required this.updatedAt,
+    required this.totalPrice,
+    required this.items,
   });
 
   factory OrderModel.fromJson({
@@ -27,19 +37,19 @@ class OrderModel {
         orderID: key,
         // serviceStatus: json['serviceStatus'],
         // cookingStatus: json['cookingStatus'],
+
         createdAt: json['createdAt'],
         updatedAt: json['updatedAt'],
         totalPrice: json['totalPrice'],
-        cart: json['cart']);
+        items: json['items']);
   }
 
   Map<String, dynamic> toJson() => {
-        "orderID": orderID,
         "serviceStatus": serviceStatus,
         "cookingStatus": cookingStatus,
         "createdAt": createdAt.toIso8601String(),
         "updatedAt": updatedAt.toIso8601String(),
         "totalPrice": totalPrice,
-        "cart": cart
+        "items": items
       };
 }

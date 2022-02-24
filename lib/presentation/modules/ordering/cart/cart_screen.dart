@@ -61,7 +61,7 @@ class CartScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Text(
-                      '${Provider.of<CartModel>(context, listen: false).total}',
+                      '${Provider.of<CartModel>(context, listen: false).totalPrice}',
                       style: headerStyle),
                 ],
               ),

@@ -52,7 +52,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                         totalPrice:
                             Provider.of<CartModel>(context, listen: false)
                                 .total,
-                        cart: Provider.of<CartModel>(context, listen: false));
+                        items: Provider.of<CartModel>(context, listen: false).allCartItems);
                     //Navigator.of(context).pushReplacementNamed(CheckoutScreen.id);
                   },
                   padding: EdgeInsets.symmetric(horizontal: 64, vertical: 12),

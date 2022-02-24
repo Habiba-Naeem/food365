@@ -10,16 +10,17 @@ const ordersURL = "/Orders";
 const jsonVariable = '.json';
 
 class OrderService {
+
   postOrder({
     required totalPrice,
-    required cart,
+    required items,
   }) async {
-    OrderModel order = OrderModel(
-     orderID: "orderID",
-      createdAt: DateTime.now(),
+    OrderModel order = OrderModel.postOrder(
+     createdAt: DateTime.now(),
       updatedAt: DateTime.now(),
       totalPrice: totalPrice,
-      cart: cart,
+      items: items
+      //cart: cart,
     );
 
     var response = await httpClient.post(

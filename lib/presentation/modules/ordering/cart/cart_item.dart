@@ -23,8 +23,8 @@ class CartItems extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            ...menuItems.map((menuItem){
-              if(menuItem.itemID == cartItem.menuItemID){
+            ...menuItems.map((menuItem) {
+              if (menuItem.itemID == cartItem.menuItemID) {
                 return CartItemImage(imagePath: menuItem.imagePath);
               }
               return Container();
@@ -138,7 +138,7 @@ class CartItemPrice extends StatelessWidget {
       height: 45,
       width: 70,
       child: Text(
-        '\$ ${price}',
+        '\$ ${double.parse(price.toStringAsFixed(2))}',
         style: titleStyle,
         textAlign: TextAlign.end,
       ),

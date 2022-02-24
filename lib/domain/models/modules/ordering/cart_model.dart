@@ -10,7 +10,7 @@ class CartModel extends ChangeNotifier {
   // });
 
   List get allCartItems => cartItems;
-  double get totalPrice => total;
+  double get totalPrice => double.parse((total).toStringAsFixed(2));
 
    Map<String, dynamic> toJson() => {
         "cartItems": cartItems,
