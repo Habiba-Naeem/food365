@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food365/presentation/modules/KitchenStaff/cook_screen.dart';
 import 'package:food365/presentation/modules/ordering/menu/menu_screen.dart';
 import 'package:food365/presentation/modules/staff/waiter/waiter_dashboard.dart';
 
@@ -29,7 +30,9 @@ class AccountType extends StatelessWidget {
                   "Cook",
                   style: TextStyle(fontSize: 24),
                 ),
-                onTap: () {},
+                onTap: () {
+                  Navigator.of(context).pushReplacementNamed(CookScreen.id);
+                },
               ),
               InkWell(
                 child: const Text(

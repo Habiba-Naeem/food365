@@ -8,7 +8,6 @@ import 'package:food365/presentation/shared/custom_bottom_nav_bar.dart';
 import 'package:food365/presentation/shared/customsidedrawer.dart';
 import 'package:food365/presentation/shared/loading.dart';
 import 'package:food365/presentation/utils/constants.dart';
-import 'package:food365/presentation/modules/staff/waiter/side_drawer.dart';
 
 import 'package:food365/domain/services/menu_service.dart';
 import 'package:provider/provider.dart';
@@ -32,7 +31,7 @@ class MenuScreen extends StatelessWidget {
           )
         ],
       ),
-      drawer: const CustomSideDrawer(),
+      drawer: CustomSideDrawer(),
       bottomNavigationBar: const CustomBottomNavBar(
         id: MenuScreen.id,
       ),
