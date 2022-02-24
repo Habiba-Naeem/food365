@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:food365/domain/models/modules/ordering/cart_item.dart';
+import 'package:food365/domain/models/modules/ordering/cart_model.dart';
+import 'package:food365/domain/models/modules/ordering/menu_item_model.dart';
 import 'package:food365/presentation/utils/constants.dart';
+import 'package:provider/provider.dart';
 
 class CartItems extends StatelessWidget {
   final CartItem cartItem;
@@ -8,6 +11,9 @@ class CartItems extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final menuItems = Provider.of<List<MenuItemModel>>(context);
+    print("my menuitems in cart");
+    print(menuItems);
     return Card(
       margin: EdgeInsets.only(bottom: 16),
       child: Container(
@@ -17,14 +23,20 @@ class CartItems extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            CartItemImage(imagePath: cartItem.menu.imagePath),
+            ...menuItems.map((menuItem) {
+              if (menuItem.itemID == cartItem.menuItemID) {
+                return CartItemImage(imagePath: menuItem.imagePath);
+              }
+              return Container();
+            }),
+            //CartItemImage(imagePath: imagePath),
             Flexible(
               flex: 3,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  CartItemName(name: cartItem.menu.name),
+                  CartItemName(name: cartItem.menuName),
                   Row(
                     mainAxisSize: MainAxisSize.max,
                     crossAxisAlignment: CrossAxisAlignment.end,
@@ -32,11 +44,10 @@ class CartItems extends StatelessWidget {
                     children: <Widget>[
                       InkWell(
                         customBorder: roundedRectangle4,
-                        // onTap: () {
-                        //   cart.decreaseItem(cartModel);
-                        //   animationController.reset();
-                        //   animationController.forward();
-                        // },
+                        onTap: () {
+                          Provider.of<CartModel>(context, listen: false)
+                              .decreaseItem(cartItem);
+                        },
                         child: Icon(Icons.remove_circle),
                       ),
                       Padding(
@@ -46,11 +57,10 @@ class CartItems extends StatelessWidget {
                       ),
                       InkWell(
                         customBorder: roundedRectangle4,
-                        // onTap: () {
-                        //   cart.increaseItem(cartModel);
-                        //   animationController.reset();
-                        //   animationController.forward();
-                        // },
+                        onTap: () {
+                          Provider.of<CartModel>(context, listen: false)
+                              .increaseItem(cartItem);
+                        },
                         child: Icon(Icons.add_circle),
                       ),
                     ],
@@ -64,13 +74,12 @@ class CartItems extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  CartItemPrice(price: cartItem.menu.price),
+                  CartItemPrice(price: cartItem.price * cartItem.quantity),
                   InkWell(
-                    // onTap: () {
-                    //   cart.removeAllInCart(cartModel.food);
-                    //   animationController.reset();
-                    //   animationController.forward();
-                    // },
+                    onTap: () {
+                      Provider.of<CartModel>(context, listen: false)
+                          .removeAllInCart(cartItem);
+                    },
                     customBorder: roundedRectangle12,
                     child: Icon(Icons.delete_sweep, color: Colors.red),
                   )
@@ -119,83 +128,20 @@ class CartItemName extends StatelessWidget {
   }
 }
 
-class CartItemPrice extends StatefulWidget {
+class CartItemPrice extends StatelessWidget {
   final double price;
   const CartItemPrice({Key? key, required this.price}) : super(key: key);
 
-  @override
-  _CartItemPriceState createState() => _CartItemPriceState();
-}
-
-class _CartItemPriceState extends State<CartItemPrice> {
   @override
   Widget build(BuildContext context) {
     return Container(
       height: 45,
       width: 70,
       child: Text(
-        '\$ ${widget.price}',
+        '\$ ${double.parse(price.toStringAsFixed(2))}',
         style: titleStyle,
         textAlign: TextAlign.end,
       ),
     );
   }
 }
-// class CartItem extends StatelessWidget {
-//   static const String id = 'cart item';
-//   const CartItem({Key? key}) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return SafeArea(
-//       child: Scaffold(
-//         appBar: AppBar(
-//           title: Text("Your cart items"),
-//         ),
-//         body: Padding(
-//           padding: const EdgeInsets.all(16.0),
-//           child: Column(
-//             children: [
-//               ListView.builder(
-//                 itemCount: cartItems.length,
-//                 shrinkWrap: true,
-//                 scrollDirection: Axis.vertical,
-//                 itemBuilder: (BuildContext context, int i) {
-//                   return ListTile(
-//                     title: Text("${cartItems[i].itemName}"),
-//                     leading: Text("${cartItems[i].category}"),
-//                     trailing: Column(
-//                       mainAxisSize: MainAxisSize.min,
-//                       children: [
-//                         Text("Quanity: ${cartItems[i].quantity}"),
-//                         SizedBox(
-//                           width: 15,
-//                         ),
-//                         Text("Rs. ${cartItems[i].price}"),
-//                       ],
-//                     ),
-//                   );
-//                 },
-//               ),
-//               Expanded(
-//                 child: Align(
-//                   alignment: Alignment.bottomRight,
-//                   child: Column(
-//                     mainAxisAlignment: MainAxisAlignment.end,
-//                     children: [
-//                       Text("Total Price"),
-//                       ElevatedButton(
-//                         child: Text("Confirm Order"),
-//                         onPressed: (){}, 
-//                       ),
-//                     ],
-//                   ),
-//                 ),
-//               )
-//             ],
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }

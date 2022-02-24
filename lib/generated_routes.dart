@@ -5,6 +5,7 @@ import 'package:food365/presentation/modules/dashboard/account_type.dart';
 import 'package:food365/presentation/modules/home/home_screen.dart';
 import 'package:food365/presentation/modules/ordering/cart/cart_item.dart';
 import 'package:food365/presentation/modules/ordering/cart/cart_screen.dart';
+import 'package:food365/presentation/modules/ordering/checkout/checkout_screen.dart';
 import 'package:food365/presentation/modules/ordering/menu/menu_screen.dart';
 import 'package:food365/presentation/modules/staff/waiter/waiter_dashboard.dart';
 
@@ -19,9 +20,10 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => HomeScreen());
       case MenuScreen.id:
         return MaterialPageRoute(builder: (_) => const MenuScreen());
-
       case CartScreen.id:
         return MaterialPageRoute(builder: (_) => const CartScreen());
+      case CheckoutScreen.id:
+        return MaterialPageRoute(builder: (_) => const CheckoutScreen());
       case WaiterDashboard.id:
         return MaterialPageRoute(builder: (_) => const WaiterDashboard());
 

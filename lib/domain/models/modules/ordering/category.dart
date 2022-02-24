@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 class Category {
-  String? id;
+  String id;
   String name;
   Category({
     required this.id,
@@ -9,10 +9,10 @@ class Category {
   });
 
   factory Category.fromJson({
-    required Map<String, dynamic> json,
+    required  json,
     required key,
   }) {
-    //print(json);
+    print(json);
     return Category(id: key, name: json['name']);
   }
 }

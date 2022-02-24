@@ -1,47 +1,89 @@
-import 'dart:async';
 import 'dart:convert';
-import 'dart:convert';
-
 import 'package:food365/domain/models/modules/ordering/category.dart' as mycat;
-import 'package:firebase_database/firebase_database.dart';
-import 'package:flutter/foundation.dart';
 import 'package:food365/domain/models/modules/ordering/menu_item_model.dart';
 import 'package:http/http.dart' as http;
 
-
 var httpClient = http.Client();
-const baseURL = "https://food365-88d9d-default-rtdb.firebaseio.com/";
-const categoriesURL = "/Categories.json";
-const menuURL = "/MenuItems.json";
+const baseURL = "https://food365-afac9-default-rtdb.firebaseio.com/";
+const categoriesURL = "/Categories";
+const menuURL = "/MenuItems";
+const jsonVariable = '.json';
 
 class MenuService {
-  getCategories() async {
-    var response = await httpClient.get(Uri.parse(baseURL + categoriesURL));
+  Future<List<mycat.Category>> getCategories() async {
+    var response =
+        await httpClient.get(Uri.parse(baseURL + categoriesURL + jsonVariable));
 
     Map<String, dynamic> data =
         jsonDecode(response.body) as Map<String, dynamic>;
 
     List<mycat.Category> categories = data.entries.map((e) {
+      print(e);
+      // if(e.value['name'] == "Deserts"){
+      //    postMenuItem(
+      //   categoryID: e.key,
+      //   name: menuItems[0].name,
+      //   description: menuItems[0].description,
+      //   price: menuItems[0].price,
+      //   imagePath: menuItems[0].imagePath);
+      // }
       return mycat.Category.fromJson(json: e.value, key: e.key);
     }).toList();
 
     return categories;
   }
 
-  // postCategories() async {
-  //   var response = mycat.categories.forEach(
-  //     (category) => http
-  //         .post(
-  //           Uri.parse(baseURL + categoriesURL),
-  //           body: json.encode(
-  //             {
-  //               'name': category.name,
-  //             },
-  //           ),
-  //         )
-  //         .then((value) => print(jsonDecode(value.body))),
-  //   );
-  // }
+  postCategories() async {
+    var response = mycat.categories.forEach(
+      (category) => http
+          .post(
+            Uri.parse(baseURL + categoriesURL + jsonVariable),
+            body: json.encode(
+              {
+                'name': category.name,
+              },
+            ),
+          )
+          .then((value) => print(jsonDecode(value.body))),
+    );
+  }
+
+  Future<List<MenuItemModel>> getMenuItems() async {
+    var response =
+        await httpClient.get(Uri.parse(baseURL + menuURL + jsonVariable));
+
+    Map<String, dynamic> data =
+        jsonDecode(response.body) as Map<String, dynamic>;
+
+    List<MenuItemModel> menuItems = data.entries
+        .map((e) => MenuItemModel.fromJson(json: e.value, key: e.key))
+        .toList();
+    print(menuItems);
+    return menuItems;
+  }
+
+  updateMenuItem({
+    required String itemID,
+    required String name,
+    required String description,
+    required double price,
+    required String imagePath,
+  }) async {
+    String id = '/' + itemID + '.json';
+    print(id);
+    var response = await httpClient.patch(
+      Uri.parse(baseURL + menuURL + '/$itemID' + jsonVariable),
+      body: json.encode(
+        {
+          "name": name,
+          "description": description,
+          "price": price,
+          "imagePath": imagePath
+        },
+      ),
+    );
+    print(jsonDecode(response.body));
+  }
 
   postMenuItem({
     required String categoryID,
@@ -50,34 +92,58 @@ class MenuService {
     required double price,
     required String imagePath,
   }) async {
-
-    MenuItemModel menuItem = MenuItemModel(
+    MenuItemModel menuItem = MenuItemModel.postMenu(
+        itemID: '',
         categoryID: categoryID,
         name: name,
         description: description,
         price: price,
         imagePath: imagePath);
 
-    var response = await httpClient.post(Uri.parse(baseURL + menuURL),
-        body: jsonEncode(menuItem));
-    
+    var response = await httpClient.post(
+        Uri.parse(baseURL + menuURL + jsonVariable),
+        body: jsonEncode(menuItem.toJson()));
   }
 
   getMenu() async {
-    var response = await httpClient.get(Uri.parse(baseURL + "/Category.json"));
-    Map<String, dynamic> data =
-        jsonDecode(response.body) as Map<String, dynamic>;
-    print(data);
+    List<mycat.Category> categories = await getCategories();
+    List<MenuItemModel> menu = await getMenuItems();
 
-    //postCategory();
-    //postMenuItem();
-    // categories = data.keys.map((d) => mycat.Category.fromJson(d)).toList();
-    // print( MenuItem.fromJson(data).name);
-    // print(data.entries.map((d) => MenuItem.fromJson(d)) );
-    //list = data.entries.map((d) => MenuItem.fromJson(d)).toList();
-    // categories.forEach((element) {
-    //   print(element);
-    // });
-    return data;
   }
 }
+
+
+ // menuItems.forEach((item, {index = 0}) {
+      //   if (e.value['name'] == mycat.categories[0].name) {
+      //     updateMenuItem(
+      //         orderBy: e.key,
+      //         itemID: item.itemID,
+      //         name: appetizers[index]['name'],
+      //         description: appetizers[index]['description'],
+      //         price: appetizers[index]['price'],
+      //         imagePath: appetizers[index]['imagePath']);
+      //   }
+      //   //index++;
+      // });
+
+
+//   List appetizers = [
+//   {
+//     "name": "Crackers",
+//     "description": "Sharp crackers",
+//     "price": 10.2,
+//     "imagePath": 'assets/images/menu_items/boiled_eggs.png',
+//   },
+//   {
+//     "name": "Soup",
+//     "description": "Spicy chicken soup",
+//     "price": 14.2,
+//     "imagePath": 'assets/images/menu_items/boiled_eggs.png',
+//   },
+//   {
+//     "name": "WonTons",
+//     "description": "Fried wontons",
+//     "price": 5.2,
+//     "imagePath": 'assets/images/menu_items/boiled_eggs.png',
+//   }
+// ];

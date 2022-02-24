@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:food365/domain/models/modules/ordering/cart_item.dart';
+import 'package:food365/domain/models/modules/ordering/cart_model.dart';
 import 'package:food365/domain/models/modules/ordering/menu_item_model.dart';
 import 'package:food365/presentation/modules/ordering/cart/cart_screen.dart';
+import 'package:food365/presentation/modules/ordering/menu/menu_item.dart';
 import 'package:food365/presentation/shared/custom_bottom_nav_bar.dart';
+import 'package:food365/presentation/shared/customsidedrawer.dart';
+import 'package:food365/presentation/shared/loading.dart';
 import 'package:food365/presentation/utils/constants.dart';
 import 'package:food365/presentation/modules/staff/waiter/side_drawer.dart';
 
+import 'package:food365/domain/services/menu_service.dart';
+import 'package:provider/provider.dart';
 import 'menu_item.dart' as menuIemWidget;
 
 class MenuScreen extends StatelessWidget {
@@ -15,26 +22,31 @@ class MenuScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Menu"),
+        title: const Text("Menu"),
         actions: [
           IconButton(
-            icon: Icon(Icons.shopping_cart_sharp),
+            icon: const Icon(Icons.shopping_cart_sharp),
             onPressed: () {
               Navigator.of(context).pushNamed(CartScreen.id);
             },
           )
         ],
       ),
-      drawer: CustomSideDrawer(),
-      bottomNavigationBar: CustomBottomNavBar(
+      drawer: const CustomSideDrawer(),
+      bottomNavigationBar: const CustomBottomNavBar(
         id: MenuScreen.id,
       ),
       body: Container(
         margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
         child: Column(
           children: <Widget>[
-            Divider(),
-            MenuItems(),
+            const Divider(),
+            //const MenuItems(),
+            FutureProvider<List<MenuItemModel>>.value(
+              initialData: [],
+              value: MenuService().getMenuItems(),
+              child: MenuItems(),
+            ),
           ],
         ),
       ),
@@ -59,18 +71,29 @@ class MenuItems extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final newmenuItems = Provider.of<List<MenuItemModel>>(context);
+    print(newmenuItems);
     return Expanded(
-        child: GridView.count(
-      childAspectRatio: 0.65,
-      mainAxisSpacing: 4,
-      crossAxisSpacing: 4,
-      crossAxisCount: 2,
-      physics: BouncingScrollPhysics(),
-      children: [
-        ...menuItems.map(
-          (menuitem) => menuIemWidget.MenuItem(menuItem: menuitem),
-        )
-      ],
-    ));
+      child: GridView.count(
+        childAspectRatio: 0.65,
+        mainAxisSpacing: 4,
+        crossAxisSpacing: 4,
+        crossAxisCount: 2,
+        physics: const BouncingScrollPhysics(),
+        children: [
+          ...newmenuItems.map((e) => menuIemWidget.MenuItem(
+                menuItem: e,
+              ))
+          // // FutureProvider<List<MenuItemModel>>.value(
+          // //   value: MenuService().getMenuItems(),
+          // //   child: MenuItem(),
+          // // )
+          // Provider.of<List<MenuItemModel>>(context).map((e) => null)
+          // ...menuItems.map((menuitem) => menuIemWidget.MenuItem(
+          //       menuItem: menuitem,
+          //     )),
+        ],
+      ),
+    );
   }
 }

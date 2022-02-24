@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:food365/domain/models/modules/ordering/cart_model.dart';
 import 'package:food365/presentation/modules/ordering/cart/cart_item.dart';
+import 'package:food365/presentation/modules/ordering/checkout/checkout_screen.dart';
 import 'package:food365/presentation/modules/staff/waiter/side_drawer.dart';
 import 'package:food365/presentation/shared/custom_bottom_nav_bar.dart';
 import 'package:food365/presentation/utils/constants.dart';
+import 'package:provider/provider.dart';
 
 class CartScreen extends StatelessWidget {
   static const String id = 'cart item';
@@ -12,20 +14,21 @@ class CartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-       appBar: AppBar(
-          title: Text("Menu"),
-          actions: [
-            IconButton(
-              icon: Icon(Icons.shopping_cart_sharp),
-              onPressed: () {
-                Navigator.of(context).pushNamed(CartScreen.id);
-              },
-            )
-          ],
-        
-        ),
+      appBar: AppBar(
+        title: Text("Menu"),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.shopping_cart_sharp),
+            onPressed: () {
+              Navigator.of(context).pushNamed(CartScreen.id);
+            },
+          )
+        ],
+      ),
       drawer: CustomSideDrawer(),
-      bottomNavigationBar: CustomBottomNavBar(id: CartScreen.id,),
+      bottomNavigationBar: CustomBottomNavBar(
+        id: CartScreen.id,
+      ),
       body: SingleChildScrollView(
         physics: BouncingScrollPhysics(),
         scrollDirection: Axis.vertical,
@@ -38,12 +41,18 @@ class CartScreen extends StatelessWidget {
                 padding: const EdgeInsets.only(top: 24.0),
                 child: Text('Cart', style: headerStyle),
               ),
-              ListView.builder(
-                physics: const NeverScrollableScrollPhysics(), 
-                itemCount: cart.cartItems.length,
-                shrinkWrap: true,
-                itemBuilder: (BuildContext context, int index) {
-                  return CartItems(cartItem: cart.cartItems[index]);
+              Consumer<CartModel>(
+                builder: (context, cart, child) {
+                  return ListView.builder(
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: cart.cartItems.length,
+                    shrinkWrap: true,
+                    itemBuilder: (BuildContext context, int index) {
+                      print(cart.cartItems);
+
+                      return CartItems(cartItem: cart.cartItems[index]);
+                    },
+                  );
                 },
               ),
               SizedBox(height: 16),
@@ -51,7 +60,9 @@ class CartScreen extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Text('Total:6776', style: headerStyle),
+                  Text(
+                      '${Provider.of<CartModel>(context, listen: false).totalPrice}',
+                      style: headerStyle),
                 ],
               ),
               Container(
@@ -60,7 +71,8 @@ class CartScreen extends StatelessWidget {
                 child: RaisedButton(
                   child: Text('Checkout', style: titleStyle),
                   onPressed: () {
-                    //onCheckOutClick(cart);
+                    Navigator.of(context)
+                        .pushReplacementNamed(CheckoutScreen.id);
                   },
                   padding: EdgeInsets.symmetric(horizontal: 64, vertical: 12),
                   color: mainColor,

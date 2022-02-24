@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:food365/domain/models/modules/ordering/cart_item.dart';
+import 'package:food365/domain/models/modules/ordering/cart_model.dart';
 import 'package:food365/domain/models/modules/ordering/menu_item_model.dart';
+import 'package:provider/provider.dart';
 
 class MenuItem extends StatelessWidget {
   final MenuItemModel menuItem;
@@ -9,6 +12,29 @@ class MenuItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    addItemToCard() {
+      bool isAddSuccess = Provider.of<CartModel>(context, listen: false)
+          .addItem(CartItem( menuItemID: menuItem.itemID, menuName: menuItem.name, price: menuItem.price, quantity: 1));
+      print(Provider.of<CartModel>(context, listen: false).allCartItems);
+      if (isAddSuccess) {
+        final snackBar = SnackBar(
+          content: Text('${menuItem.name} added to cart'),
+          action: SnackBarAction(
+            label: 'view',
+            onPressed: () {},
+          ),
+          duration: Duration(milliseconds: 1500),
+        );
+        Scaffold.of(context).showSnackBar(snackBar);
+      } else {
+        const  snackBar = const SnackBar(
+          content: Text('You can\'t order from multiple shop at the same time'),
+          duration: Duration(milliseconds: 1500),
+        );
+        Scaffold.of(context).showSnackBar(snackBar);
+      }
+    }
+
     return Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadiusDirectional.circular(12),
@@ -51,7 +77,7 @@ class MenuItem extends StatelessWidget {
                         borderRadius: BorderRadiusDirectional.circular(12),
                       ),
                       child: InkWell(
-                        // onTap: addItemToCard,
+                        onTap: addItemToCard,
                         splashColor: Colors.white70,
                         customBorder: RoundedRectangleBorder(
                           borderRadius: BorderRadiusDirectional.circular(12),
@@ -79,9 +105,11 @@ class MenuItemImage extends StatelessWidget {
     return Container(
       height: MediaQuery.of(context).size.width / 2.5,
       child: ClipRRect(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
-        child: Image.asset(imagePath, fit: BoxFit.cover,)
-      ),
+          borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
+          child: Image.asset(
+            imagePath,
+            fit: BoxFit.cover,
+          )),
     );
   }
 }
@@ -147,28 +175,7 @@ class AddItem extends StatelessWidget {
 
 
 
-  // addItemToCard() {
-  //   bool isAddSuccess =
-  //       Provider.of<MyCart>(context).addItem(CartItem(food: food, quantity: 1));
-
-  //   if (isAddSuccess) {
-  //     final snackBar = SnackBar(
-  //       content: Text('${food.name} added to cart'),
-  //       action: SnackBarAction(
-  //         label: 'view',
-  //         onPressed: showCart,
-  //       ),
-  //       duration: Duration(milliseconds: 1500),
-  //     );
-  //     Scaffold.of(context).showSnackBar(snackBar);
-  //   } else {
-  //     final snackBar = SnackBar(
-  //       content: Text('You can\'t order from multiple shop at the same time'),
-  //       duration: Duration(milliseconds: 1500),
-  //     );
-  //     Scaffold.of(context).showSnackBar(snackBar);
-  //   }
-  // }
+  
 
   // showCart() {
   //   showModalBottomSheet(
