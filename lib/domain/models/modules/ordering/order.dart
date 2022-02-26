@@ -1,5 +1,6 @@
 import 'package:food365/domain/models/modules/ordering/cart_item.dart';
 import 'package:food365/domain/models/modules/ordering/cart_model.dart';
+import 'package:food365/presentation/modules/ordering/cart/cart_item.dart';
 
 class OrderModel {
   bool serviceStatus = false;
@@ -8,8 +9,7 @@ class OrderModel {
   DateTime createdAt;
   DateTime updatedAt;
   double totalPrice;
-  // CartModel cart;
-  List<CartItem> items = [];
+  List items = [];
 
   OrderModel({
     // required this.serviceStatus,
@@ -33,13 +33,14 @@ class OrderModel {
     required json,
     required key,
   }) {
+    print(json);
     return OrderModel(
         orderID: key,
         // serviceStatus: json['serviceStatus'],
         // cookingStatus: json['cookingStatus'],
 
-        createdAt: json['createdAt'],
-        updatedAt: json['updatedAt'],
+        createdAt: DateTime.parse(json['createdAt']),
+        updatedAt: DateTime.parse(json['updatedAt']),
         totalPrice: json['totalPrice'],
         items: json['items']);
   }

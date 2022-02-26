@@ -2,7 +2,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:food365/domain/models/modules/ordering/cart_model.dart';
 import 'package:food365/domain/models/modules/ordering/menu_item_model.dart';
+import 'package:food365/domain/models/modules/ordering/order.dart';
 import 'package:food365/domain/services/menu_service.dart';
+import 'package:food365/domain/services/order_service.dart';
 import 'package:food365/presentation/modules/home/home_screen.dart';
 import 'package:food365/presentation/modules/onboarding_screen.dart';
 import 'package:food365/presentation/modules/ordering/checkout/checkout_screen.dart';
@@ -32,7 +34,8 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider.value(value: CartModel()),
-        FutureProvider<List<MenuItemModel>>.value(value: MenuService().getMenuItems())
+        FutureProvider<List<MenuItemModel>>.value(value: MenuService().getMenuItems()),
+        StreamProvider<List<OrderModel>>.value(value: OrderService().getAllOrders().asStream())
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
