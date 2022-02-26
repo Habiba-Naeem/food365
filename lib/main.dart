@@ -12,6 +12,7 @@ import 'package:food365/presentation/shared/loading.dart';
 import 'package:food365/presentation/modules/ordering/menu/menu_screen.dart';
 import 'package:food365/presentation/modules/staff/waiter/waiter_dashboard.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:food365/splash_screen.dart';
 import 'package:food365/wrapper.dart';
 import 'package:provider/provider.dart';
 
@@ -43,10 +44,11 @@ class MyApp extends StatelessWidget {
         home: FutureBuilder(
           future: Firebase.initializeApp(),
           builder: (context, snapshot) {
-            return snapshot.hasData ? const Wrapper() : const Loading();
+            return snapshot.hasData ? const Wrapper() :  SplashScreenPage();
           },
         ),
       ),
     );
   }
 }
+

@@ -4,6 +4,7 @@ import 'package:food365/presentation/modules/home/home_screen.dart';
 import 'package:food365/presentation/modules/onboarding_screen.dart';
 import 'package:food365/presentation/modules/ordering/checkout/checkout_screen.dart';
 import 'package:food365/presentation/shared/loading.dart';
+import 'package:food365/splash_screen.dart';
 //Remove this future on getMenuItems
 class Wrapper extends StatelessWidget {
   const Wrapper({Key? key}) : super(key: key);
@@ -14,7 +15,7 @@ class Wrapper extends StatelessWidget {
         future: MenuService().getMenuItems(),
         builder: (context, snapshot) {
           print(snapshot);
-          return snapshot.hasData ? OnboardingScreen() : Loading();
+          return snapshot.hasData ? OnboardingScreen() : SplashScreenPage();
         });
   }
 }
