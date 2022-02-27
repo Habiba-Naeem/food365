@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:food365/presentation/modules/dashboard/account_type.dart';
 import 'package:food365/presentation/modules/home/home_screen.dart';
 import 'package:food365/presentation/modules/ordering/menu/menu_screen.dart';
+import 'package:food365/presentation/shared/custom_appbar.dart';
 
 class OnboardingScreen extends StatelessWidget {
   const OnboardingScreen({Key? key}) : super(key: key);
@@ -10,6 +11,12 @@ class OnboardingScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        
+      drawer: Drawer(),
+      appBar: MyCustomAppBar(
+        height: 116.0,
+      ),
+     
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
