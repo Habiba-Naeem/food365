@@ -1,8 +1,9 @@
+import 'package:flutter/material.dart';
 import 'package:food365/domain/models/modules/ordering/cart_item.dart';
 import 'package:food365/domain/models/modules/ordering/cart_model.dart';
 import 'package:food365/presentation/modules/ordering/cart/cart_item.dart';
 
-class OrderModel {
+class OrderModel  extends ChangeNotifier{
   bool serviceStatus = false;
   bool cookingStatus = false;
   String? orderID;
@@ -12,8 +13,8 @@ class OrderModel {
   List items = [];
 
   OrderModel({
-    // required this.serviceStatus,
-    // required this.cookingStatus,
+    required this.serviceStatus,
+    required this.cookingStatus,
     required this.orderID,
     required this.createdAt,
     required this.updatedAt,
@@ -36,8 +37,8 @@ class OrderModel {
     print(json);
     return OrderModel(
         orderID: key,
-        // serviceStatus: json['serviceStatus'],
-        // cookingStatus: json['cookingStatus'],
+        serviceStatus: json['serviceStatus'],
+        cookingStatus: json['cookingStatus'],
 
         createdAt: DateTime.parse(json['createdAt']),
         updatedAt: DateTime.parse(json['updatedAt']),

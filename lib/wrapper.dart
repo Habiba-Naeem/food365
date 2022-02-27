@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food365/domain/services/menu_service.dart';
+import 'package:food365/presentation/modules/KitchenStaff/cook_screen.dart';
 import 'package:food365/presentation/modules/home/home_screen.dart';
 import 'package:food365/presentation/modules/onboarding_screen.dart';
 import 'package:food365/presentation/modules/ordering/checkout/checkout_screen.dart';
@@ -15,7 +16,7 @@ class Wrapper extends StatelessWidget {
         future: MenuService().getMenuItems(),
         builder: (context, snapshot) {
           print(snapshot);
-          return snapshot.hasData ? OnboardingScreen() : SplashScreenPage();
+          return snapshot.hasData ? CookScreen() : SplashScreenPage();
         });
   }
 }

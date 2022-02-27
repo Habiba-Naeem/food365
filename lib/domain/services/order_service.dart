@@ -10,16 +10,6 @@ const ordersURL = "/Orders";
 const jsonVariable = '.json';
 
 class OrderService {
-  List<OrderModel> currentOrders = [];
-  List<OrderModel> servedOrders = [];
-
-  List<OrderModel> get allcurrentOrders => currentOrders;
-  List<OrderModel> get allservedOrders => servedOrders;
-
-  // Stream<List<OrderModel>> get allOrders() {
-  //   return getAllOrders();
-  // }
-
   Future<List<OrderModel>> getAllOrders() async {
     var response =
         await httpClient.get(Uri.parse(baseURL + ordersURL + jsonVariable));
@@ -28,62 +18,35 @@ class OrderService {
         jsonDecode(response.body) as Map<String, dynamic>;
 
     List<OrderModel> orders = data.entries.map((order) {
-      // if (order.value['cookingStatus'] == false) {
-      //   currentOrders
-      //       .add(OrderModel.fromJson(json: order.value, key: order.key));
-      //   print("inorders");
-      //   print(currentOrders);
-      // }
-      // if (order.value["serviceStatus"] == true) {
-      //   servedOrders
-      //       .add(OrderModel.fromJson(json: order.value, key: order.key));
-      // }
       return OrderModel.fromJson(json: order.value, key: order.key);
     }).toList();
-    //print(currentOrders);
     return orders;
   }
 
-  getServedOrders() async {
+  Future<List<OrderModel>> getServedOrders() async {
+    List<OrderModel> servedOrders = [];
     List<OrderModel> orders = await getAllOrders();
-    orders.map((order) {
+
+    orders.forEach((order) {
       if (order.serviceStatus == true) {
         servedOrders.add(order);
       }
     });
+
+    return servedOrders;
   }
 
-  getCurrentOrders() async {
-    //List<OrderModel> currentOrders = [];
-    // var response =
-    //     await httpClient.get(Uri.parse(baseURL + ordersURL + jsonVariable + '?orderBy="cookingStatus"&equalTo=false'));
-
-    // Map<String, dynamic> data =
-    //     jsonDecode(response.body) as Map<String, dynamic>;
-
+  Future<List<OrderModel>> getCurrentOrders() async {
+    List<OrderModel> currentOrders = [];
     List<OrderModel> orders = await getAllOrders();
-    orders.map((order) {
+
+    orders.forEach((order) {
       if (order.cookingStatus == false) {
         currentOrders.add(order);
       }
     });
-    // print(currentOrders);
-    // currentOrders.addAll(orders.map((e) {
-    //   if (e.cookingStatus == false) {
-    //     return e;
-    //   }
-    //   return null;
-    // }));
-    //orders.then((value) => null)
-    // currentOrders.add(orders.map((e) {
-    //   if (e.cookingStatus == false) {
-    //     return OrderModel.fromJson(json: e.value, key: e.key);
-    //   }
-    //   return e;
-    //   //return OrderModel.fromJson(json: e.value, key: e.key);
-    // }));
-    // print(currentOrders);
-    // return currentOrders;
+
+    return currentOrders;
   }
 
   postOrder({
