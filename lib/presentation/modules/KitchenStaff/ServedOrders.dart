@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../../../domain/models/modules/ordering/order.dart';
 
 class ServedOrders extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final orders = Provider.of<List<OrderModel>>(context);
     return ListView(children: <Widget>[
       DataTable(
         columns: [
@@ -10,28 +14,19 @@ class ServedOrders extends StatelessWidget {
           DataColumn(label: Text('Status', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold))),
           DataColumn(label: Text('TimeTaken', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold))),
         ],
-        rows: [
-          DataRow(cells: [
-            DataCell(Text('1')),
-            DataCell(Text('Served')),
-            DataCell(Text('20 Min')),
-          ]),
-          DataRow(cells: [
-            DataCell(Text('5')),
-            DataCell(Text('Served')),
-            DataCell(Text('15 Min')),
-          ]),
-          DataRow(cells: [
-            DataCell(Text('10')),
-            DataCell(Text('Served')),
-            DataCell(Text('1 Hour')),
-          ]),
-          DataRow(cells: [
-            DataCell(Text('15')),
-            DataCell(Text('Served')),
-            DataCell(Text('....')),
-          ]),
-        ],
+         rows: [
+        ...orders.map((e) {
+          return DataRow(
+            cells: [
+              DataCell(Text(
+                e.orderID.toString(),
+               )),
+              DataCell(Text(e.serviceStatus == true ? "Served" : "")),
+              const DataCell(const Text('....')),
+            ],
+          );
+        })
+      ],
       ),
     ]);
   }

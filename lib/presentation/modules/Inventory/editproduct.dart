@@ -49,7 +49,7 @@ class EditProduct extends StatelessWidget {
                       minRadius: 75.0,
                       child: CircleAvatar(
                         radius: 0.0,
-                        backgroundImage: NetworkImage(''),
+                       // backgroundImage: NetworkImage(''),
                       ),
                     ),
                     ClipRRect(

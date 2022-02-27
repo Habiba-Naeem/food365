@@ -36,11 +36,14 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider.value(value: CartModel()),
         FutureProvider<List<MenuItemModel>>.value(value: MenuService().getMenuItems()),
-        StreamProvider<List<OrderModel>>.value(value: OrderService().getAllOrders().asStream())
+       // ChangeNotifierProvider.value(value: OrderModel()),
+        
+        FutureProvider<List<OrderModel>>.value(value: OrderService().getAllOrders())
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
         onGenerateRoute: RouteGenerator.generateRoute,
+    
         home: FutureBuilder(
           future: Firebase.initializeApp(),
           builder: (context, snapshot) {
