@@ -45,9 +45,10 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                       ? SpinKitChasingDots(color: Colors.blue, size: 20)
                       : Text('Confirm Order', style: titleStyle),
                   onPressed: () {
-                    setState(() {
-                      this.loading = true;
-                    });
+                    // setState(() {
+                    //   this.loading = true;
+                    //  });
+                    showAlertDialog(context);
                     OrderService().postOrder(
                         totalPrice:
                             Provider.of<CartModel>(context, listen: false)
@@ -66,4 +67,32 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
       ),
     );
   }
+}
+
+showAlertDialog(BuildContext context) {
+  // Create button
+  Widget okButton = FlatButton(
+    child: Text("OK"),
+    color: Colors.teal,
+    onPressed: () {
+      Navigator.of(context).pop();
+    },
+  );
+
+  
+  AlertDialog alert = AlertDialog(
+    title: Text("Order Confirmation"),
+    content: Text("Your Order has been placed. Thank you!"),
+    actions: [
+      okButton,
+    ],
+  );
+
+ 
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
 }
