@@ -43,20 +43,20 @@ class CustomBottomNavBar extends StatelessWidget {
                 icon: Icon(Icons.home_outlined),
                 onPressed: () =>
                     Navigator.pushReplacementNamed(context, HomeScreen.id),
-                color: id == HomeScreen.id ? Colors.black : inActiveIconColor,
+                color: id == HomeScreen.id ? Colors.teal : inActiveIconColor,
               ),
               IconButton(
                 icon: Icon(Icons.dining_outlined),
                 onPressed: () =>
                     Navigator.pushReplacementNamed(context, MenuScreen.id),
-                color: id == MenuScreen.id ? Colors.black : inActiveIconColor,
+                color: id == MenuScreen.id ? Colors.teal : inActiveIconColor,
               ),
               IconButton(
                 icon: Icon(Icons.shopping_cart_outlined),
                 onPressed: () {
                   Navigator.of(context).pushNamed(CartScreen.id);
                 },
-                color: id == CartScreen.id ? Colors.black : inActiveIconColor,
+                color: id == CartScreen.id ? Colors.teal : inActiveIconColor,
               ),
             ],
           )),

@@ -10,23 +10,35 @@ class ServedOrders extends StatelessWidget {
     return ListView(children: <Widget>[
       DataTable(
         columns: [
-          DataColumn(label: Text('OrderID', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold))),
-          DataColumn(label: Text('Status', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold))),
-          DataColumn(label: Text('TimeTaken', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold))),
+          DataColumn(
+              label: Text('OrderID',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold))),
+          DataColumn(
+              label: Text('Status',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold))),
+          DataColumn(
+              label: Text('TimeTaken',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold))),
         ],
-         rows: [
-        ...orders.map((e) {
-          return DataRow(
-            cells: [
-              DataCell(Text(
-                e.orderID.toString(),
-               )),
-              DataCell(Text(e.serviceStatus == true ? "Served" : "")),
-              const DataCell(const Text('....')),
-            ],
-          );
-        })
-      ],
+        rows: [
+          ...orders.map((e) {
+            return 
+            DataRow(
+              cells: [
+                DataCell(
+                  Container(
+                    width: 100,
+                    child: Text(
+                      e.orderID.toString(),
+                    ),
+                  ),
+                ),
+                DataCell(Text(e.serviceStatus == true ? "Served" : "")),
+                const DataCell(const Text('....')),
+              ],
+            );
+          })
+        ],
       ),
     ]);
   }

@@ -16,6 +16,7 @@ class CookScreen extends StatelessWidget {
       length: 3,
       child: Scaffold(
         appBar: AppBar(
+          backgroundColor: Colors.teal,
           title: Text('Kitchen'),
           bottom: TabBar(
             tabs: [

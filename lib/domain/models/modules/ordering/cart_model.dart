@@ -11,12 +11,13 @@ class CartModel extends ChangeNotifier {
 
   List get allCartItems => cartItems;
   double get totalPrice => double.parse((total).toStringAsFixed(2));
+  
 
-   Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "cartItems": cartItems,
         "total": total,
       };
-  
+
   bool addItem(CartItem cartItem) {
     for (CartItem cart in cartItems) {
       if (cartItem.menuItemID == cart.menuItemID) {
@@ -51,8 +52,7 @@ class CartModel extends ChangeNotifier {
 
   void removeAllInCart(CartItem cartItem) {
     cartItems.removeWhere((item) {
-      return item.menuItemID
-       == cartItem.menuItemID;
+      return item.menuItemID == cartItem.menuItemID;
     });
     notifyListeners();
   }

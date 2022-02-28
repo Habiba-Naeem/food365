@@ -30,18 +30,21 @@ class CurrentOrders extends StatelessWidget {
         ...orders.map((e) {
           return DataRow(
             cells: [
-              DataCell(Text(
-                e.orderID.toString(),
-               )),
+              DataCell(
+                Container(
+                  width: 100,
+                  child: Text(
+                    e.orderID.toString(),
+                  ),
+                ),
+              ),
               DataCell(Text(e.cookingStatus == false ? "Pending" : "")),
               const DataCell(const Text('....')),
             ],
           );
         })
       ],
-      
     );
-  
   }
 }
 

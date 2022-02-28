@@ -4,6 +4,7 @@ import 'package:food365/domain/models/modules/ordering/cart_model.dart';
 import 'package:food365/domain/models/modules/ordering/menu_item_model.dart';
 import 'package:food365/presentation/modules/ordering/cart/cart_screen.dart';
 import 'package:food365/presentation/modules/ordering/menu/menu_item.dart';
+import 'package:food365/presentation/shared/custom_appbar.dart';
 import 'package:food365/presentation/shared/custom_bottom_nav_bar.dart';
 import 'package:food365/presentation/shared/customsidedrawer.dart';
 import 'package:food365/presentation/shared/loading.dart';
@@ -20,17 +21,21 @@ class MenuScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Menu"),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.shopping_cart_sharp),
-            onPressed: () {
-              Navigator.of(context).pushNamed(CartScreen.id);
-            },
-          )
-        ],
+      appBar: MyCustomAppBar(
+        headingText: "Menu",
+        height: 116.0,
       ),
+      // appBar: AppBar(
+      //   title: const Text("Menu"),
+      //   actions: [
+      //     IconButton(
+      //       icon: const Icon(Icons.shopping_cart_sharp),
+      //       onPressed: () {
+      //         Navigator.of(context).pushNamed(CartScreen.id);
+      //       },
+      //     )
+      //   ],
+      // ),
       drawer: CustomSideDrawer(),
       bottomNavigationBar: const CustomBottomNavBar(
         id: MenuScreen.id,
@@ -80,9 +85,15 @@ class MenuItems extends StatelessWidget {
         crossAxisCount: 2,
         physics: const BouncingScrollPhysics(),
         children: [
-          ...newmenuItems.map((e) => menuIemWidget.MenuItem(
-                menuItem: e,
-              ))
+          ...newmenuItems.map((e) => FutureBuilder(
+              future: MenuService().getMenuItems(),
+              builder: (context, snapshot) {
+                return snapshot.hasData
+                    ? menuIemWidget.MenuItem(
+                        menuItem: e,
+                      )
+                    : Loading();
+              }))
         ],
       ),
     );

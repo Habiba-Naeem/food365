@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -22,22 +21,24 @@ class AllOrders extends StatelessWidget {
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold))),
       ],
       rows: [
-      ...orders.map((e) {
+        ...orders.map((e) {
           return DataRow(
             cells: [
-              DataCell( Text(
-                e.orderID.toString(),
-                maxLines: 2,
-              )),
-              DataCell(Text(
-                e.cookingStatus == false ? "Pending" : "In Progress"
-              )),
+              DataCell(
+                Container(
+                  width: 100,
+                  child: Text(
+                    e.orderID.toString(),
+                  ),
+                ),
+              ),
+              DataCell(
+                  Text(e.cookingStatus == false ? "Pending" : "In Progress")),
               const DataCell(const Text('....')),
             ],
           );
         })
       ],
-  
     );
   }
 }

@@ -3,6 +3,7 @@ import 'package:food365/domain/models/modules/ordering/cart_model.dart';
 import 'package:food365/presentation/modules/ordering/cart/cart_item.dart';
 import 'package:food365/presentation/modules/ordering/checkout/checkout_screen.dart';
 import 'package:food365/presentation/modules/staff/waiter/side_drawer.dart';
+import 'package:food365/presentation/shared/custom_appbar.dart';
 import 'package:food365/presentation/shared/custom_bottom_nav_bar.dart';
 import 'package:food365/presentation/utils/constants.dart';
 import 'package:provider/provider.dart';
@@ -14,17 +15,21 @@ class CartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Menu"),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.shopping_cart_sharp),
-            onPressed: () {
-              Navigator.of(context).pushNamed(CartScreen.id);
-            },
-          )
-        ],
+      appBar: MyCustomAppBar(
+        headingText: "Cart",
+        height: 116.0,
       ),
+      // appBar: AppBar(
+      //   title: Text("Menu"),
+      //   actions: [
+      //     IconButton(
+      //       icon: Icon(Icons.shopping_cart_sharp),
+      //       onPressed: () {
+      //         Navigator.of(context).pushNamed(CartScreen.id);
+      //       },
+      //     )
+      //   ],
+      // ),
       drawer: CustomSideDrawer(),
       bottomNavigationBar: CustomBottomNavBar(
         id: CartScreen.id,
@@ -61,7 +66,7 @@ class CartScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Text(
-                      '${Provider.of<CartModel>(context, listen: false).totalPrice}',
+                      '\$ ${Provider.of<CartModel>(context, listen: false).totalPrice}',
                       style: headerStyle),
                 ],
               ),
@@ -69,7 +74,13 @@ class CartScreen extends StatelessWidget {
                 margin: EdgeInsets.only(top: 24, bottom: 64),
                 width: double.infinity,
                 child: RaisedButton(
-                  child: Text('Checkout', style: titleStyle),
+                  child: Text(
+                    'Checkout',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold),
+                  ),
                   onPressed: () {
                     Navigator.of(context)
                         .pushReplacementNamed(CheckoutScreen.id);
