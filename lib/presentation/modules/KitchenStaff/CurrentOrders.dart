@@ -33,7 +33,8 @@ class CurrentOrders extends StatelessWidget {
               DataCell(Text(
                 e.orderID.toString(),
                )),
-              DataCell(Text(e.cookingStatus == false ? "Pending" : "")),
+              //DataCell(Text(e.cookingStatus == false ? "Pending" : "")),
+              const DataCell(const ButtonStatus()),
               const DataCell(const Text('....')),
             ],
           );
@@ -44,6 +45,38 @@ class CurrentOrders extends StatelessWidget {
   
   }
 }
+
+class ButtonStatus extends StatefulWidget {
+  ButtonStatus({Key? key}) : super(key: key);
+
+  @override
+  _ButtonStatus createState() => _ButtonStatus();
+}
+
+class _ButtonStatus extends State<ButtonStatus> {
+  var buttonText = 'Pending';
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+        children: ElevatedButton(
+            onPressed: () {
+              setState(() {
+                buttonText = 'In Process...';
+              });
+            },
+            
+            ,
+            style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(Colors.teal)),
+            child: Text(buttonText))
+           );
+  }
+}
+
+
+
+
+
+
 
 // class DropDownExample extends StatefulWidget {
 //    String state;
