@@ -34,7 +34,7 @@ class CurrentOrders extends StatelessWidget {
                 e.orderID.toString(),
                )),
               //DataCell(Text(e.cookingStatus == false ? "Pending" : "")),
-              const DataCell(const ButtonStatus()),
+              DataCell(ButtonStatus()),
               const DataCell(const Text('....')),
             ],
           );
@@ -58,14 +58,14 @@ class _ButtonStatus extends State<ButtonStatus> {
   @override
   Widget build(BuildContext context) {
     return Center(
-        children: ElevatedButton(
+        child: ElevatedButton(
             onPressed: () {
               setState(() {
                 buttonText = 'In Process...';
               });
             },
             
-            ,
+            
             style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(Colors.teal)),
             child: Text(buttonText))
            );
