@@ -83,14 +83,6 @@ class MenuItems extends StatelessWidget {
           ...newmenuItems.map((e) => menuIemWidget.MenuItem(
                 menuItem: e,
               ))
-          // // FutureProvider<List<MenuItemModel>>.value(
-          // //   value: MenuService().getMenuItems(),
-          // //   child: MenuItem(),
-          // // )
-          // Provider.of<List<MenuItemModel>>(context).map((e) => null)
-          // ...menuItems.map((menuitem) => menuIemWidget.MenuItem(
-          //       menuItem: menuitem,
-          //     )),
         ],
       ),
     );

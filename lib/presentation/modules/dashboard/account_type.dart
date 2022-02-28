@@ -3,6 +3,7 @@ import 'package:food365/presentation/modules/Inventory/admin_screen.dart';
 import 'package:food365/presentation/modules/KitchenStaff/cook_screen.dart';
 import 'package:food365/presentation/modules/ordering/menu/menu_screen.dart';
 import 'package:food365/presentation/modules/staff/waiter/waiter_dashboard.dart';
+import 'package:food365/presentation/utils/constants.dart';
 
 class AccountType extends StatelessWidget {
   static const String id = 'account type';
@@ -12,44 +13,63 @@ class AccountType extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: Center(
+backgroundColor: Color.fromARGB(230, 255, 255, 255),
+        body: Padding(
+          padding: const EdgeInsets.all(10.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              InkWell(
-                child: const Text(
-                  "Waiter",
-                  style: TextStyle(fontSize: 24),
+              Align(
+                alignment: Alignment.topCenter,
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 24.0),
+                  child: Text('Food365', style: headerStyle),
                 ),
-                onTap: () {
-                  Navigator.of(context)
-                      .pushReplacementNamed(WaiterDashboard.id);
-                },
               ),
-              InkWell(
-                child: const Text(
-                  "Cook",
-                  style: TextStyle(fontSize: 24),
+              Expanded(
+                child: InkWell(
+                  child: const Text(
+                    "Waiter",
+                    style: TextStyle(fontSize: 24),
+                  ),
+                  onTap: () {
+                    Navigator.of(context)
+                        .pushReplacementNamed(WaiterDashboard.id);
+                  },
                 ),
-                onTap: () {
-                  Navigator.of(context).pushReplacementNamed(CookScreen.id);
-                },
               ),
-              InkWell(
-                child: const Text(
-                  "Manager",
-                  style: TextStyle(fontSize: 24),
+              Expanded(
+                child: InkWell(
+                  child: const Text(
+                    "Cook",
+                    
+                    style: TextStyle(fontSize: 24),
+                  ),
+                  onTap: () {
+                    Navigator.of(context).pushReplacementNamed(CookScreen.id);
+                  },
                 ),
-                onTap: () {},
               ),
-              InkWell(
-                child: const Text(
-                  "Admin",
-                  style: TextStyle(fontSize: 24),
+              Expanded(
+                child: InkWell(
+                  child: const Text(
+                    "Manager",
+                    style: TextStyle(fontSize: 24),
+                  ),
+                  onTap: () {},
                 ),
-                onTap: () {
-                  Navigator.of(context).pushReplacementNamed(AdminScreen.id);
-                },
+              ),
+              Expanded(
+                child: InkWell(
+                  child: const Text(
+                    "Admin",
+                    style: TextStyle(fontSize: 24),
+                  ),
+                  onTap: () {
+                    Navigator.of(context).pushReplacementNamed(AdminScreen.id);
+                  },
+                ),
               )
             ],
           ),

@@ -16,7 +16,7 @@ class Wrapper extends StatelessWidget {
         future: MenuService().getMenuItems(),
         builder: (context, snapshot) {
           print(snapshot);
-          return snapshot.hasData ? CookScreen() : SplashScreenPage();
+          return snapshot.hasData ? OnboardingScreen() : SplashScreenPage();
         });
   }
 }
