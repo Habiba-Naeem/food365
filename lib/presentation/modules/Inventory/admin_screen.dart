@@ -9,6 +9,7 @@ class AdminScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Admin Dashboard'),
+        backgroundColor: Colors.teal,
       ),
       body: Center(
           child: Column(children: <Widget>[
@@ -20,7 +21,7 @@ class AdminScreen extends StatelessWidget {
               'Manage Inventory',
               style: TextStyle(fontSize: 25.0),
             ),
-            color: Colors.blueAccent,
+            color: Colors.tealAccent,
             textColor: Colors.white,
             onPressed: () {
               _viewInventory(context);
@@ -35,7 +36,7 @@ class AdminScreen extends StatelessWidget {
               'View All Products',
               style: TextStyle(fontSize: 25.0),
             ),
-            color: Colors.blueAccent,
+            color: Colors.tealAccent,
             textColor: Colors.white,
             onPressed: () {},
           ),
@@ -48,7 +49,7 @@ class AdminScreen extends StatelessWidget {
               'Add New Product',
               style: TextStyle(fontSize: 25.0),
             ),
-            color: Colors.blueAccent,
+            color: Colors.tealAccent,
             textColor: Colors.white,
             onPressed: () {
               _addProduct(context);
@@ -60,7 +61,7 @@ class AdminScreen extends StatelessWidget {
   }
 
   void _addProduct(BuildContext context) {
-    Navigator.of(context).push(MaterialPageRoute(builder: (context) => AddProduct()));
+    Navigator.of(context).push(MaterialPageRoute(builder: (context) => AddProductScreen()));
   }
 
   void _viewInventory(BuildContext context) {

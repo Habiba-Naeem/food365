@@ -9,7 +9,7 @@ class CartModel extends ChangeNotifier {
   //   required this.cartItems,
   // });
 
-  List get allCartItems => cartItems;
+  List<CartItem> get allCartItems => cartItems;
   double get totalPrice => double.parse((total).toStringAsFixed(2));
   
 

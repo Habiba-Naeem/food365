@@ -1,14 +1,16 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+
 import 'package:food365/domain/models/modules/ordering/category.dart' as mycat;
 
 class MenuItemModel {
-  String itemID;
+  String? itemID;
   String categoryID;
   String name;
   String description;
   double price;
+  double time;
   String imagePath;
   MenuItemModel({
     required this.itemID,
@@ -16,15 +18,16 @@ class MenuItemModel {
     required this.name,
     required this.description,
     required this.price,
+    required this.time,
     required this.imagePath,
   });
 
   MenuItemModel.postMenu({
-    required this.itemID,
     required this.categoryID,
     required this.name,
     required this.description,
     required this.price,
+    required this.time,
     required this.imagePath,
   });
 
@@ -38,6 +41,7 @@ class MenuItemModel {
       name: json['name'],
       description: json['description'],
       price: json['price'],
+      time: json['time'],
       imagePath: json['imagePath'],
     );
   }

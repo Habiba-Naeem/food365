@@ -4,7 +4,7 @@ import 'package:food365/domain/models/modules/ordering/menu_item_model.dart';
 import 'package:http/http.dart' as http;
 
 var httpClient = http.Client();
-const baseURL = "https://food365-afac9-default-rtdb.firebaseio.com/";
+const baseURL = "https://food365-9018b-default-rtdb.firebaseio.com/";
 const categoriesURL = "/Categories";
 const menuURL = "/MenuItems";
 const jsonVariable = '.json';
@@ -62,6 +62,14 @@ class MenuService {
     return menuItems;
   }
 
+  Future<MenuItemModel> getMenuItem({required menuItemID}) async {
+    var response = await httpClient.get(Uri.parse(
+        baseURL + menuURL + '/' + menuItemID.toString() + jsonVariable));
+    Map<String, dynamic> data =
+        jsonDecode(response.body) as Map<String, dynamic>;
+    return data.values.first;
+  }
+
   updateMenuItem({
     required String itemID,
     required String name,
@@ -90,25 +98,26 @@ class MenuService {
     required String name,
     required String description,
     required double price,
+    required double time,
     required String imagePath,
   }) async {
     MenuItemModel menuItem = MenuItemModel.postMenu(
-        itemID: '',
         categoryID: categoryID,
         name: name,
         description: description,
         price: price,
-        imagePath: imagePath);
+        time: time,
+        imagePath: 'assets/images/menu_items/salad.png');
 
     var response = await httpClient.post(
         Uri.parse(baseURL + menuURL + jsonVariable),
         body: jsonEncode(menuItem.toJson()));
+    return response.statusCode;
   }
 
   getMenu() async {
     List<mycat.Category> categories = await getCategories();
     List<MenuItemModel> menu = await getMenuItems();
-
   }
 }
 

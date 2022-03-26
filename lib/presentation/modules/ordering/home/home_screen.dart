@@ -32,17 +32,7 @@ class HomeScreen extends StatelessWidget {
           headingText: "Home",
       height: 0,
       ),
-      // AppBar(
-      //     title: Text("Menu"),
-      //     actions: [
-      //       IconButton(
-      //         icon: Icon(Icons.shopping_cart_sharp),
-      //         onPressed: () {
-      //           Navigator.of(context).pushNamed(CartScreen.id);
-      //         },
-      //       )
-      //     ],
-      //   ),
+     
         body: Padding(padding: const EdgeInsets.only(top: 24.0),
                 
           child: Container(

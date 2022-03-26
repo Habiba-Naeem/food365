@@ -38,9 +38,9 @@ class CurrentOrders extends StatelessWidget {
                   ),
                 ),
               ),
-              
-              //DataCell(Text(e.cookingStatus == false ? "Pending" : "")),
-              DataCell(ButtonStatus()),
+              DataCell(ButtonStatus(
+                order: e,
+              )),
               const DataCell(const Text('....')),
             ],
           );
@@ -51,7 +51,11 @@ class CurrentOrders extends StatelessWidget {
 }
 
 class ButtonStatus extends StatefulWidget {
-  ButtonStatus({Key? key}) : super(key: key);
+  final OrderModel order;
+  ButtonStatus({
+    Key? key,
+    required this.order,
+  }) : super(key: key);
 
   @override
   _ButtonStatus createState() => _ButtonStatus();
@@ -64,15 +68,17 @@ class _ButtonStatus extends State<ButtonStatus> {
     return Center(
         child: ElevatedButton(
             onPressed: () {
+              OrderService().updateCookingStatus(order: widget.order);
               setState(() {
-                buttonText = 'In Process...';
+                buttonText = 'In Process';
               });
             },
-            
-            
-            style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(Colors.teal)),
-            child: Text(buttonText))
-           );
+            style: ButtonStyle(
+                backgroundColor: buttonText == "Pending"
+                    ? MaterialStateProperty.all<Color>(
+                        Color.fromARGB(255, 207, 22, 9))
+                    : MaterialStateProperty.all<Color>(Colors.teal)),
+            child: Text(buttonText)));
   }
 }
 

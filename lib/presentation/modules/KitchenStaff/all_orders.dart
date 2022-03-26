@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
 
 import '../../../domain/models/modules/ordering/order.dart';
@@ -7,6 +8,17 @@ class AllOrders extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final orders = Provider.of<List<OrderModel>>(context);
+    showAllItems(context) {
+      showModalBottomSheet(
+        context: context,
+        builder: (context) => SingleChildScrollView(
+          controller: ModalScrollController.of(context),
+          child: Container(),
+        ),
+      );
+    }
+
+    
 
     return DataTable(
       columns: [
@@ -32,9 +44,20 @@ class AllOrders extends StatelessWidget {
                   ),
                 ),
               ),
-              DataCell(
-                  Text(e.cookingStatus == false ? "Pending" : "In Progress")),
+              DataCell(Text(e.serviceStatus == true
+                  ? "Served"
+                  : e.readyStatus == true
+                      ? "Ready"
+                      : e.cookingStatus == true
+                          ? "In progress"
+                          : "Pending")),
               const DataCell(const Text('....')),
+              DataCell(
+                ElevatedButton(
+                  onPressed: () {},
+                  child: Text("View"),
+                ),
+              )
             ],
           );
         })

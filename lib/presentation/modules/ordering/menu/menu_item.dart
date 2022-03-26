@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
 import 'package:food365/domain/models/modules/ordering/cart_item.dart';
 import 'package:food365/domain/models/modules/ordering/cart_model.dart';
 import 'package:food365/domain/models/modules/ordering/menu_item_model.dart';
-import 'package:provider/provider.dart';
 
 class MenuItem extends StatelessWidget {
   final MenuItemModel menuItem;
@@ -14,7 +15,11 @@ class MenuItem extends StatelessWidget {
   Widget build(BuildContext context) {
     addItemToCard() {
       bool isAddSuccess = Provider.of<CartModel>(context, listen: false)
-          .addItem(CartItem( menuItemID: menuItem.itemID, menuName: menuItem.name, price: menuItem.price, quantity: 1));
+          .addItem(CartItem(
+              menuItemID: menuItem.itemID!,
+              menuName: menuItem.name,
+              price: menuItem.price,
+              quantity: 1));
       print(Provider.of<CartModel>(context, listen: false).allCartItems);
       if (isAddSuccess) {
         final snackBar = SnackBar(
@@ -27,7 +32,7 @@ class MenuItem extends StatelessWidget {
         );
         Scaffold.of(context).showSnackBar(snackBar);
       } else {
-        const  snackBar = const SnackBar(
+        const snackBar = const SnackBar(
           content: Text('You can\'t order from multiple shop at the same time'),
           duration: Duration(milliseconds: 1500),
         );
@@ -55,6 +60,7 @@ class MenuItem extends StatelessWidget {
                   children: <Widget>[
                     MenuItemName(
                       name: menuItem.name,
+                      time: menuItem.time,
                     ),
                     MenuItemDescription(
                       description: menuItem.description,
@@ -116,15 +122,23 @@ class MenuItemImage extends StatelessWidget {
 
 class MenuItemName extends StatelessWidget {
   final String name;
-  const MenuItemName({Key? key, required this.name}) : super(key: key);
+  final double time;
+  const MenuItemName({
+    Key? key,
+    required this.name,
+    required this.time,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      name,
-      maxLines: 2,
-      overflow: TextOverflow.ellipsis,
-      style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+    return
+        Text(
+          name,
+          maxLines: 2,
+          overflow: TextOverflow.ellipsis,
+          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+        
+
     );
   }
 }

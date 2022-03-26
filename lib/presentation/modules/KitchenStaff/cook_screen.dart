@@ -4,6 +4,8 @@ import 'package:food365/domain/services/order_service.dart';
 import 'package:food365/presentation/modules/KitchenStaff/CurrentOrders.dart';
 import 'package:food365/presentation/modules/KitchenStaff/ServedOrders.dart';
 import 'package:food365/presentation/modules/KitchenStaff/all_orders.dart';
+import 'package:food365/presentation/modules/KitchenStaff/ready_orders.dart';
+import 'package:food365/presentation/shared/loading.dart';
 import 'package:provider/provider.dart';
 
 class CookScreen extends StatelessWidget {
@@ -13,7 +15,7 @@ class CookScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 3,
+      length: 4,
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.teal,
@@ -22,6 +24,7 @@ class CookScreen extends StatelessWidget {
             tabs: [
               Tab(icon: Icon(Icons.fastfood), text: "All Orders"),
               Tab(icon: Icon(Icons.add_alert), text: "Current Orders"),
+               Tab(icon: Icon(Icons.add_alert), text: "Ready Orders"),
               Tab(icon: Icon(Icons.fastfood_rounded), text: "Orders Served")
             ],
           ),
@@ -37,6 +40,16 @@ class CookScreen extends StatelessWidget {
               initialData: [],
               value: OrderService().getCurrentOrders(),
               child: CurrentOrders(),
+            ),
+            FutureProvider<List<OrderModel>>.value(
+              initialData: [],
+              value: OrderService().getReadyOrders(),
+              child: FutureBuilder(
+                future: OrderService().getReadyOrders(),
+                builder: (context, snapshot) {
+                  return snapshot.hasData ? ReadyOrders() : Loading();
+                }
+              ),
             ),
             FutureProvider<List<OrderModel>>.value(
               initialData: [],

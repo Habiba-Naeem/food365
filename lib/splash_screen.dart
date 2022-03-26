@@ -39,8 +39,6 @@ class SplashScreenPage extends StatelessWidget {
         textScaleFactor: 5,
         style: const TextStyle(color: Colors.white),
       ),
-      
-      // loadingText: const Text("Loading"),
       photoSize: 100.0,
       loaderColor: Colors.white,
     );

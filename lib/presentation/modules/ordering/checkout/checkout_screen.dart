@@ -46,16 +46,13 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                       ? SpinKitChasingDots(color: Colors.blue, size: 20)
                       : Text('Confirm Order', style: titleStyle),
                   onPressed: () {
-                    // setState(() {
-                    //   this.loading = true;
-                    //  });
+                  
                     showAlertDialog(context);
                     OrderService().postOrder(
                         totalPrice:
                             Provider.of<CartModel>(context, listen: false)
                                 .total,
                         items: Provider.of<CartModel>(context, listen: false).allCartItems);
-                    //Navigator.of(context).pushReplacementNamed(CheckoutScreen.id);
                   },
                   padding: EdgeInsets.symmetric(horizontal: 64, vertical: 12),
                   color: mainColor,
