@@ -1,36 +1,42 @@
 import 'package:flutter/material.dart';
+import 'package:food365/domain/models/modules/ordering/order_item.dart';
+import 'package:food365/presentation/modules/KitchenStaff/items_modal.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
 
 import '../../../domain/models/modules/ordering/order.dart';
 
 class AllOrders extends StatelessWidget {
+  showAllItems(context,orderID, orderItems) {
+    //final OrderModel order = e;
+    print(orderItems.runtimeType);
+    showModalBottomSheet(
+      context: context,
+      builder: (context) => SingleChildScrollView(
+        controller: ModalScrollController.of(context),
+        child: ItemsModal(orderItems: orderItems, orderID: orderID),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final orders = Provider.of<List<OrderModel>>(context);
-    showAllItems(context) {
-      showModalBottomSheet(
-        context: context,
-        builder: (context) => SingleChildScrollView(
-          controller: ModalScrollController.of(context),
-          child: Container(),
-        ),
-      );
-    }
-
-    
 
     return DataTable(
       columns: [
         const DataColumn(
             label: Text('OrderID',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold))),
-        const DataColumn(
-            label: Text('Status',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold))),
-        const DataColumn(
-            label: const Text('TimeLeft',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold))),
+        //const DataColumn(
+        // label: Text('Status',
+        //     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold))),
+        // const DataColumn(
+        //     label: const T ext('TimeLeft',
+        //         style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold))),
+        DataColumn(
+          label: Text(""),
+        ),
       ],
       rows: [
         ...orders.map((e) {
@@ -44,17 +50,19 @@ class AllOrders extends StatelessWidget {
                   ),
                 ),
               ),
-              DataCell(Text(e.serviceStatus == true
-                  ? "Served"
-                  : e.readyStatus == true
-                      ? "Ready"
-                      : e.cookingStatus == true
-                          ? "In progress"
-                          : "Pending")),
-              const DataCell(const Text('....')),
+              // DataCell(Text(e.serviceStatus == true
+              //     ? "Served"
+              //     : e.readyStatus == true
+              //         ? "Ready"
+              //         : e.cookingStatus == true
+              //             ? "In progress"
+              //             : "Pending")),
+              //const DataCell(const Text('....')),
               DataCell(
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    showAllItems(context,e.orderID, e.allOrderItems);
+                  },
                   child: Text("View"),
                 ),
               )

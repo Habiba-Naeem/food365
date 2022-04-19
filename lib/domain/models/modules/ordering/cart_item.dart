@@ -1,15 +1,12 @@
 import 'package:food365/domain/models/modules/ordering/menu_item_model.dart';
 
 class CartItem {
-  //String cartItemID;
   String menuItemID;
   String menuName;
   double price;
-  //MenuItemModel menu;
   int quantity;
 
   CartItem({
-    //required this.cartItemID,
     required this.menuItemID,
     required this.menuName,
     required this.price,
@@ -21,7 +18,6 @@ class CartItem {
         "price": price,
         "quantity": quantity,
       };
-  //CartItem.addToCart() => CartItem(menu: menu, quantity: quantity)
 }
 
 List<CartItem> cartItems = [

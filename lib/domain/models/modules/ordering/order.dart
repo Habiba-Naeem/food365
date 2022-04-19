@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food365/domain/models/modules/ordering/cart_item.dart';
 import 'package:food365/domain/models/modules/ordering/cart_model.dart';
+import 'package:food365/domain/models/modules/ordering/order_item.dart';
 import 'package:food365/presentation/modules/ordering/cart/cart_item.dart';
 
 class OrderModel extends ChangeNotifier {
@@ -11,7 +12,7 @@ class OrderModel extends ChangeNotifier {
   DateTime createdAt;
   DateTime updatedAt;
   double totalPrice;
-  List items = [];
+  List<OrderItem> items = [];
 
   OrderModel({
     required this.serviceStatus,
@@ -21,9 +22,10 @@ class OrderModel extends ChangeNotifier {
     required this.createdAt,
     required this.updatedAt,
     required this.totalPrice,
-    //  required this.cart,
     required this.items,
   });
+
+  List<OrderItem> get allOrderItems => items;
 
   OrderModel.postOrder({
     required this.createdAt,
@@ -37,6 +39,13 @@ class OrderModel extends ChangeNotifier {
     required key,
   }) {
     print(json);
+    List<OrderItem> orderItems = json['items']
+        .map<OrderItem>((item) => OrderItem(
+              menuItemID: item['menuItemID'],
+              menuName: item['menuName'],
+              quantity: item['quantity'],
+            ))
+        .toList();
     return OrderModel(
         orderID: key,
         serviceStatus: json['serviceStatus'],
@@ -45,7 +54,7 @@ class OrderModel extends ChangeNotifier {
         createdAt: DateTime.parse(json['createdAt']),
         updatedAt: DateTime.parse(json['updatedAt']),
         totalPrice: json['totalPrice'],
-        items: json['items']);
+        items: orderItems);
   }
 
   Map<String, dynamic> toJson() => {

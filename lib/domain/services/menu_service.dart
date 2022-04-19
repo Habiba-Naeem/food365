@@ -70,25 +70,29 @@ class MenuService {
     return data.values.first;
   }
 
+  // updateCookingStatus({
+  //   required OrderModel order,
+  // }) async {
+  //   order.cookingStatus = true;
+  //   print(order.orderID);
+  //   print(order.cookingStatus);
+  //   var response = await httpClient.patch(
+  //       Uri.parse(baseURL +
+  //           ordersURL +
+  //           "/" +
+  //           order.orderID.toString() +
+  //           jsonVariable),
+  //       body: jsonEncode(order.toJson()));
+  //   print(response.statusCode);
+  // }
   updateMenuItem({
-    required String itemID,
-    required String name,
-    required String description,
-    required double price,
-    required String imagePath,
+    required MenuItemModel item
   }) async {
-    String id = '/' + itemID + '.json';
-    print(id);
+   
+    
     var response = await httpClient.patch(
-      Uri.parse(baseURL + menuURL + '/$itemID' + jsonVariable),
-      body: json.encode(
-        {
-          "name": name,
-          "description": description,
-          "price": price,
-          "imagePath": imagePath
-        },
-      ),
+      Uri.parse(baseURL + menuURL + '/' + item.itemID.toString() + jsonVariable),
+      body: jsonEncode(item.toJson())
     );
     print(jsonDecode(response.body));
   }

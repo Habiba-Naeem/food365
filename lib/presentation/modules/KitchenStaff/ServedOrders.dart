@@ -13,9 +13,9 @@ class ServedOrders extends StatelessWidget {
           DataColumn(
               label: Text('OrderID',
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold))),
-          DataColumn(
-              label: Text('Status',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold))),
+          // DataColumn(
+          //     label: Text('Status',
+          //         style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold))),
           DataColumn(
               label: Text('TimeTaken',
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold))),
@@ -33,7 +33,7 @@ class ServedOrders extends StatelessWidget {
                     ),
                   ),
                 ),
-                DataCell(Text(e.serviceStatus == true ? "Served" : "")),
+                //DataCell(Text(e.serviceStatus == true ? "Served" : "")),
                 const DataCell(const Text('....')),
               ],
             );

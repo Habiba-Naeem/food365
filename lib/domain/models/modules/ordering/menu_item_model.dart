@@ -53,6 +53,7 @@ class MenuItemModel {
         "description": description,
         "price": price,
         "imagePath": imagePath,
+        "time": time
       };
 }
 

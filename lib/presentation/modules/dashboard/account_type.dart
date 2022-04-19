@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:food365/presentation/modules/Inventory/admin_screen.dart';
+import 'package:food365/presentation/modules/admin/admin_screen.dart';
 import 'package:food365/presentation/modules/KitchenStaff/cook_screen.dart';
 import 'package:food365/presentation/modules/ordering/menu/menu_screen.dart';
 import 'package:food365/presentation/modules/staff/waiter/waiter_dashboard.dart';

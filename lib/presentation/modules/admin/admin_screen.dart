@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:food365/presentation/modules/Inventory/addProduct.dart';
-import 'package:food365/presentation/modules/Inventory/manage_inventory.dart';
+import 'add_product/addProduct.dart';
+import 'edit_product/editproduct_screen.dart';
+import 'inventory/manage_inventory.dart';
 
 
 class AdminScreen extends StatelessWidget {
@@ -38,7 +39,9 @@ class AdminScreen extends StatelessWidget {
             ),
             color: Colors.tealAccent,
             textColor: Colors.white,
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) => EditProductScreen()));
+            },
           ),
         ),
         Container(

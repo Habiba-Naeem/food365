@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider.value(value: CartModel()),
         FutureProvider<List<MenuItemModel>>.value(value: MenuService().getMenuItems()),
-        FutureProvider<List<OrderModel>>.value(value: OrderService().getAllOrders())
+       // FutureProvider<List<OrderModel>>.value(value: OrderService().getAllOrders())
       ],
       child: MaterialApp(
         title: 'Flutter Demo',

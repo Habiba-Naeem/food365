@@ -85,7 +85,8 @@ class MenuItems extends StatelessWidget {
         crossAxisCount: 2,
         physics: const BouncingScrollPhysics(),
         children: [
-          ...newmenuItems.map((e) => FutureBuilder(
+          ...newmenuItems.map(
+            (e) => FutureBuilder(
               future: MenuService().getMenuItems(),
               builder: (context, snapshot) {
                 return snapshot.hasData
@@ -93,7 +94,9 @@ class MenuItems extends StatelessWidget {
                         menuItem: e,
                       )
                     : Loading();
-              }))
+              },
+            ),
+          )
         ],
       ),
     );

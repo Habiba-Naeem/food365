@@ -8,7 +8,7 @@ import 'package:http/http.dart' as http;
 import '../models/modules/ordering/cart_item.dart';
 
 var httpClient = http.Client();
-const baseURL = "https://food365-afac9-default-rtdb.firebaseio.com/";
+const baseURL = "https://food365-9018b-default-rtdb.firebaseio.com/";
 const ordersURL = "/Orders";
 const jsonVariable = '.json';
 
@@ -69,20 +69,21 @@ class OrderService {
     required totalPrice,
     required List<CartItem> items,
   }) async {
-    List<OrderItem> orderItems = items
-        .map((item) => OrderItem(
-              menuItemID: item.menuItemID,
-              quantity: item.quantity,
-            ))
-        .toList();
-
+    List<OrderItem> orderItems = items.map((item) {
+      print("In order placement");
+      print(item.menuName);
+      return OrderItem(
+        menuItemID: item.menuItemID,
+        menuName: item.menuName,
+        quantity: item.quantity,
+      );
+    }).toList();
     OrderModel order = OrderModel.postOrder(
       createdAt: DateTime.now(),
       updatedAt: DateTime.now(),
       totalPrice: totalPrice,
       items: orderItems,
     );
-    
     var response = await httpClient.post(
         Uri.parse(baseURL + ordersURL + jsonVariable),
         body: jsonEncode(order.toJson()));
@@ -92,8 +93,6 @@ class OrderService {
     required OrderModel order,
   }) async {
     order.cookingStatus = true;
-    print(order.orderID);
-    print(order.cookingStatus);
     var response = await httpClient.patch(
         Uri.parse(baseURL +
             ordersURL +
@@ -101,14 +100,12 @@ class OrderService {
             order.orderID.toString() +
             jsonVariable),
         body: jsonEncode(order.toJson()));
-    print(response.statusCode);
   }
 
   updateReadyStatus({
     required OrderModel order,
   }) async {
     order.readyStatus = true;
-
     var response = await httpClient.patch(
         Uri.parse(baseURL +
             ordersURL +
@@ -116,6 +113,45 @@ class OrderService {
             order.orderID.toString() +
             jsonVariable),
         body: jsonEncode(order.toJson()));
-    print(response.statusCode);
+  }
+
+  updateOrderItemCookingStatus({
+    required int id,
+    required OrderItem orderItem,
+    required String orderID,
+  }) async {
+    orderItem.cookingStatus = true;
+
+    var response = await httpClient.patch(
+        Uri.parse(baseURL +
+            ordersURL +
+            "/" +
+            orderID.toString() +
+            "/" +
+            "items" +
+            "/"+
+            id.toString() +
+            jsonVariable),
+        body: jsonEncode(orderItem.toJson()));
+  }
+  
+  updateOrderItemReadyStatus({
+    required int id,
+    required OrderItem orderItem,
+    required String orderID,
+  }) async {
+    orderItem.readyStatus = true;
+
+    var response = await httpClient.patch(
+        Uri.parse(baseURL +
+            ordersURL +
+            "/" +
+            orderID.toString() +
+            "/" +
+            "items" +
+            "/"+
+            id.toString() +
+            jsonVariable),
+        body: jsonEncode(orderItem.toJson()));
   }
 }
