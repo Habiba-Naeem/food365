@@ -4,21 +4,22 @@ import 'package:food365/domain/models/modules/ordering/menu_item_model.dart';
 import 'package:http/http.dart' as http;
 
 var httpClient = http.Client();
-const baseURL = "https://food365-9018b-default-rtdb.firebaseio.com/";
+const baseURL = "https://food365-89950-default-rtdb.firebaseio.com/";
 const categoriesURL = "/Categories";
 const menuURL = "/MenuItems";
 const jsonVariable = '.json';
 
 class MenuService {
   Future<List<mycat.Category>> getCategories() async {
-    var response =
-        await httpClient.get(Uri.parse(baseURL + categoriesURL + jsonVariable));
+    var response = await httpClient.get(
+      Uri.parse(baseURL + categoriesURL + jsonVariable),
+    );
 
     Map<String, dynamic> data =
         jsonDecode(response.body) as Map<String, dynamic>;
 
     List<mycat.Category> categories = data.entries.map((e) {
-      print(e);
+      // print(e);
       // if(e.value['name'] == "Deserts"){
       //    postMenuItem(
       //   categoryID: e.key,
@@ -62,7 +63,9 @@ class MenuService {
     return menuItems;
   }
 
-  Future<MenuItemModel> getMenuItem({required menuItemID}) async {
+  Future<MenuItemModel> getMenuItem({
+    required menuItemID,
+  }) async {
     var response = await httpClient.get(Uri.parse(
         baseURL + menuURL + '/' + menuItemID.toString() + jsonVariable));
     Map<String, dynamic> data =
@@ -85,15 +88,11 @@ class MenuService {
   //       body: jsonEncode(order.toJson()));
   //   print(response.statusCode);
   // }
-  updateMenuItem({
-    required MenuItemModel item
-  }) async {
-   
-    
+  updateMenuItem({required MenuItemModel item}) async {
     var response = await httpClient.patch(
-      Uri.parse(baseURL + menuURL + '/' + item.itemID.toString() + jsonVariable),
-      body: jsonEncode(item.toJson())
-    );
+        Uri.parse(
+            baseURL + menuURL + '/' + item.itemID.toString() + jsonVariable),
+        body: jsonEncode(item.toJson()));
     print(jsonDecode(response.body));
   }
 
@@ -106,12 +105,13 @@ class MenuService {
     required String imagePath,
   }) async {
     MenuItemModel menuItem = MenuItemModel.postMenu(
-        categoryID: categoryID,
-        name: name,
-        description: description,
-        price: price,
-        time: time,
-        imagePath: 'assets/images/menu_items/salad.png');
+      categoryID: categoryID,
+      name: name,
+      description: description,
+      price: price,
+      time: time,
+      imagePath: 'assets/images/menu_items/salad.png',
+    );
 
     var response = await httpClient.post(
         Uri.parse(baseURL + menuURL + jsonVariable),

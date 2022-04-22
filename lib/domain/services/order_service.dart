@@ -8,7 +8,7 @@ import 'package:http/http.dart' as http;
 import '../models/modules/ordering/cart_item.dart';
 
 var httpClient = http.Client();
-const baseURL = "https://food365-9018b-default-rtdb.firebaseio.com/";
+const baseURL = "https://food365-89950-default-rtdb.firebaseio.com/";
 const ordersURL = "/Orders";
 const jsonVariable = '.json';
 
@@ -72,7 +72,7 @@ class OrderService {
     List<OrderItem> orderItems = items.map((item) {
       print("In order placement");
       print(item.menuName);
-      return OrderItem(
+      return OrderItem.postOrderItem(
         menuItemID: item.menuItemID,
         menuName: item.menuName,
         quantity: item.quantity,
@@ -129,12 +129,12 @@ class OrderService {
             orderID.toString() +
             "/" +
             "items" +
-            "/"+
+            "/" +
             id.toString() +
             jsonVariable),
         body: jsonEncode(orderItem.toJson()));
   }
-  
+
   updateOrderItemReadyStatus({
     required int id,
     required OrderItem orderItem,
@@ -149,7 +149,27 @@ class OrderService {
             orderID.toString() +
             "/" +
             "items" +
-            "/"+
+            "/" +
+            id.toString() +
+            jsonVariable),
+        body: jsonEncode(orderItem.toJson()));
+  }
+
+  updateOrderItemServiceStatus({
+    required int id,
+    required OrderItem orderItem,
+    required String orderID,
+  }) async {
+    orderItem.serviceStatus = true;
+
+    var response = await httpClient.patch(
+        Uri.parse(baseURL +
+            ordersURL +
+            "/" +
+            orderID.toString() +
+            "/" +
+            "items" +
+            "/" +
             id.toString() +
             jsonVariable),
         body: jsonEncode(orderItem.toJson()));

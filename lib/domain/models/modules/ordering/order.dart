@@ -41,6 +41,10 @@ class OrderModel extends ChangeNotifier {
     print(json);
     List<OrderItem> orderItems = json['items']
         .map<OrderItem>((item) => OrderItem(
+              //orderItemID: index,
+              cookingStatus: item['cookingStatus'],
+              readyStatus: item['readyStatus'],
+              serviceStatus: item['serviceStatus'],
               menuItemID: item['menuItemID'],
               menuName: item['menuName'],
               quantity: item['quantity'],
