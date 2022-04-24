@@ -10,8 +10,10 @@ class MenuItemModel {
   String name;
   String description;
   double price;
-  double time;
+  Duration time;
+  //double time;
   String imagePath;
+
   MenuItemModel({
     required this.itemID,
     required this.categoryID,

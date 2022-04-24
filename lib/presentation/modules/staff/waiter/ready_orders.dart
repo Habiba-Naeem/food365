@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:food365/domain/models/modules/ordering/order.dart';
 import 'package:food365/domain/services/order_service.dart';
 import 'package:food365/presentation/modules/KitchenStaff/items_modal.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
-
-import '../../../domain/models/modules/ordering/order.dart';
 
 class ReadyOrders extends StatelessWidget {
   showReadyItems(context, orderID, orderItems) {

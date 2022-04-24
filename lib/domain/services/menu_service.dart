@@ -19,15 +19,6 @@ class MenuService {
         jsonDecode(response.body) as Map<String, dynamic>;
 
     List<mycat.Category> categories = data.entries.map((e) {
-      // print(e);
-      // if(e.value['name'] == "Deserts"){
-      //    postMenuItem(
-      //   categoryID: e.key,
-      //   name: menuItems[0].name,
-      //   description: menuItems[0].description,
-      //   price: menuItems[0].price,
-      //   imagePath: menuItems[0].imagePath);
-      // }
       return mycat.Category.fromJson(json: e.value, key: e.key);
     }).toList();
 
@@ -52,14 +43,14 @@ class MenuService {
   Future<List<MenuItemModel>> getMenuItems() async {
     var response =
         await httpClient.get(Uri.parse(baseURL + menuURL + jsonVariable));
-
+    print(response.statusCode);
     Map<String, dynamic> data =
         jsonDecode(response.body) as Map<String, dynamic>;
 
     List<MenuItemModel> menuItems = data.entries
         .map((e) => MenuItemModel.fromJson(json: e.value, key: e.key))
         .toList();
-    print(menuItems);
+        
     return menuItems;
   }
 
@@ -73,21 +64,6 @@ class MenuService {
     return data.values.first;
   }
 
-  // updateCookingStatus({
-  //   required OrderModel order,
-  // }) async {
-  //   order.cookingStatus = true;
-  //   print(order.orderID);
-  //   print(order.cookingStatus);
-  //   var response = await httpClient.patch(
-  //       Uri.parse(baseURL +
-  //           ordersURL +
-  //           "/" +
-  //           order.orderID.toString() +
-  //           jsonVariable),
-  //       body: jsonEncode(order.toJson()));
-  //   print(response.statusCode);
-  // }
   updateMenuItem({required MenuItemModel item}) async {
     var response = await httpClient.patch(
         Uri.parse(
@@ -118,45 +94,4 @@ class MenuService {
         body: jsonEncode(menuItem.toJson()));
     return response.statusCode;
   }
-
-  getMenu() async {
-    List<mycat.Category> categories = await getCategories();
-    List<MenuItemModel> menu = await getMenuItems();
-  }
 }
-
-
- // menuItems.forEach((item, {index = 0}) {
-      //   if (e.value['name'] == mycat.categories[0].name) {
-      //     updateMenuItem(
-      //         orderBy: e.key,
-      //         itemID: item.itemID,
-      //         name: appetizers[index]['name'],
-      //         description: appetizers[index]['description'],
-      //         price: appetizers[index]['price'],
-      //         imagePath: appetizers[index]['imagePath']);
-      //   }
-      //   //index++;
-      // });
-
-
-//   List appetizers = [
-//   {
-//     "name": "Crackers",
-//     "description": "Sharp crackers",
-//     "price": 10.2,
-//     "imagePath": 'assets/images/menu_items/boiled_eggs.png',
-//   },
-//   {
-//     "name": "Soup",
-//     "description": "Spicy chicken soup",
-//     "price": 14.2,
-//     "imagePath": 'assets/images/menu_items/boiled_eggs.png',
-//   },
-//   {
-//     "name": "WonTons",
-//     "description": "Fried wontons",
-//     "price": 5.2,
-//     "imagePath": 'assets/images/menu_items/boiled_eggs.png',
-//   }
-// ];

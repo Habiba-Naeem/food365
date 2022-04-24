@@ -27,6 +27,24 @@ class OrderModel extends ChangeNotifier {
 
   List<OrderItem> get allOrderItems => items;
 
+  int get pendingItems {
+    final allItems = allOrderItems;
+    notifyListeners();
+    return allItems.where((element) => element.cookingStatus == false).length;
+  }
+
+  int get readyItems {
+    final allItems = allOrderItems;
+    notifyListeners();
+    return allItems.where((element) => element.cookingStatus == true).length;
+  }
+
+  int get servedItems {
+    final allItems = allOrderItems;
+    notifyListeners();
+    return allItems.where((element) => element.cookingStatus == true).length;
+  }
+
   OrderModel.postOrder({
     required this.createdAt,
     required this.updatedAt,

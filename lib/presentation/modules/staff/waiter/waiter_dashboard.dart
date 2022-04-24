@@ -1,5 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:food365/presentation/modules/staff/waiter/side_drawer.dart';
+import 'package:food365/domain/models/modules/ordering/order.dart';
+import 'package:food365/domain/services/order_service.dart';
+import 'package:provider/provider.dart';
+
+import '../../../shared/loading.dart';
+import 'CurrentOrders.dart';
+import 'ServedOrders.dart';
+import 'all_orders.dart';
+import 'ready_orders.dart';
 
 class WaiterDashboard extends StatelessWidget {
   static const String id = 'waiter dashboard';
@@ -7,51 +15,47 @@ class WaiterDashboard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
+    return DefaultTabController(
+      length: 4,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text("Waiter"),
+          backgroundColor: Colors.teal,
+          title: Text('Kitchen'),
+          bottom: TabBar(
+            tabs: [
+              Tab(icon: Icon(Icons.fastfood), text: "All Orders"),
+              Tab(icon: Icon(Icons.add_alert), text: "Current Orders"),
+               Tab(icon: Icon(Icons.add_alert), text: "Ready Orders"),
+              Tab(icon: Icon(Icons.fastfood_rounded), text: "Orders Served")
+            ],
+          ),
         ),
-        drawer: const CustomSideDrawer(),
-        body: Column(
+        body: TabBarView(
           children: [
-            const Text(
-              "Current Orders",
-              style: TextStyle(fontSize: 32),
+            FutureProvider<List<OrderModel>>.value(
+              initialData: [],
+              value: OrderService().getAllOrders(),
+              child: AllOrders(),
             ),
-            const SizedBox(
-              height: 16,
+            FutureProvider<List<OrderModel>>.value(
+              initialData: [],
+              value: OrderService().getCurrentOrders(),
+              child: CurrentOrders(),
             ),
-            Table(
-              // defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-              children: const <TableRow>[
-                TableRow(
-                  children: <Widget>[
-                    Center(
-                      child: TableCell(
-                        child: Text("Order No"),
-                      ),
-                    ),
-                    Center(
-                      child: TableCell(
-                        child: Text("Table No"),
-                      ),
-                    ),
-                    Center(
-                      child: TableCell(
-                        child: Text("Expected Waiting Time"),
-                      ),
-                    ),
-                  ],
-                ),
-                TableRow(
-                  children: <Widget>[
-                    Center(child: Text("1")),
-                    Center(child: Text("4")),
-                    Center(child: Text("15 min")),
-                  ],
-                ),
-              ],
+            FutureProvider<List<OrderModel>>.value(
+              initialData: [],
+              value: OrderService().getReadyOrders(),
+              child: FutureBuilder(
+                future: OrderService().getReadyOrders(),
+                builder: (context, snapshot) {
+                  return snapshot.hasData ? ReadyOrders() : Loading();
+                }
+              ),
+            ),
+            FutureProvider<List<OrderModel>>.value(
+              initialData: [],
+              value: OrderService().getServedOrders(),
+              child: ServedOrders(),
             ),
           ],
         ),

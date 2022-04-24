@@ -29,13 +29,15 @@ class OrderService {
   Future<List<OrderModel>> getServedOrders() async {
     List<OrderModel> servedOrders = [];
     List<OrderModel> orders = await getAllOrders();
-
-    orders.forEach((order) {
-      if (order.serviceStatus == true) {
-        servedOrders.add(order);
-      }
-    });
-
+    orders.forEach(
+      (order) {
+        bool orderbool = order.allOrderItems
+            .any((element) => element.serviceStatus == true);
+        if (orderbool) {
+          servedOrders.add(order);
+        }
+      },
+    );
     return servedOrders;
   }
 
@@ -44,7 +46,9 @@ class OrderService {
     List<OrderModel> orders = await getAllOrders();
     orders.forEach(
       (order) {
-        if (order.cookingStatus == false) {
+        bool orderbool = order.allOrderItems
+            .any((element) => element.cookingStatus == false);
+        if (orderbool) {
           currentOrders.add(order);
         }
       },
@@ -57,7 +61,9 @@ class OrderService {
     List<OrderModel> orders = await getAllOrders();
     orders.forEach(
       (order) {
-        if (order.readyStatus == false) {
+        bool orderbool =
+            order.allOrderItems.any((element) => element.readyStatus == true);
+        if (orderbool) {
           readyOrders.add(order);
         }
       },
