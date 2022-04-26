@@ -1,5 +1,13 @@
 import 'package:flutter/material.dart';
 
+const String success = "Success";
+const String noInternet = "No internet connection";
+const String somethingWentWrong = "Something went wrong. Try again later.";
+const String databaseNotFound =
+    "The database you were finding does not exists. Try again later.";
+const String serviceUnavialable =
+    "Service temporarily unavailable. Try again later.";
+
 //color
 Color mainColor = Color(0xFF004D40); //Color.fromARGB(255, 255, 217, 0);
 

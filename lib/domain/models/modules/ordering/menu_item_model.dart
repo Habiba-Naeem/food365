@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:duration/duration.dart';
 import 'package:flutter/material.dart';
 
 import 'package:food365/domain/models/modules/ordering/category.dart' as mycat;
@@ -43,7 +44,7 @@ class MenuItemModel {
       name: json['name'],
       description: json['description'],
       price: json['price'],
-      time: json['time'],
+      time: parseTime(json['time']) ,
       imagePath: json['imagePath'],
     );
   }
@@ -55,7 +56,7 @@ class MenuItemModel {
         "description": description,
         "price": price,
         "imagePath": imagePath,
-        "time": time
+        "time": time.toString()
       };
 }
 
@@ -125,3 +126,4 @@ class MenuItemModel {
 //     itemID: '',
 //   ),
 // ];
+    

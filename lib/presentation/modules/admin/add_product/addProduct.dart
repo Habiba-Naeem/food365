@@ -1,10 +1,11 @@
 import 'dart:io';
 
+import 'package:duration/duration.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_picker/Picker.dart';
 import 'package:food365/domain/models/modules/ordering/category.dart';
 import 'package:food365/domain/services/menu_service.dart';
-import 'package:food365/presentation/shared/custom_text_form_field.dart';
-import 'package:food365/presentation/shared/loading.dart';
+import 'package:food365/utils/shared/loading.dart';
 import 'package:image_picker/image_picker.dart';
 
 class AddProductScreen extends StatelessWidget {
@@ -41,7 +42,7 @@ class _AddProductFormState extends State<AddProductForm> {
   String name = '';
   String description = '';
   double price = 0;
-  double time = 0;
+  Duration time = Duration(minutes: 0);
   bool loading = false;
 
   Future getImageCamera() async {
@@ -192,7 +193,6 @@ class _AddProductFormState extends State<AddProductForm> {
           const SizedBox(
             height: 16,
           ),
-          
           TextFormField(
             cursorColor: Colors.orange[200],
             keyboardType: TextInputType.number,
@@ -212,23 +212,105 @@ class _AddProductFormState extends State<AddProductForm> {
           const SizedBox(
             height: 16,
           ),
-          TextFormField(
-            cursorColor: Colors.orange[200],
-            keyboardType: TextInputType.number,
-            onChanged: (val) =>
-                setState(() => time = double.tryParse(val) ?? 0),
-            decoration: InputDecoration(
-              labelText: "Cooking Time",
-              fillColor: const Color.fromARGB(255, 127, 228, 218),
-              filled: true,
-              //prefixText: "In minutes",
-              prefixIcon:
-                  Icon(Icons.timer, color: Colors.orange[200], size: 20),
-              border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(30.0),
-                  borderSide: BorderSide.none),
+          TextButton(
+            child: Container(
+              alignment: Alignment.center,
+              height: 50.0,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Row(
+                    children: <Widget>[
+                      Container(
+                        child: Row(
+                          children: <Widget>[
+                            Icon(
+                              Icons.timer,
+                              size: 18.0,
+                              color: Colors.teal,
+                            ),
+                            Text(
+                              "${printDuration(time)}",
+                              style: TextStyle(
+                                  color: Colors.teal,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18.0),
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                  Text(
+                    "  Change",
+                    style: TextStyle(
+                        color: Colors.teal,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18.0),
+                  ),
+                ],
+              ),
             ),
-          ),
+            onPressed: () {
+              Picker(
+                adapter: NumberPickerAdapter(
+                  data: <NumberPickerColumn>[
+                    const NumberPickerColumn(
+                      begin: 0,
+                      end: 999,
+                      suffix: Text(' hrs'),
+                    ),
+                    const NumberPickerColumn(
+                      begin: 0,
+                      end: 60,
+                      suffix: Text('min'),
+                    ),
+                  ],
+                ),
+                delimiter: <PickerDelimiter>[
+                  PickerDelimiter(
+                    child: Container(
+                      width: 30.0,
+                      alignment: Alignment.center,
+                      child: Icon(Icons.more_vert),
+                    ),
+                  ),
+                ],
+                hideHeader: true,
+                confirmText: 'OK',
+                confirmTextStyle:
+                    TextStyle(inherit: false, color: Colors.red, fontSize: 22),
+                title: const Text('Select duration'),
+                selectedTextStyle: TextStyle(color: Colors.blue),
+                onConfirm: (Picker picker, List<int> value) {
+                  // You get your duration here
+                  setState(() {
+                    time = Duration(
+                        hours: picker.getSelectedValues()[0],
+                        minutes: picker.getSelectedValues()[1]);
+                  });
+                },
+              ).showDialog(context);
+            },
+          )
+          // TextFormField(
+          //   cursorColor: Colors.orange[200],
+          //   keyboardType: TextInputType.number,
+          //   onChanged: (val) =>
+          //       setState(() => time = double.tryParse(val) ?? 0),
+          //   decoration: InputDecoration(
+          //     labelText: "Cooking Time",
+          //     fillColor: const Color.fromARGB(255, 127, 228, 218),
+          //     filled: true,
+          //     //prefixText: "In minutes",
+          //     prefixIcon:
+          //         Icon(Icons.timer, color: Colors.orange[200], size: 20),
+          //     border: OutlineInputBorder(
+          //         borderRadius: BorderRadius.circular(30.0),
+          //         borderSide: BorderSide.none),
+          //   ),
+          // )
+          ,
           const SizedBox(
             height: 16,
           ),
@@ -240,7 +322,7 @@ class _AddProductFormState extends State<AddProductForm> {
                   description: description,
                   imagePath: imagePath,
                   name: name,
-                  price: price, 
+                  price: price,
                   time: time);
             },
             child: Container(

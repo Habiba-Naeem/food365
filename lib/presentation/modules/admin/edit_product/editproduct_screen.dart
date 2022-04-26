@@ -7,13 +7,9 @@ import 'package:food365/domain/models/modules/ordering/menu_item_model.dart';
 import 'package:food365/presentation/modules/admin/edit_product/edit_product_item.dart';
 import 'package:food365/presentation/modules/ordering/cart/cart_screen.dart';
 import 'package:food365/presentation/modules/ordering/menu/menu_item.dart';
-import 'package:food365/presentation/shared/custom_appbar.dart';
-import 'package:food365/presentation/shared/custom_bottom_nav_bar.dart';
-import 'package:food365/presentation/shared/customsidedrawer.dart';
-import 'package:food365/presentation/shared/loading.dart';
-import 'package:food365/presentation/utils/constants.dart';
-
 import 'package:food365/domain/services/menu_service.dart';
+import 'package:food365/utils/shared/custom_appbar.dart';
+import 'package:food365/utils/shared/loading.dart';
 import 'package:provider/provider.dart';
 
 class EditProductScreen extends StatelessWidget {

@@ -8,7 +8,6 @@ import 'package:provider/provider.dart';
 import 'package:food365/domain/models/modules/ordering/menu_item_model.dart';
 import 'package:food365/domain/models/modules/ordering/order.dart';
 import 'package:food365/domain/services/order_service.dart';
-import 'package:food365/presentation/shared/loading.dart';
 
 class CurrentOrders extends StatelessWidget {
   showCurrentItems(context, orderID, orderItems) {

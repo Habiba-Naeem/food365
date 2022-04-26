@@ -122,7 +122,7 @@ class MenuItemImage extends StatelessWidget {
 
 class MenuItemName extends StatelessWidget {
   final String name;
-  final double time;
+  final Duration time;
   const MenuItemName({
     Key? key,
     required this.name,

@@ -5,7 +5,7 @@ import 'package:food365/presentation/modules/KitchenStaff/CurrentOrders.dart';
 import 'package:food365/presentation/modules/KitchenStaff/ServedOrders.dart';
 import 'package:food365/presentation/modules/KitchenStaff/all_orders.dart';
 import 'package:food365/presentation/modules/KitchenStaff/ready_orders.dart';
-import 'package:food365/presentation/shared/loading.dart';
+import 'package:food365/utils/shared/loading.dart';
 import 'package:provider/provider.dart';
 
 class CookScreen extends StatelessWidget {

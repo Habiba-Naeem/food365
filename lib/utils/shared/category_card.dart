@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:food365/domain/models/modules/ordering/category.dart';
-import 'package:food365/presentation/utils/constants.dart';
 
 class CategoryChoiceChip extends StatelessWidget {
   final Category category;

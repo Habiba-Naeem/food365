@@ -1,8 +1,12 @@
 import 'dart:convert';
+import 'dart:io';
+import 'package:food365/domain/models/modules/ordering/api_response.dart';
 import 'package:food365/domain/models/modules/ordering/category.dart' as mycat;
 import 'package:food365/domain/models/modules/ordering/menu_item_model.dart';
 import 'package:food365/domain/models/modules/ordering/order.dart';
 import 'package:food365/domain/models/modules/ordering/order_item.dart';
+import 'package:food365/utils/constants.dart';
+import 'package:food365/utils/exceptions.dart';
 import 'package:http/http.dart' as http;
 
 import '../models/modules/ordering/cart_item.dart';
@@ -31,8 +35,8 @@ class OrderService {
     List<OrderModel> orders = await getAllOrders();
     orders.forEach(
       (order) {
-        bool orderbool = order.allOrderItems
-            .any((element) => element.serviceStatus == true);
+        bool orderbool =
+            order.allOrderItems.any((element) => element.serviceStatus == true);
         if (orderbool) {
           servedOrders.add(order);
         }
@@ -75,24 +79,34 @@ class OrderService {
     required totalPrice,
     required List<CartItem> items,
   }) async {
-    List<OrderItem> orderItems = items.map((item) {
-      print("In order placement");
-      print(item.menuName);
-      return OrderItem.postOrderItem(
-        menuItemID: item.menuItemID,
-        menuName: item.menuName,
-        quantity: item.quantity,
+    try {
+      List<OrderItem> orderItems = items.map((item) {
+        return OrderItem.postOrderItem(
+          menuItemID: item.menuItemID,
+          menuName: item.menuName,
+          quantity: item.quantity,
+        );
+      }).toList();
+      OrderModel order = OrderModel.postOrder(
+        createdAt: DateTime.now(),
+        updatedAt: DateTime.now(),
+        totalPrice: totalPrice,
+        items: orderItems,
       );
-    }).toList();
-    OrderModel order = OrderModel.postOrder(
-      createdAt: DateTime.now(),
-      updatedAt: DateTime.now(),
-      totalPrice: totalPrice,
-      items: orderItems,
-    );
-    var response = await httpClient.post(
-        Uri.parse(baseURL + ordersURL + jsonVariable),
-        body: jsonEncode(order.toJson()));
+
+      var response = await httpClient.post(
+          Uri.parse(baseURL + ordersURL + jsonVariable),
+          body: jsonEncode(order.toJson()));
+      print(response.statusCode);
+      var parsedResponse = ApiResponse.fromJson(response.statusCode);
+
+      if (response.statusCode == 200) {
+        return success;
+      }
+      throw parsedResponse.returnException();
+    } on SocketException catch (e) {
+      return noInternet;
+    }
   }
 
   updateCookingStatus({

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food365/domain/models/modules/ordering/category.dart';
-import 'package:food365/presentation/shared/category_card.dart';
-import 'package:food365/presentation/utils/constants.dart';
-
+import 'package:food365/utils/constants.dart';
+import 'package:food365/utils/shared/category_card.dart';
 //THE DRAWRER ITEMS IN MENU WILL BE POPULATED FROM THE DATABASE
 //MAKE SEPARATE CYSTOM DRAWER FOR STAFF OR NOT?
 
