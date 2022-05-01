@@ -4,13 +4,13 @@ import 'package:food365/domain/models/modules/ordering/cart_model.dart';
 import 'package:food365/domain/models/modules/ordering/menu_item_model.dart';
 import 'package:food365/presentation/modules/ordering/cart/cart_screen.dart';
 import 'package:food365/presentation/modules/ordering/menu/menu_item.dart';
-import 'package:food365/presentation/shared/custom_appbar.dart';
-import 'package:food365/presentation/shared/custom_bottom_nav_bar.dart';
-import 'package:food365/presentation/shared/customsidedrawer.dart';
-import 'package:food365/presentation/shared/loading.dart';
-import 'package:food365/presentation/utils/constants.dart';
 
 import 'package:food365/domain/services/menu_service.dart';
+import 'package:food365/utils/constants.dart';
+import 'package:food365/utils/shared/custom_appbar.dart';
+import 'package:food365/utils/shared/custom_bottom_nav_bar.dart';
+import 'package:food365/utils/shared/customsidedrawer.dart';
+import 'package:food365/utils/shared/loading.dart';
 import 'package:provider/provider.dart';
 import 'menu_item.dart' as menuIemWidget;
 

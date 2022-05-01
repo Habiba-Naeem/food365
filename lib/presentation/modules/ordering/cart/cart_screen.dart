@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:food365/domain/models/modules/ordering/cart_model.dart';
 import 'package:food365/presentation/modules/ordering/cart/cart_item.dart';
-import 'package:food365/presentation/modules/ordering/checkout/checkout_screen.dart';
-import 'package:food365/presentation/shared/custom_appbar.dart';
-import 'package:food365/presentation/shared/custom_bottom_nav_bar.dart';
-import 'package:food365/presentation/utils/constants.dart';
+import 'package:food365/presentation/modules/ordering/checkout/views/checkout_screen.dart';
+import 'package:food365/utils/constants.dart';
+import 'package:food365/utils/shared/custom_appbar.dart';
+import 'package:food365/utils/shared/custom_bottom_nav_bar.dart';
 import 'package:provider/provider.dart';
 
 class CartScreen extends StatelessWidget {

@@ -3,7 +3,8 @@ import 'package:food365/presentation/modules/admin/admin_screen.dart';
 import 'package:food365/presentation/modules/KitchenStaff/cook_screen.dart';
 import 'package:food365/presentation/modules/ordering/menu/menu_screen.dart';
 import 'package:food365/presentation/modules/staff/waiter/waiter_dashboard.dart';
-import 'package:food365/presentation/utils/constants.dart';
+import 'package:food365/utils/constants.dart';
+
 
 class AccountType extends StatelessWidget {
   static const String id = 'account type';

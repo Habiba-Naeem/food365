@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:food365/domain/models/modules/ordering/order.dart';
 import 'package:food365/domain/services/order_service.dart';
+import 'package:food365/utils/shared/loading.dart';
 import 'package:provider/provider.dart';
 
-import '../../../shared/loading.dart';
 import 'CurrentOrders.dart';
 import 'ServedOrders.dart';
 import 'all_orders.dart';

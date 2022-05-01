@@ -5,7 +5,6 @@ import 'package:toggle_switch/toggle_switch.dart';
 
 import 'package:food365/domain/models/modules/ordering/order_item.dart';
 import 'package:food365/domain/services/order_service.dart';
-import 'package:food365/presentation/utils/constants.dart';
 
 class ItemsModal extends StatelessWidget {
   final List<OrderItem> orderItems;

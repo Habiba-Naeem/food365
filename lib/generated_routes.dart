@@ -5,7 +5,8 @@ import 'package:food365/presentation/modules/admin/admin_screen.dart';
 import 'package:food365/presentation/modules/KitchenStaff/cook_screen.dart';
 import 'package:food365/presentation/modules/dashboard/account_type.dart';
 import 'package:food365/presentation/modules/ordering/cart/cart_screen.dart';
-import 'package:food365/presentation/modules/ordering/checkout/checkout_screen.dart';
+import 'package:food365/presentation/modules/ordering/checkout/views/checkout_screen.dart';
+import 'package:food365/presentation/modules/ordering/checkout/views/timer.dart';
 import 'package:food365/presentation/modules/ordering/menu/menu_screen.dart';
 import 'package:food365/presentation/modules/staff/waiter/waiter_dashboard.dart';
 
@@ -32,6 +33,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const CookScreen());
       case AdminScreen.id:
         return MaterialPageRoute(builder: (_) =>  AdminScreen());
+      case MyHomePage.id:
+        return MaterialPageRoute(builder: (_) =>  MyHomePage());
 
       default:
         return _errorRoute();

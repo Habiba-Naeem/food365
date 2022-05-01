@@ -77,7 +77,7 @@ class MenuService {
     required String name,
     required String description,
     required double price,
-    required double time,
+    required Duration time,
     required String imagePath,
   }) async {
     MenuItemModel menuItem = MenuItemModel.postMenu(

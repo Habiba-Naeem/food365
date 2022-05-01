@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:food365/domain/models/modules/ordering/cart_item.dart';
 import 'package:food365/domain/models/modules/ordering/cart_model.dart';
 import 'package:food365/domain/models/modules/ordering/menu_item_model.dart';
-import 'package:food365/presentation/utils/constants.dart';
+import 'package:food365/utils/constants.dart';
 import 'package:provider/provider.dart';
 
 class CartItems extends StatelessWidget {
