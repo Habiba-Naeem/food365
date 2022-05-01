@@ -435,7 +435,7 @@ Row placesWidget(String img, String name) {
           ),
         ),
         InkWell(
-          onTap: openHotelPage,
+          onTap: openNextPage,
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(40)), color: tealBtn),
@@ -449,7 +449,7 @@ Row placesWidget(String img, String name) {
     );
   }
 
-  void openHotelPage() {
+  void openNextPage() {
     // Navigator.push(context, MaterialPageRoute(builder: (context)=>HotelPage()));
   }
 
