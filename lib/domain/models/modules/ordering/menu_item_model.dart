@@ -10,8 +10,8 @@ class MenuItemModel {
   String name;
   String description;
   double price;
-  Duration time;
-  //double time;
+  //Duration time;
+  double time;
   String imagePath;
 
   MenuItemModel({
