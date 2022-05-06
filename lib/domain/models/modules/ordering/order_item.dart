@@ -4,18 +4,35 @@ class OrderItem {
   bool readyStatus = false;
   String menuItemID;
   String menuName;
+  //Duration menuItemTime;
+
   int quantity;
   //int orderItemID;
 
   OrderItem({
+    //required this.orderItemID,
     required this.cookingStatus,
     required this.serviceStatus,
     required this.readyStatus,
     required this.menuItemID,
     required this.menuName,
+    //required this.menuItemTime,
     required this.quantity,
-    //required this.orderItemID,
   });
+
+  factory OrderItem.fromJson({
+    required json
+  }){
+    return OrderItem(
+cookingStatus: json['cookingStatus'],
+              readyStatus: json['readyStatus'],
+              serviceStatus: json['serviceStatus'],
+              menuItemID: json['menuItemID'],
+              menuName: json['menuName'],
+              quantity: json['quantity'],
+
+    );
+}
 
   //factory OrderItem.fromJson(){};
 
@@ -24,6 +41,7 @@ class OrderItem {
     required this.menuItemID,
     required this.menuName,
     required this.quantity,
+   // required this.menuItemTime,
   });
 
   getStatus() {
@@ -49,5 +67,6 @@ class OrderItem {
         "serviceStatus": serviceStatus,
         "readyStatus": readyStatus,
         "quantity": quantity,
+        //"menuItemTime": menuItemTime
       };
 }

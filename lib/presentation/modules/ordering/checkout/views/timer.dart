@@ -1,7 +1,8 @@
-
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:food365/domain/models/modules/ordering/order.dart';
+import 'package:provider/provider.dart';
 
 class MyHomePage extends StatefulWidget {
   static const String id = "Timer";
@@ -19,6 +20,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    var model = Provider.of<OrderModel>(context);
+    print(model);
     return Scaffold(
       appBar: AppBar(
         title: Text("widget.title!"),
