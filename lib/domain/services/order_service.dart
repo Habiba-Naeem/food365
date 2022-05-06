@@ -26,7 +26,7 @@ FirebaseDatabase database = FirebaseDatabase.instance;
 class OrderService {
   getbyRef() async {
     DatabaseReference ref = FirebaseDatabase.instance.ref();
-    final snapshot = await ref.child("Menu").get();
+    final snapshot = await ref.child(ordersURL).get();
     if (snapshot.exists) {
       print(snapshot.value);
     } else {
@@ -44,9 +44,9 @@ class OrderService {
     try {
       //var res = EventSource(baseURL + ordersURL + jsonVariable);
       //print(res);
-      DatabaseReference ref = FirebaseDatabase.instance.ref(ordersURL);
-      DatabaseEvent event = await ref.once();
-      print(ref);
+      // DatabaseReference ref = FirebaseDatabase.instance.ref(ordersURL);
+      // DatabaseEvent event = await ref.once();
+      // print(ref);
       var response = await httpClient.get(
         Uri.parse(baseURL + ordersURL + jsonVariable),
       );
@@ -94,58 +94,58 @@ class OrderService {
     }
   }
 
-  // Future<List<OrderModel>> getServedOrders() async {
-  //   List<OrderModel> servedOrders = [];
-  //   Stream<List<OrderModel>> orders = await getAllOrders();
-  //   orders.forEach(
-  //     (order) {
-  //       bool orderbool =
-  //           order.allOrderItems.any((element) => element.serviceStatus == true);
-  //       if (orderbool) {
-  //         servedOrders.add(order);
-  //       }
-  //     },
-  //   );
-  //   return servedOrders;
-  // }
+  Future<List<OrderModel>> getServedOrders() async {
+    List<OrderModel> servedOrders = [];
+    List<OrderModel> orders = await getAllOrders();
+    orders.forEach(
+      (order) {
+        bool orderbool =
+            order.allOrderItems.any((element) => element.serviceStatus == true);
+        if (orderbool) {
+          servedOrders.add(order);
+        }
+      },
+    );
+    return servedOrders;
+  }
 
-  // Future<List<OrderModel>> getCurrentOrders() async {
-  //   List<OrderModel> currentOrders = [];
-  //   try {
-  //     List<OrderModel> orders = await getAllOrders();
-  //     orders.forEach(
-  //       (order) {
-  //         bool orderbool = order.allOrderItems
-  //             .any((element) => element.cookingStatus == false);
-  //         if (orderbool) {
-  //           currentOrders.add(order);
-  //         }
-  //       },
-  //     );
-  //     return currentOrders;
-  //   } on SocketException catch (e) {
-  //     return currentOrders;
-  //   }
-  // }
+  Future<List<OrderModel>> getCurrentOrders() async {
+    List<OrderModel> currentOrders = [];
+    try {
+      List<OrderModel> orders = await getAllOrders();
+      orders.forEach(
+        (order) {
+          bool orderbool = order.allOrderItems
+              .any((element) => element.cookingStatus == false);
+          if (orderbool) {
+            currentOrders.add(order);
+          }
+        },
+      );
+      return currentOrders;
+    } on SocketException catch (e) {
+      return currentOrders;
+    }
+  }
 
-  // Future<List<OrderModel>> getReadyOrders() async {
-  //   List<OrderModel> readyOrders = [];
-  //   try {
-  //     List<OrderModel> orders = await getAllOrders();
-  //     orders.forEach(
-  //       (order) {
-  //         bool orderbool =
-  //             order.allOrderItems.any((element) => element.readyStatus == true);
-  //         if (orderbool) {
-  //           readyOrders.add(order);
-  //         }
-  //       },
-  //     );
-  //     return readyOrders;
-  //   } on SocketException catch (e) {
-  //     return readyOrders;
-  //   }
-  // }
+  Future<List<OrderModel>> getReadyOrders() async {
+    List<OrderModel> readyOrders = [];
+    try {
+      List<OrderModel> orders = await getAllOrders();
+      orders.forEach(
+        (order) {
+          bool orderbool =
+              order.allOrderItems.any((element) => element.readyStatus == true);
+          if (orderbool) {
+            readyOrders.add(order);
+          }
+        },
+      );
+      return readyOrders;
+    } on SocketException catch (e) {
+      return readyOrders;
+    }
+  }
 
   postOrder({
     required totalPrice,

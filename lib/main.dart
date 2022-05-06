@@ -1,4 +1,3 @@
-
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
@@ -13,12 +12,18 @@ import 'domain/models/modules/ordering/menu_item_model.dart';
 import 'domain/models/modules/ordering/order.dart';
 import 'domain/services/menu_service.dart';
 import 'domain/services/order_service.dart';
+import 'firebase_options.dart';
 import 'generated_routes.dart';
 
 FirebaseDatabase database = FirebaseDatabase.instance;
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    name: "food365",
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -31,22 +36,24 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider.value(value: CartModel()),
-       // ChangeNotifierProvider.value(value: CheckoutController),
-        FutureProvider<List<MenuItemModel>>.value(value: MenuService().getMenuItems()),
-       // FutureProvider<List<OrderModel>>.value(value: OrderService().getAllOrders())
+        // ChangeNotifierProvider.value(value: CheckoutController),
+        FutureProvider<List<MenuItemModel>>.value(
+            value: MenuService().getMenuItems()),
+        // FutureProvider<List<OrderModel>>.value(value: OrderService().getAllOrders())
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
         onGenerateRoute: RouteGenerator.generateRoute,
         //home: MyHomePage(),
         home: FutureBuilder(
-          future: Firebase.initializeApp(),
+          // future: Firebase.initializeApp(
+          //   options: DefaultFirebaseOptions.currentPlatform,
+          // ),
           builder: (context, snapshot) {
-            return snapshot.hasData ? const Wrapper() :  SplashScreenPage();
+            return snapshot.hasData ? const Wrapper() : SplashScreenPage();
           },
         ),
       ),
     );
   }
 }
-

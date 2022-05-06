@@ -1,5 +1,6 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:food365/domain/models/modules/ordering/order.dart';
 import 'package:food365/domain/services/order_service.dart';
 import 'package:food365/presentation/modules/KitchenStaff/items_modal.dart';
 import 'package:loader_overlay/loader_overlay.dart';
@@ -22,10 +23,12 @@ class AllOrders extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //final orders = Provider.of<List<OrderModel>>(context);
     final service = OrderService().getbyRef();
+
     final orders = [];
-    DatabaseReference ref = FirebaseDatabase.instance.ref();
-    final snapshot =  ref.child("Menu").get();
+    // DatabaseReference ref = FirebaseDatabase.instance.ref();
+    // final snapshot =  ref.child("Menu").get();
     // if (snapshot) {
     //   print(snapshot.value);
     // } else {
