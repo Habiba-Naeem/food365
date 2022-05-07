@@ -3,18 +3,12 @@ import 'package:food365/domain/models/modules/ordering/category.dart';
 import 'package:food365/domain/services/menu_service.dart';
 import 'package:food365/presentation/modules/ordering/cart/cart_item.dart';
 import 'package:food365/presentation/modules/ordering/cart/cart_screen.dart';
-import 'package:food365/presentation/shared/category_card.dart';
-import 'package:food365/presentation/shared/custom_appbar.dart';
-import 'package:food365/presentation/shared/custom_bottom_nav_bar.dart';
-import 'package:food365/presentation/shared/customsidedrawer.dart';
-import 'package:food365/presentation/utils/constants.dart';
-import 'package:food365/presentation/style.dart';
-=======
+
 import 'package:food365/utils/shared/category_card.dart';
 import 'package:food365/utils/shared/custom_appbar.dart';
 import 'package:food365/utils/shared/custom_bottom_nav_bar.dart';
 import 'package:food365/utils/shared/customsidedrawer.dart';
->>>>>>> 62522183e9bfff223e77680632778f1ebc21dff6
+import 'package:food365/presentation/style.dart';
 
 //SINCE THE MENU WILL BE CUSTOMIZABLE BY THE ADMIN THEREFORE WE
 //NEED TO FETCH MENU ITEMS FROM DATABASE ONCE THE APPLICATION STARTS
