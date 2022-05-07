@@ -23,10 +23,10 @@ class AllOrders extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //final orders = Provider.of<List<OrderModel>>(context);
-    final service = OrderService().getbyRef();
+    final orders = Provider.of<List<OrderModel>>(context);
+    // final service = OrderService().getbyRef();
 
-    final orders = [];
+    // final orders = [];
     // DatabaseReference ref = FirebaseDatabase.instance.ref();
     // final snapshot =  ref.child("Menu").get();
     // if (snapshot) {
