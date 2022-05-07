@@ -21,13 +21,13 @@ class CookScreen extends StatelessWidget {
           backgroundColor: Colors.teal,
           title: Text('Kitchen'),
           bottom: TabBar(
-              // tabs: [
-              //   Tab(icon: Icon(Icons.fastfood), text: "All Orders"),
-              //   Tab(icon: Icon(Icons.add_alert), text: "Current Orders"),
-              //   Tab(icon: Icon(Icons.add_alert), text: "Ready Orders"),
-              //   Tab(icon: Icon(Icons.fastfood_rounded), text: "Orders Served")
-              // ],
-              ),
+            tabs: [
+              Tab(icon: Icon(Icons.fastfood), text: "All Orders"),
+              Tab(icon: Icon(Icons.add_alert), text: "Current Orders"),
+              Tab(icon: Icon(Icons.add_alert), text: "Ready Orders"),
+              Tab(icon: Icon(Icons.fastfood_rounded), text: "Orders Served")
+            ],
+          ),
         ),
         body: TabBarView(
           children: [
