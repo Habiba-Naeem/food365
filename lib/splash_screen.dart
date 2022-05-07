@@ -39,6 +39,7 @@ class SplashScreenPage extends StatelessWidget {
         textScaleFactor: 5,
         style: const TextStyle(color: Colors.white),
       ),
+      image: Image.asset('assets/images/Food365 (3).png'),
       photoSize: 100.0,
       loaderColor: Colors.white,
     );

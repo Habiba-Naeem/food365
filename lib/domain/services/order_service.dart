@@ -1,33 +1,97 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:food365/domain/models/modules/ordering/api_response.dart';
 import 'package:food365/domain/models/modules/ordering/category.dart' as mycat;
 import 'package:food365/domain/models/modules/ordering/menu_item_model.dart';
 import 'package:food365/domain/models/modules/ordering/order.dart';
 import 'package:food365/domain/models/modules/ordering/order_item.dart';
+import 'package:food365/domain/models/providers/timer_provider.dart';
+import 'package:food365/domain/services/menu_service.dart';
+import 'package:food365/presentation/modules/ordering/menu/menu_screen.dart';
 import 'package:food365/utils/constants.dart';
 import 'package:food365/utils/exceptions.dart';
 import 'package:http/http.dart' as http;
-
+import 'package:provider/provider.dart';
+import 'package:firebase_core/firebase_core.dart';
 import '../models/modules/ordering/cart_item.dart';
 
 var httpClient = http.Client();
 const baseURL = "https://food365-89950-default-rtdb.firebaseio.com/";
-const ordersURL = "/Orders";
+const ordersURL = "Orders";
 const jsonVariable = '.json';
+FirebaseDatabase database = FirebaseDatabase.instance;
+
 
 class OrderService {
+  getbyRef() async {
+    DatabaseReference ref = FirebaseDatabase.instance.ref();
+    final snapshot = await ref.child(ordersURL).get();
+    if (snapshot.exists) {
+      print(snapshot.value);
+    } else {
+      print('No data available.');
+    }
+    // starCountRef.onValue.listen((DatabaseEvent event) {
+    //   final data = event.snapshot.value;
+    //   print(data);
+    // });
+    // print(starCountRef);
+    // return starCountRef;
+  }
+
   Future<List<OrderModel>> getAllOrders() async {
-    var response =
-        await httpClient.get(Uri.parse(baseURL + ordersURL + jsonVariable));
+    try {
+      //var res = EventSource(baseURL + ordersURL + jsonVariable);
+      //print(res);
+      // DatabaseReference ref = FirebaseDatabase.instance.ref(ordersURL);
+      // DatabaseEvent event = await ref.once();
+      // print(ref);
+      var response = await httpClient.get(
+        Uri.parse(baseURL + ordersURL + jsonVariable),
+      );
+      print(response.headers);
+      Map<String, dynamic> data =
+          jsonDecode(response.body) as Map<String, dynamic>;
+      List<OrderModel> orders = data.entries.map((order) {
+        return OrderModel.fromJson(json: order.value, key: order.key);
+      }).toList();
+      var parsedResponse = ApiResponse.fromJson(response.statusCode);
 
-    Map<String, dynamic> data =
-        jsonDecode(response.body) as Map<String, dynamic>;
+      if (response.statusCode == 200) {
+        //TimerProvider(itemTimes: );
 
-    List<OrderModel> orders = data.entries.map((order) {
-      return OrderModel.fromJson(json: order.value, key: order.key);
-    }).toList();
-    return orders;
+        return orders;
+      }
+      throw parsedResponse.returnException();
+    } on SocketException catch (e) {
+      return [];
+    }
+  }
+
+  getOrder({
+    required orderID,
+  }) async {
+    print(orderID);
+    try {
+      var response = await httpClient
+          .get(Uri.parse(baseURL + ordersURL + '/' + orderID + jsonVariable));
+      Map<String, dynamic> data =
+          jsonDecode(response.body) as Map<String, dynamic>;
+      print(data);
+      OrderModel order = OrderModel.fromJson(json: data, key: orderID);
+
+      var parsedResponse = ApiResponse.fromJson(response.statusCode);
+
+      if (response.statusCode == 200) {
+        // return MenuItemModel.fromJson(
+        //     json: data.values.first, key: data.keys.first);
+        return order;
+      }
+      throw parsedResponse.returnException();
+    } on SocketException catch (e) {
+      return;
+    }
   }
 
   Future<List<OrderModel>> getServedOrders() async {
@@ -47,32 +111,40 @@ class OrderService {
 
   Future<List<OrderModel>> getCurrentOrders() async {
     List<OrderModel> currentOrders = [];
-    List<OrderModel> orders = await getAllOrders();
-    orders.forEach(
-      (order) {
-        bool orderbool = order.allOrderItems
-            .any((element) => element.cookingStatus == false);
-        if (orderbool) {
-          currentOrders.add(order);
-        }
-      },
-    );
-    return currentOrders;
+    try {
+      List<OrderModel> orders = await getAllOrders();
+      orders.forEach(
+        (order) {
+          bool orderbool = order.allOrderItems
+              .any((element) => element.cookingStatus == false);
+          if (orderbool) {
+            currentOrders.add(order);
+          }
+        },
+      );
+      return currentOrders;
+    } on SocketException catch (e) {
+      return currentOrders;
+    }
   }
 
   Future<List<OrderModel>> getReadyOrders() async {
     List<OrderModel> readyOrders = [];
-    List<OrderModel> orders = await getAllOrders();
-    orders.forEach(
-      (order) {
-        bool orderbool =
-            order.allOrderItems.any((element) => element.readyStatus == true);
-        if (orderbool) {
-          readyOrders.add(order);
-        }
-      },
-    );
-    return readyOrders;
+    try {
+      List<OrderModel> orders = await getAllOrders();
+      orders.forEach(
+        (order) {
+          bool orderbool =
+              order.allOrderItems.any((element) => element.readyStatus == true);
+          if (orderbool) {
+            readyOrders.add(order);
+          }
+        },
+      );
+      return readyOrders;
+    } on SocketException catch (e) {
+      return readyOrders;
+    }
   }
 
   postOrder({
@@ -87,6 +159,7 @@ class OrderService {
           quantity: item.quantity,
         );
       }).toList();
+
       OrderModel order = OrderModel.postOrder(
         createdAt: DateTime.now(),
         updatedAt: DateTime.now(),
@@ -97,7 +170,36 @@ class OrderService {
       var response = await httpClient.post(
           Uri.parse(baseURL + ordersURL + jsonVariable),
           body: jsonEncode(order.toJson()));
-      print(response.statusCode);
+      Map<String, dynamic> data =
+          jsonDecode(response.body) as Map<String, dynamic>;
+      print(data.values.first);
+      var parsedResponse = ApiResponse.fromJson(response.statusCode);
+
+      if (response.statusCode == 200) {
+        return {
+          "order": data,
+          "orderID": data.values.first,
+          "success": success,
+        };
+      }
+      throw parsedResponse.returnException();
+    } on SocketException catch (e) {
+      return noInternet;
+    }
+  }
+
+  updateCookingStatus({
+    required OrderModel order,
+  }) async {
+    try {
+      order.cookingStatus = true;
+      var response = await httpClient.patch(
+          Uri.parse(baseURL +
+              ordersURL +
+              "/" +
+              order.orderID.toString() +
+              jsonVariable),
+          body: jsonEncode(order.toJson()));
       var parsedResponse = ApiResponse.fromJson(response.statusCode);
 
       if (response.statusCode == 200) {
@@ -109,30 +211,27 @@ class OrderService {
     }
   }
 
-  updateCookingStatus({
-    required OrderModel order,
-  }) async {
-    order.cookingStatus = true;
-    var response = await httpClient.patch(
-        Uri.parse(baseURL +
-            ordersURL +
-            "/" +
-            order.orderID.toString() +
-            jsonVariable),
-        body: jsonEncode(order.toJson()));
-  }
-
   updateReadyStatus({
     required OrderModel order,
   }) async {
-    order.readyStatus = true;
-    var response = await httpClient.patch(
-        Uri.parse(baseURL +
-            ordersURL +
-            "/" +
-            order.orderID.toString() +
-            jsonVariable),
-        body: jsonEncode(order.toJson()));
+    try {
+      order.readyStatus = true;
+      var response = await httpClient.patch(
+          Uri.parse(baseURL +
+              ordersURL +
+              "/" +
+              order.orderID.toString() +
+              jsonVariable),
+          body: jsonEncode(order.toJson()));
+      var parsedResponse = ApiResponse.fromJson(response.statusCode);
+
+      if (response.statusCode == 200) {
+        return success;
+      }
+      throw parsedResponse.returnException();
+    } on SocketException catch (e) {
+      return noInternet;
+    }
   }
 
   updateOrderItemCookingStatus({
@@ -140,19 +239,29 @@ class OrderService {
     required OrderItem orderItem,
     required String orderID,
   }) async {
-    orderItem.cookingStatus = true;
+    try {
+      orderItem.cookingStatus = true;
 
-    var response = await httpClient.patch(
-        Uri.parse(baseURL +
-            ordersURL +
-            "/" +
-            orderID.toString() +
-            "/" +
-            "items" +
-            "/" +
-            id.toString() +
-            jsonVariable),
-        body: jsonEncode(orderItem.toJson()));
+      var response = await httpClient.patch(
+          Uri.parse(baseURL +
+              ordersURL +
+              "/" +
+              orderID.toString() +
+              "/" +
+              "items" +
+              "/" +
+              id.toString() +
+              jsonVariable),
+          body: jsonEncode(orderItem.toJson()));
+      var parsedResponse = ApiResponse.fromJson(response.statusCode);
+
+      if (response.statusCode == 200) {
+        return success;
+      }
+      throw parsedResponse.returnException();
+    } on SocketException catch (e) {
+      return noInternet;
+    }
   }
 
   updateOrderItemReadyStatus({
@@ -160,19 +269,29 @@ class OrderService {
     required OrderItem orderItem,
     required String orderID,
   }) async {
-    orderItem.readyStatus = true;
+    try {
+      orderItem.readyStatus = true;
 
-    var response = await httpClient.patch(
-        Uri.parse(baseURL +
-            ordersURL +
-            "/" +
-            orderID.toString() +
-            "/" +
-            "items" +
-            "/" +
-            id.toString() +
-            jsonVariable),
-        body: jsonEncode(orderItem.toJson()));
+      var response = await httpClient.patch(
+          Uri.parse(baseURL +
+              ordersURL +
+              "/" +
+              orderID.toString() +
+              "/" +
+              "items" +
+              "/" +
+              id.toString() +
+              jsonVariable),
+          body: jsonEncode(orderItem.toJson()));
+      var parsedResponse = ApiResponse.fromJson(response.statusCode);
+
+      if (response.statusCode == 200) {
+        return success;
+      }
+      throw parsedResponse.returnException();
+    } on SocketException catch (e) {
+      return noInternet;
+    }
   }
 
   updateOrderItemServiceStatus({
@@ -180,18 +299,28 @@ class OrderService {
     required OrderItem orderItem,
     required String orderID,
   }) async {
-    orderItem.serviceStatus = true;
+    try {
+      orderItem.serviceStatus = true;
 
-    var response = await httpClient.patch(
-        Uri.parse(baseURL +
-            ordersURL +
-            "/" +
-            orderID.toString() +
-            "/" +
-            "items" +
-            "/" +
-            id.toString() +
-            jsonVariable),
-        body: jsonEncode(orderItem.toJson()));
+      var response = await httpClient.patch(
+          Uri.parse(baseURL +
+              ordersURL +
+              "/" +
+              orderID.toString() +
+              "/" +
+              "items" +
+              "/" +
+              id.toString() +
+              jsonVariable),
+          body: jsonEncode(orderItem.toJson()));
+      var parsedResponse = ApiResponse.fromJson(response.statusCode);
+
+      if (response.statusCode == 200) {
+        return success;
+      }
+      throw parsedResponse.returnException();
+    } on SocketException catch (e) {
+      return noInternet;
+    }
   }
 }

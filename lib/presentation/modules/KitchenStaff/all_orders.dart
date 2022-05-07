@@ -1,17 +1,16 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:food365/domain/models/modules/ordering/order_item.dart';
+import 'package:food365/domain/models/modules/ordering/order.dart';
+import 'package:food365/domain/services/order_service.dart';
 import 'package:food365/presentation/modules/KitchenStaff/items_modal.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
 
-import '../../../domain/models/modules/ordering/order.dart';
-
 class AllOrders extends StatelessWidget {
   showAllItems(context, orderID, orderItems) {
     //final OrderModel order = e;
-    print(orderItems.runtimeType);
-
+    //print(orderItems.runtimeType);
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -24,7 +23,17 @@ class AllOrders extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final orders = Provider.of<List<OrderModel>>(context);
+    //final orders = Provider.of<List<OrderModel>>(context);
+    final service = OrderService().getbyRef();
+
+    final orders = [];
+    // DatabaseReference ref = FirebaseDatabase.instance.ref();
+    // final snapshot =  ref.child("Menu").get();
+    // if (snapshot) {
+    //   print(snapshot.value);
+    // } else {
+    //   print('No data available.');
+    // }
 
     return LoaderOverlay(
       child: DataTable(

@@ -32,21 +32,21 @@ class WaiterDashboard extends StatelessWidget {
         ),
         body: TabBarView(
           children: [
-            FutureProvider<List<OrderModel>>.value(
+            FutureProvider<dynamic>.value(
               initialData: [],
               value: OrderService().getAllOrders(),
               child: AllOrders(),
             ),
-            FutureProvider<List<OrderModel>>.value(
+            FutureProvider<dynamic>.value(
               initialData: [],
-              value: OrderService().getCurrentOrders(),
+             // value: OrderService().getCurrentOrders(),
               child: CurrentOrders(),
             ),
             FutureProvider<List<OrderModel>>.value(
               initialData: [],
-              value: OrderService().getReadyOrders(),
+              //value: OrderService().getReadyOrders(),
               child: FutureBuilder(
-                future: OrderService().getReadyOrders(),
+                //future: OrderService().getReadyOrders(),
                 builder: (context, snapshot) {
                   return snapshot.hasData ? ReadyOrders() : Loading();
                 }
@@ -54,7 +54,7 @@ class WaiterDashboard extends StatelessWidget {
             ),
             FutureProvider<List<OrderModel>>.value(
               initialData: [],
-              value: OrderService().getServedOrders(),
+              //value: OrderService().getServedOrders(),
               child: ServedOrders(),
             ),
           ],

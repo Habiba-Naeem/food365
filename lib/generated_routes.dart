@@ -3,13 +3,13 @@ import 'package:food365/domain/models/modules/ordering/category.dart';
 import 'package:food365/main.dart';
 import 'package:food365/presentation/modules/admin/admin_screen.dart';
 import 'package:food365/presentation/modules/KitchenStaff/cook_screen.dart';
-import 'package:food365/presentation/modules/dashboard/account_type.dart';
 import 'package:food365/presentation/modules/ordering/cart/cart_screen.dart';
 import 'package:food365/presentation/modules/ordering/checkout/views/checkout_screen.dart';
 import 'package:food365/presentation/modules/ordering/checkout/views/timer.dart';
 import 'package:food365/presentation/modules/ordering/menu/menu_screen.dart';
 import 'package:food365/presentation/modules/staff/waiter/waiter_dashboard.dart';
 
+import 'presentation/dashboard/account_type.dart';
 import 'presentation/modules/ordering/home/home_screen.dart';
 
 class RouteGenerator {
