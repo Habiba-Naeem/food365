@@ -3,12 +3,11 @@ import 'package:food365/domain/models/modules/ordering/category.dart';
 import 'package:food365/domain/services/menu_service.dart';
 import 'package:food365/presentation/modules/ordering/cart/cart_item.dart';
 import 'package:food365/presentation/modules/ordering/cart/cart_screen.dart';
-
+import 'package:food365/presentation/style.dart';
 import 'package:food365/utils/shared/category_card.dart';
 import 'package:food365/utils/shared/custom_appbar.dart';
 import 'package:food365/utils/shared/custom_bottom_nav_bar.dart';
 import 'package:food365/utils/shared/customsidedrawer.dart';
-import 'package:food365/presentation/style.dart';
 
 //SINCE THE MENU WILL BE CUSTOMIZABLE BY THE ADMIN THEREFORE WE
 //NEED TO FETCH MENU ITEMS FROM DATABASE ONCE THE APPLICATION STARTS
@@ -389,6 +388,7 @@ Row placesWidget(String img, String name) {
           height: 100,
           width: 100,
           decoration: BoxDecoration(image: DecorationImage(image: AssetImage("asset/images/$img.png"))),
+          //decoration: BoxDecoration(image: DecorationImage(image: AssetImage("asset/images/$img.png"))),
         ),
         Expanded(
           child: Column(

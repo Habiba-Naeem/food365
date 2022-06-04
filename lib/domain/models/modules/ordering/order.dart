@@ -1,8 +1,13 @@
+import 'package:duration/duration.dart';
 import 'package:flutter/material.dart';
 import 'package:food365/domain/models/modules/ordering/cart_item.dart';
 import 'package:food365/domain/models/modules/ordering/cart_model.dart';
+import 'package:food365/domain/models/modules/ordering/menu_item_model.dart';
 import 'package:food365/domain/models/modules/ordering/order_item.dart';
+import 'package:food365/domain/models/providers/timer_provider.dart';
+import 'package:food365/domain/services/menu_service.dart';
 import 'package:food365/presentation/modules/ordering/cart/cart_item.dart';
+import 'package:food365/presentation/modules/ordering/menu/menu_item.dart';
 
 class OrderModel extends ChangeNotifier {
   bool serviceStatus = false;
@@ -45,6 +50,18 @@ class OrderModel extends ChangeNotifier {
     return allItems.where((element) => element.cookingStatus == true).length;
   }
 
+  // Future<Duration> serviceTimeLeft() async {
+  //   final allItems = allOrderItems;
+  //   var menuItemTimes = allItems.map((e) async {
+  //     var menuItem = await MenuService().getMenuItem(menuItemID: e.menuItemID);
+  //     return menuItem.time;
+  //   }).toList();
+
+  //   var averageTime = menuItemTimes.forEach((time) {
+  //      var hrs =
+  //   });
+  // }
+
   OrderModel.postOrder({
     required this.createdAt,
     required this.updatedAt,
@@ -56,18 +73,22 @@ class OrderModel extends ChangeNotifier {
     required json,
     required key,
   }) {
-    print(json);
-    List<OrderItem> orderItems = json['items']
-        .map<OrderItem>((item) => OrderItem(
-              //orderItemID: index,
-              cookingStatus: item['cookingStatus'],
-              readyStatus: item['readyStatus'],
-              serviceStatus: item['serviceStatus'],
-              menuItemID: item['menuItemID'],
-              menuName: item['menuName'],
-              quantity: item['quantity'],
-            ))
-        .toList();
+    //print(json["items"].runtimeType);
+    List<OrderItem> orderItems = json['items'] != null
+        ? List<OrderItem>.from(
+            json['items'].map((x) => OrderItem.fromJson(json: x)).toList())
+        : [];
+    // List<OrderItem> orderItems = json['items']
+    //     .map<OrderItem>((item) => OrderItem(
+    //           //orderItemID: index,
+    //           cookingStatus: item['cookingStatus'],
+    //           readyStatus: item['readyStatus'],
+    //           serviceStatus: item['serviceStatus'],
+    //           menuItemID: item['menuItemID'],
+    //           menuName: item['menuName'],
+    //           quantity: item['quantity'],
+    //         ))
+    //     .toList();
     return OrderModel(
         orderID: key,
         serviceStatus: json['serviceStatus'],

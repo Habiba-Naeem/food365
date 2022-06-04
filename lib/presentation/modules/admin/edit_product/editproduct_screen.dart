@@ -29,7 +29,7 @@ class EditProductScreen extends StatelessWidget {
         child: Column(
           children: <Widget>[
             const Divider(),
-            FutureProvider<List<MenuItemModel>>.value(
+            FutureProvider<dynamic>.value(
               initialData: [],
               value: MenuService().getMenuItems(),
               child: MenuItems(),

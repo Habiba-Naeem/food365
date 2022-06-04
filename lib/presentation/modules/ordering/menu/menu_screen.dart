@@ -46,7 +46,7 @@ class MenuScreen extends StatelessWidget {
           children: <Widget>[
             const Divider(),
             //const MenuItems(),
-            FutureProvider<List<MenuItemModel>>.value(
+            FutureProvider<dynamic>.value(
               initialData: [],
               value: MenuService().getMenuItems(),
               child: MenuItems(),

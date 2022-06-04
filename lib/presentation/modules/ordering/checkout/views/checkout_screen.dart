@@ -5,11 +5,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:food365/domain/models/modules/ordering/cart_model.dart';
+import 'package:food365/domain/models/modules/ordering/order.dart';
 import 'package:food365/domain/services/order_service.dart';
 import 'package:food365/presentation/modules/ordering/checkout/controller/checkout_controller.dart';
 import 'package:food365/presentation/modules/ordering/checkout/views/timer.dart';
 import 'package:food365/utils/constants.dart';
 import 'package:food365/utils/exceptions.dart';
+import 'package:food365/utils/shared/loading.dart';
 import 'package:food365/utils/shared/widgets/dialogs.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:provider/provider.dart';
@@ -70,11 +72,25 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                             items:
                                 Provider.of<CartModel>(context, listen: false)
                                     .allCartItems);
-                        if (response == success) {
+                        if (response["success"] == success) {
                           context.loaderOverlay.hide();
                           showAlertDialog(context);
-                          Navigator.pushReplacementNamed(
-                              context, MyHomePage.id);
+
+
+                          FutureProvider.value(
+                            value: OrderService()
+                                .getOrder(orderID: response['orderID']),
+                            initialData: response['order'],
+                            child: FutureBuilder(
+                              future: OrderService()
+                                  .getOrder(orderID: response['orderID']),
+                              builder: (context, snapshot) {
+                                return snapshot.hasData
+                                    ? MyHomePage()
+                                    : Loading();
+                              },
+                            ),
+                          );
                         }
                       } on SomethingWentWrong catch (e) {
                         context.loaderOverlay.hide();
