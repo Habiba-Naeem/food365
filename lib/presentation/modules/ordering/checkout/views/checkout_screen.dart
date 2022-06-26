@@ -74,23 +74,13 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                     .allCartItems);
                         if (response["success"] == success) {
                           context.loaderOverlay.hide();
-                          showAlertDialog(context);
-
-
-                          FutureProvider.value(
-                            value: OrderService()
-                                .getOrder(orderID: response['orderID']),
-                            initialData: response['order'],
-                            child: FutureBuilder(
-                              future: OrderService()
-                                  .getOrder(orderID: response['orderID']),
-                              builder: (context, snapshot) {
-                                return snapshot.hasData
-                                    ? MyHomePage()
-                                    : Loading();
-                              },
-                            ),
-                          );
+                          await showAlertDialog(context);
+                          // FutureProvider<OrderModel>.value(
+                          //   value: response['order'],
+                          //   child: MyHomePage(order: response['order'],)
+                          // );
+                          Navigator.of(context).pushNamed(MyHomePage.id,
+                              arguments: response['order']);
                         }
                       } on SomethingWentWrong catch (e) {
                         context.loaderOverlay.hide();

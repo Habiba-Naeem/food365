@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:food365/domain/models/modules/ordering/cart_item.dart';
 import 'package:food365/domain/models/modules/ordering/cart_model.dart';
 import 'package:food365/domain/models/modules/ordering/menu_item_model.dart';
+import 'package:food365/domain/services/image_service.dart';
 import 'package:food365/utils/constants.dart';
+import 'package:food365/utils/shared/loading.dart';
 import 'package:provider/provider.dart';
 
 class CartItems extends StatelessWidget {
@@ -25,7 +27,18 @@ class CartItems extends StatelessWidget {
           children: <Widget>[
             ...menuItems.map((menuItem) {
               if (menuItem.itemID == cartItem.menuItemID) {
-                return CartItemImage(imagePath: menuItem.imagePath);
+                FutureBuilder(
+                  future: ImageService().getImage(menuItemId: menuItem.itemID),
+                  builder: (context, snapshot) {
+                    return snapshot.hasData
+                        ? CartItemImage(
+                            imagePath: snapshot.data.toString(),
+                          )
+                        : Center(
+                            child: Loading(),
+                          );
+                  },
+                );
               }
               return Container();
             }),
@@ -101,11 +114,16 @@ class CartItemImage extends StatelessWidget {
   Widget build(BuildContext context) {
     return ClipRRect(
       borderRadius: BorderRadius.all(Radius.circular(6)),
-      child: Image.asset(
-        imagePath,
+      child: Image.network(
+        imagePath.toString(),
         fit: BoxFit.cover,
-        width: 100,
-        height: 100,
+        loadingBuilder: (BuildContext context, Widget child,
+            ImageChunkEvent? loadingProgress) {
+          if (loadingProgress == null) {
+            return child;
+          }
+          return Loading();
+        },
       ),
     );
   }

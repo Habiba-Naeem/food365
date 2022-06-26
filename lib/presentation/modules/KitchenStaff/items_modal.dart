@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food365/domain/services/order_status_service.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:provider/provider.dart';
 import 'package:toggle_switch/toggle_switch.dart';
@@ -113,7 +114,7 @@ class _MyexpansiontileState extends State<Myexpansiontile> {
                   // if (index == 0 && widget.orderItem.cookingStatus == true) {
                   //   setState(() {
                   //     initialIndex = 1;
-                  //     // OrderService().updateOrderItemCookingStatus(
+                  //     // OrderStatusService().updateOrderItemCookingStatus(
                   //     //     id: widget.orderItemID,
                   //     //     orderItem: widget.orderItem,
                   //     //     orderID: widget.orderID);
@@ -126,24 +127,24 @@ class _MyexpansiontileState extends State<Myexpansiontile> {
                   //     initialIndex = 2;
                   //     context.loaderOverlay.hide();
 
-                  //     // OrderService().updateOrderItemReadyStatus(
+                  //     // OrderStatusService().updateOrderItemReadyStatus(
                   //     //     id: widget.orderItemID,
                   //     //     orderItem: widget.orderItem,
                   //     //     orderID: widget.orderID);
                   //   });
                   // }
                   index == 1
-                      ? OrderService().updateOrderItemCookingStatus(
+                      ? OrderStatusService().updateOrderItemCookingStatus(
                           id: widget.orderItemID,
                           orderItem: widget.orderItem,
                           orderID: widget.orderID)
                       : index == 2
-                          ? OrderService().updateOrderItemReadyStatus(
+                          ? OrderStatusService().updateOrderItemReadyStatus(
                               id: widget.orderItemID,
                               orderItem: widget.orderItem,
                               orderID: widget.orderID)
                           : index == 3
-                              ? OrderService().updateOrderItemServiceStatus(
+                              ? OrderStatusService().updateOrderItemServiceStatus(
                                   id: widget.orderItemID,
                                   orderItem: widget.orderItem,
                                   orderID: widget.orderID)

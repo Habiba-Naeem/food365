@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:food365/domain/services/auth_service.dart';
 import 'add_product/addProduct.dart';
 import 'edit_product/editproduct_screen.dart';
 import 'inventory/manage_inventory.dart';
-
 
 class AdminScreen extends StatelessWidget {
   static const String id = "Admin screen";
@@ -11,6 +11,14 @@ class AdminScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text('Admin Dashboard'),
         backgroundColor: Colors.teal,
+        actions: [
+          ElevatedButton(
+            child: Text("Sign Out"),
+            onPressed: () {
+              AuthService().signOut();
+            },
+          )
+        ],
       ),
       body: Center(
           child: Column(children: <Widget>[
@@ -40,7 +48,8 @@ class AdminScreen extends StatelessWidget {
             color: Colors.tealAccent,
             textColor: Colors.white,
             onPressed: () {
-              Navigator.of(context).push(MaterialPageRoute(builder: (context) => EditProductScreen()));
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => EditProductScreen()));
             },
           ),
         ),
@@ -64,11 +73,12 @@ class AdminScreen extends StatelessWidget {
   }
 
   void _addProduct(BuildContext context) {
-    Navigator.of(context).push(MaterialPageRoute(builder: (context) => AddProductScreen()));
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => AddProductScreen()));
   }
 
   void _viewInventory(BuildContext context) {
-    Navigator.of(context).push(MaterialPageRoute(builder: (context) => Inventory()));
-
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => Inventory()));
   }
 }

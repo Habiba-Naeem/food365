@@ -25,17 +25,7 @@ class MenuScreen extends StatelessWidget {
         headingText: "Menu",
         height: 116.0,
       ),
-      // appBar: AppBar(
-      //   title: const Text("Menu"),
-      //   actions: [
-      //     IconButton(
-      //       icon: const Icon(Icons.shopping_cart_sharp),
-      //       onPressed: () {
-      //         Navigator.of(context).pushNamed(CartScreen.id);
-      //       },
-      //     )
-      //   ],
-      // ),
+     
       drawer: CustomSideDrawer(),
       bottomNavigationBar: const CustomBottomNavBar(
         id: MenuScreen.id,
@@ -46,10 +36,10 @@ class MenuScreen extends StatelessWidget {
           children: <Widget>[
             const Divider(),
             //const MenuItems(),
-            FutureProvider<dynamic>.value(
+             StreamProvider<List<MenuItemModel>>.value(
               initialData: [],
               value: MenuService().getMenuItems(),
-              child: MenuItems(),
+              child: MenuItems()
             ),
           ],
         ),
@@ -58,17 +48,6 @@ class MenuScreen extends StatelessWidget {
   }
 }
 
-class Category extends StatelessWidget {
-  const Category({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      'MENU',
-      style: headerStyle,
-    );
-  }
-}
 
 class MenuItems extends StatelessWidget {
   const MenuItems({Key? key}) : super(key: key);
@@ -86,8 +65,8 @@ class MenuItems extends StatelessWidget {
         physics: const BouncingScrollPhysics(),
         children: [
           ...newmenuItems.map(
-            (e) => FutureBuilder(
-              future: MenuService().getMenuItems(),
+            (e) => StreamBuilder(
+              stream: MenuService().getMenuItems(),
               builder: (context, snapshot) {
                 return snapshot.hasData
                     ? menuIemWidget.MenuItem(

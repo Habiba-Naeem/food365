@@ -3,14 +3,19 @@
 // class TimerProvider extends ChangeNotifier {
 //   Duration? avgTime;
 //   final String orderID;
-//   final List<Duration> itemTimes;
+//   //final List<Duration> itemTimes;
 
 //   TimerProvider({
 //     required this.orderID,
-//     required this.itemTimes,
+//     //required this.itemTimes,
 //   });
 
-//   factory TimerProvider.fromJson() {
-//     return TimerProvider(orderID: orderID, itemTimes: itemTimes);
+//   getTimeLeft({required List<Duration> itemTimes}) {
+//     avgTime = itemTimes.forEach((time) {
+//        avgTime + time;
+//     });
 //   }
+//   // factory TimerProvider.fromJson() {
+//   //   return TimerProvider(orderID: orderID, itemTimes: itemTimes);
+//   // }
 // }

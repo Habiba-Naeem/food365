@@ -29,6 +29,16 @@ class DefaultFirebaseOptions {
           'DefaultFirebaseOptions have not been configured for macos - '
           'you can reconfigure this by running the FlutterFire CLI again.',
         );
+      case TargetPlatform.windows:
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for windows - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
+      case TargetPlatform.linux:
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for linux - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       default:
         throw UnsupportedError(
           'DefaultFirebaseOptions are not supported for this platform.',
@@ -37,32 +47,33 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyCbH2C5S3UDVB90w3nAmNXPD2eym493ucE',
-    appId: '1:295169246924:web:01fd73e404bed0bf80e469',
-    messagingSenderId: '295169246924',
-    projectId: 'food365-89950',
-    authDomain: 'food365-89950.firebaseapp.com',
-    databaseURL: 'https://food365-89950-default-rtdb.firebaseio.com',
-    storageBucket: 'food365-89950.appspot.com',
+    apiKey: 'AIzaSyBEZrqKIaQmyvbw5_lExdqB9-Cgb-oeck4',
+    appId: '1:163079848220:web:d897878fa5e0f0c4f7bad9',
+    messagingSenderId: '163079848220',
+    projectId: 'food365-264fb',
+    authDomain: 'food365-264fb.firebaseapp.com',
+    databaseURL: 'https://food365-264fb-default-rtdb.firebaseio.com',
+    storageBucket: 'food365-264fb.appspot.com',
+    measurementId: 'G-9X6KDR5RN7',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyA_5dPwjh_4gbhmCD_JDp2K536FoqG4-9c',
-    appId: '1:295169246924:android:7c7c09ce0414898380e469',
-    messagingSenderId: '295169246924',
-    projectId: 'food365-89950',
-    databaseURL: 'https://food365-89950-default-rtdb.firebaseio.com',
-    storageBucket: 'food365-89950.appspot.com',
+    apiKey: 'AIzaSyCmAXSGi7HbKZA9zLkl8KBjXLjluEHrjtM',
+    appId: '1:163079848220:android:863dcc76f962a9fef7bad9',
+    messagingSenderId: '163079848220',
+    projectId: 'food365-264fb',
+    databaseURL: 'https://food365-264fb-default-rtdb.firebaseio.com',
+    storageBucket: 'food365-264fb.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyB5b7u4N96d4fVM8qxLdC9Zj3jo-I5fp30',
-    appId: '1:295169246924:ios:9ffc18ce812a944980e469',
-    messagingSenderId: '295169246924',
-    projectId: 'food365-89950',
-    databaseURL: 'https://food365-89950-default-rtdb.firebaseio.com',
-    storageBucket: 'food365-89950.appspot.com',
-    iosClientId: '295169246924-c5ghec8prq912usdikht29gauhlbstbo.apps.googleusercontent.com',
+    apiKey: 'AIzaSyCBjXsSydgAWBdDDd5fWoT_JQpOUqVA1KA',
+    appId: '1:163079848220:ios:7d246926a08d1cbff7bad9',
+    messagingSenderId: '163079848220',
+    projectId: 'food365-264fb',
+    databaseURL: 'https://food365-264fb-default-rtdb.firebaseio.com',
+    storageBucket: 'food365-264fb.appspot.com',
+    iosClientId: '163079848220-ko3fc0rlp0ccrleanqpud346f4bh3oo6.apps.googleusercontent.com',
     iosBundleId: 'com.example.food365',
   );
 }

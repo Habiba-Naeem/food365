@@ -37,7 +37,7 @@ class OnboardingScreen extends StatelessWidget {
                     style: TextStyle(fontSize: 24, color: Colors.white),
                   ),
                   onTap: () {
-                    Navigator.of(context).pushReplacementNamed(AccountType.id);
+                    Navigator.of(context).pushNamed(AccountType.id);
                   },
                 ),
               ),
@@ -47,7 +47,8 @@ class OnboardingScreen extends StatelessWidget {
                   style: TextStyle(fontSize: 24, color: Colors.white),
                 ),
                 onTap: () {
-                  Navigator.of(context).pushReplacementNamed(HomeScreen.id);
+                  Navigator.of(context).pushNamed(HomeScreen.id);
+                  //Navigator.of(context).pushReplacementNamed(HomeScreen.id);
                 },
               )
             ],

@@ -31,36 +31,72 @@ class CookScreen extends StatelessWidget {
         ),
         body: TabBarView(
           children: [
-            //  FutureProvider.value(
-            //     //initialData: [],
-            //     value: OrderService().getbyRef(),
-            //     child: AllOrders(),
-            //   ),
-            FutureProvider<List<OrderModel>>.value(
-              initialData: [],
-              value: OrderService().getAllOrders(),
-              child: AllOrders(),
+            
+            // FutureProvider<List<OrderModel>>.value(
+            //   initialData: [],
+            //   value: OrderService().getAllOrders(),
+            //   child: AllOrders(),
+            // ),
+            StreamBuilder<List<OrderModel>>(
+              stream: OrderService().getOrderStream(),
+              builder: (context, snapshot) {
+                return StreamProvider<List<OrderModel>>.value(
+                  initialData:[],
+                  value: OrderService().getOrderStream(),
+                  child: AllOrders(),
+                );
+              }
             ),
-            FutureProvider<List<OrderModel>>.value(
-              initialData: [],
-              value: OrderService().getCurrentOrders(),
-              child: CurrentOrders(),
+            // FutureProvider<List<OrderModel>>.value(
+            //   initialData: [],
+            //   value: OrderService().getCurrentOrders(),
+            //   child: CurrentOrders(),
+            // ),
+            StreamBuilder<List<OrderModel>>(
+              stream: OrderService().getCookingOrdersStream(),
+              builder: (context, snapshot) {
+                return StreamProvider<List<OrderModel>>.value(
+                  initialData:[],
+                  value: OrderService().getCookingOrdersStream(),
+                  child:CurrentOrders(),
+                );
+              }
+            ),
+            StreamBuilder<List<OrderModel>>(
+              stream: OrderService().getReadyOrdersStream(),
+              builder: (context, snapshot) {
+                return StreamProvider<List<OrderModel>>.value(
+                  initialData:[],
+                  value: OrderService().getReadyOrdersStream(),
+                  child: ReadyOrders(),
+                );
+              }
+            ),
+            StreamBuilder<List<OrderModel>>(
+              stream: OrderService().getServedOrdersStream(),
+              builder: (context, snapshot) {
+                return StreamProvider<List<OrderModel>>.value(
+                  initialData:[],
+                  value: OrderService().getServedOrdersStream(),
+                  child: ServedOrders(),
+                );
+              }
             ),
 
-            FutureProvider<List<OrderModel>>.value(
-              initialData: [],
-              value: OrderService().getReadyOrders(),
-              child: FutureBuilder(
-                  future: OrderService().getReadyOrders(),
-                  builder: (context, snapshot) {
-                    return snapshot.hasData ? ReadyOrders() : Loading();
-                  }),
-            ),
-            FutureProvider<List<OrderModel>>.value(
-              initialData: [],
-              value: OrderService().getServedOrders(),
-              child: ServedOrders(),
-            ),
+            // FutureProvider<List<OrderModel>>.value(
+            //   initialData: [],
+            //   value: OrderService().getReadyOrders(),
+            //   child: FutureBuilder(
+            //       future: OrderService().getReadyOrders(),
+            //       builder: (context, snapshot) {
+            //         return snapshot.hasData ? ReadyOrders() : Loading();
+            //       }),
+            // ),
+            // FutureProvider<List<OrderModel>>.value(
+            //   initialData: [],
+            //   value: OrderService().getServedOrders(),
+            //   child: ServedOrders(),
+            // ),
           ],
         ),
       ),

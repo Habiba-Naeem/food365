@@ -9,8 +9,6 @@ import 'package:provider/provider.dart';
 
 class AllOrders extends StatelessWidget {
   showAllItems(context, orderID, orderItems) {
-    //final OrderModel order = e;
-    //print(orderItems.runtimeType);
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -56,10 +54,18 @@ class AllOrders extends StatelessWidget {
             return DataRow(
               cells: [
                 DataCell(
-                  Container(
-                    width: 100,
-                    child: Text(
-                      e.orderID.toString(),
+                  SizedBox(
+                    //width: 100,
+                    child: Column(
+                      children: [
+                        Text(
+                          e.orderID.toString(),
+                        ),
+                        Text(
+                          
+                          e.createdAgo,
+                        ),
+                      ],
                     ),
                   ),
                 ),

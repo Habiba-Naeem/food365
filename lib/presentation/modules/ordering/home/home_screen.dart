@@ -136,7 +136,7 @@ class HomeScreen extends StatelessWidget {
                           children: [
                             Expanded(
                               child: Container(
-                                decoration: BoxDecoration(image: DecorationImage(image: AssetImage(""))),
+                                decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/menu_items/salad.png"))),
                               ),
                             ),
                             SizedBox(
@@ -209,7 +209,7 @@ class HomeScreen extends StatelessWidget {
                               children: [
                                 Expanded(
                                   child: Container(
-                                    decoration: BoxDecoration(image: DecorationImage(image: AssetImage(""))),
+                                    decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/menu_items/salad.png"))),
                                   ),
                                 ),
                                 SizedBox(
@@ -271,7 +271,7 @@ class HomeScreen extends StatelessWidget {
                                   children: [
                                     Expanded(
                                       child: Container(
-                                        decoration: BoxDecoration(image: DecorationImage(image: AssetImage(""))),
+                                        decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/menu_items/salad.png"))),
                                       ),
                                     ),
                                     SizedBox(
@@ -387,7 +387,7 @@ Row placesWidget(String img, String name) {
         Container(
           height: 100,
           width: 100,
-          decoration: BoxDecoration(image: DecorationImage(image: AssetImage("asset/images/$img.png"))),
+          decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/menu_items/salad.png"))),
           //decoration: BoxDecoration(image: DecorationImage(image: AssetImage("asset/images/$img.png"))),
         ),
         Expanded(

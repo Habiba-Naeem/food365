@@ -62,7 +62,6 @@ class _EditProductFormState extends State<EditProductForm> {
   //   //   time = widget.item.time;
   //   // });
   // }
-  
 
   Future getImageCamera() async {
     final pickedFile = await picker.pickImage(source: ImageSource.camera);
@@ -184,7 +183,7 @@ class _EditProductFormState extends State<EditProductForm> {
             height: 16,
           ),
           TextFormField(
-            initialValue:widget.item.description,
+            initialValue: widget.item.description,
             cursorColor: Colors.orange[200],
             onChanged: (val) => setState(() => description = val),
             decoration: InputDecoration(
@@ -316,32 +315,21 @@ class _EditProductFormState extends State<EditProductForm> {
               ).showDialog(context);
             },
           ),
-          // TextFormField(
-          //   initialValue: widget.item.time.toString(),
-          //   cursorColor: Colors.orange[200],
-          //   keyboardType: TextInputType.number,
-          //   onChanged: (val) =>
-          //       setState(() => time = double.tryParse(val) ?? 0),
-          //   decoration: InputDecoration(
-          //     labelText: "Cooking Time",
-          //     fillColor: const Color.fromARGB(255, 127, 228, 218),
-          //     filled: true,
-          //     //prefixText: "In minutes",
-          //     prefixIcon:
-          //         Icon(Icons.timer, color: Colors.orange[200], size: 20),
-          //     border: OutlineInputBorder(
-          //         borderRadius: BorderRadius.circular(30.0),
-          //         borderSide: BorderSide.none),
-          //   ),
-          // ),
           const SizedBox(
             height: 16,
           ),
           ElevatedButton(
             onPressed: () async {
               setState(() => loading = true);
+              widget.item.name = name;
+              widget.item.description = description;
+              widget.item.price = price;
+              widget.item.time = time;
               //widget.item.name = name;
-              MenuService().updateMenuItem(item: widget.item);
+              MenuService().updateMenuItem(
+                item: widget.item,
+                image: _image!,
+              );
             },
             child: Container(
               alignment: Alignment.center,
