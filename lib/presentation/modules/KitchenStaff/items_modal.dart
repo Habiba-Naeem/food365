@@ -108,31 +108,7 @@ class _MyexpansiontileState extends State<Myexpansiontile> {
                   [Colors.deepPurple]
                 ],
                 onToggle: (index) {
-                  //print('switched to: $index');
-                  // context.loaderOverlay.show();
-
-                  // if (index == 0 && widget.orderItem.cookingStatus == true) {
-                  //   setState(() {
-                  //     initialIndex = 1;
-                  //     // OrderStatusService().updateOrderItemCookingStatus(
-                  //     //     id: widget.orderItemID,
-                  //     //     orderItem: widget.orderItem,
-                  //     //     orderID: widget.orderID);
-                  //     context.loaderOverlay.hide();
-
-                  //   });
-                  // } else if (index == 1 &&
-                  //     widget.orderItem.readyStatus == true) {
-                  //   setState(() {
-                  //     initialIndex = 2;
-                  //     context.loaderOverlay.hide();
-
-                  //     // OrderStatusService().updateOrderItemReadyStatus(
-                  //     //     id: widget.orderItemID,
-                  //     //     orderItem: widget.orderItem,
-                  //     //     orderID: widget.orderID);
-                  //   });
-                  // }
+                 
                   index == 1
                       ? OrderStatusService().updateOrderItemCookingStatus(
                           id: widget.orderItemID,

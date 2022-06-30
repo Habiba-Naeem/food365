@@ -46,7 +46,7 @@ class ServedOrders extends StatelessWidget {
                 ),
               ),
               DataCell(
-                Text(e.servedItems.toString())
+                Text(e.serviceStatus.toString())
               ),
               DataCell(
                   ElevatedButton(

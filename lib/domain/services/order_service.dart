@@ -143,7 +143,6 @@ class OrderService {
     final stream = FirebaseDatabase.instance
         .ref(ordersURL)
         .orderByChild("serviceStatus")
-        .equalTo(true)
         .onValue;
     final streamToPublish = stream.map((event) {
       List<OrderModel> ordersList = [];

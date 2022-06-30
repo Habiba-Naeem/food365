@@ -86,17 +86,28 @@ class OrderModel extends ChangeNotifier {
 
   int get readyItems {
     final allItems = allOrderItems;
+    var len = allItems.where((element) => element.readyStatus == true).length;
+
+    // if (len == 0) {
+    //   readyStatus = true;
+    // }
     notifyListeners();
-    return allItems.where((element) => element.cookingStatus == true).length;
+    return len;
+    // notifyListeners();
+    // return allItems.where((element) => element.cookingStatus == true).length;
   }
 
   int get servedItems {
     final allItems = allOrderItems;
+    var len = allItems.where((element) => element.serviceStatus == true).length;
+
     notifyListeners();
-    return allItems.where((element) => element.cookingStatus == true).length;
+    return len;
+    // notifyListeners();
+    // return allItems.where((element) => element.cookingStatus == true).length;
   }
 
-   get createdAgo {
+  get createdAgo {
     DateFormat dateFormat = DateFormat("HH:mm:ss yyyy-MM-dd");
     return dateFormat.format(createdAt);
     //return prettyDuration(DateTime.now().difference(createdAt));
@@ -107,7 +118,7 @@ class OrderModel extends ChangeNotifier {
   Future serviceTimeLeft() async {
     print(timeLeft);
     final allItems = allOrderItems;
-    
+
     var menuItemTime = await allItems.map((item) async {
       var menuItem =
           await MenuService().getMenuItem(menuItemID: item.menuItemID);

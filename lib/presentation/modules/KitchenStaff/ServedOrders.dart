@@ -26,7 +26,7 @@ class ServedOrders extends StatelessWidget {
               label: Text('OrderID',
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold))),
           DataColumn(
-              label: Text('Served Items',
+              label: Text('Status',
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold))),
           DataColumn(
               label: Text('TimeTaken',
@@ -46,7 +46,7 @@ class ServedOrders extends StatelessWidget {
                 ),
               ),
               DataCell(
-                Text(e.servedItems.toString())
+                Text(e.serviceStatus.toString())
               ),
               DataCell(
                   ElevatedButton(

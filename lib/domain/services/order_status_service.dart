@@ -46,7 +46,10 @@ class OrderStatusService {
     required OrderModel order,
   }) async {
     try {
-      order.readyStatus = true;
+      if (order.readyItems == order.allOrderItems.length) {
+        order.readyStatus = true;
+      }
+     // order.readyStatus = true;
       var response = await httpClient.patch(
           Uri.parse(baseURL +
               ordersURL +
@@ -69,7 +72,9 @@ class OrderStatusService {
     required OrderModel order,
   }) async {
     try {
-      order.serviceStatus = true;
+      if (order.servedItems == order.allOrderItems.length) {
+        order.serviceStatus= true;
+      }
       var response = await httpClient.patch(
           Uri.parse(baseURL +
               ordersURL +
