@@ -7,22 +7,33 @@ class TimerProvider extends ChangeNotifier {
   //final String orderID;
   //final List<Duration> itemTimes;
 
-  Future<Duration> getTime({
+  Duration getTime({
     required order,
-  }) async {
+  })  {
     List<OrderItem> allItems = order.allOrderItems;
     Duration totalTime = Duration();
-    List<Future<Duration>> times = allItems.map((item) async {
+    List<Duration> times = allItems.map((item) {
       MenuItemModel menuItem =
-           MenuService().getMenuItem(menuItemID: item.menuItemID);
+          MenuService().getMenuItem(menuItemID: item.menuItemID);
       print(menuItem.time);
       //totalTime =  totalTime + menuItem.time;
       return menuItem.time;
     }).toList();
-     
-     //totalTime = await times.fold(times.first, (previousValue, element) => previousValue);
-     print(totalTime);
+
+    //totalTime = await times.fold(times.first, (previousValue, element) => previousValue);
+    print(totalTime);
     return totalTime;
+  }
+
+  getTimes(List<OrderItem> allItems) {
+List<Duration> times = allItems.map((item) {
+      MenuItemModel menuItem =
+          MenuService().getMenuItem(menuItemID: item.menuItemID);
+      print(menuItem.time);
+      //totalTime =  totalTime + menuItem.time;
+      return menuItem.time;
+    }).toList();
+
   }
 
   // factory TimerProvider.fromJson() {
