@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food365/domain/services/auth_service.dart';
+import 'package:food365/domain/services/inventory_service.dart';
 import 'add_product/addProduct.dart';
 import 'edit_product/editproduct_screen.dart';
 import 'inventory/manage_inventory.dart';
@@ -77,7 +78,13 @@ class AdminScreen extends StatelessWidget {
         .push(MaterialPageRoute(builder: (context) => AddProductScreen()));
   }
 
-  void _viewInventory(BuildContext context) {
+  void _viewInventory(BuildContext context) async {
+    await InventoryService().postInventoryItem(
+      itemName: "Tomatoes",
+      quantity: 5,
+      boughtDate: DateTime.now(),
+      expiryDate: DateTime(2022, 10, 5),
+    );
     Navigator.of(context)
         .push(MaterialPageRoute(builder: (context) => Inventory()));
   }

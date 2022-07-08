@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:food365/domain/models/modules/ordering/menu_item_model.dart';
+import 'package:food365/domain/models/modules/ordering/order.dart';
 import 'package:food365/domain/models/modules/ordering/order_item.dart';
 import 'package:food365/domain/services/menu_service.dart';
 
@@ -7,36 +8,34 @@ class TimerProvider extends ChangeNotifier {
   //final String orderID;
   //final List<Duration> itemTimes;
 
-  Duration getTime({
-    required order,
-  })  {
-    List<OrderItem> allItems = order.allOrderItems;
-    Duration totalTime = Duration();
-    List<Duration> times = allItems.map((item) {
+  List<Duration> getTimes({
+    required List<OrderItem> allItems,
+  }) {
+    List<Duration> times = [];
+    var sum = Duration();
+    allItems.map((item) async {
       MenuItemModel menuItem =
-          MenuService().getMenuItem(menuItemID: item.menuItemID);
-      print(menuItem.time);
-      //totalTime =  totalTime + menuItem.time;
-      return menuItem.time;
-    }).toList();
-
-    //totalTime = await times.fold(times.first, (previousValue, element) => previousValue);
-    print(totalTime);
-    return totalTime;
+          await MenuService().getMenuItem(menuItemID: item.menuItemID);
+      times.add(menuItem.time);
+      print(times);
+      sum = sum + menuItem.time;
+    });
+    return times;
   }
 
-  getTimes(List<OrderItem> allItems) {
-List<Duration> times = allItems.map((item) {
+  getTime({
+    required OrderModel order,
+  }) async {
+    List<Duration> times = [];
+    Duration sum = Duration();
+    return order.allOrderItems.map((item) async {
       MenuItemModel menuItem =
-          MenuService().getMenuItem(menuItemID: item.menuItemID);
-      print(menuItem.time);
-      //totalTime =  totalTime + menuItem.time;
-      return menuItem.time;
-    }).toList();
-
+          await MenuService().getMenuItem(menuItemID: item.menuItemID);
+      times.add(menuItem.time);
+      print(times);
+      sum = (sum + menuItem.time);
+      print(sum);
+      return sum.inMinutes;
+    });
   }
-
-  // factory TimerProvider.fromJson() {
-  //   return TimerProvider(orderID: orderID, itemTimes: itemTimes);
-  // }
 }
