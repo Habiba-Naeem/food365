@@ -2,7 +2,7 @@ import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:food365/domain/models/modules/ordering/order.dart';
-import 'package:food365/domain/models/providers/timer_provider.dart';
+import 'package:food365/domain/providers/timer_provider.dart';
 import 'package:food365/utils/shared/loading.dart';
 import 'package:provider/provider.dart';
 
@@ -23,10 +23,6 @@ class _MyHomePageState extends State<MyHomePage> {
   final CountDownController _controller = CountDownController();
   @override
   void initState() {
-    //TimerProvider().getTime(order: widget.order);
-    //  widget.order.serviceTimeLeft();
-    // _duration = widget.order.allTimeLeft;
-    // print(_duration);
     // TODO: implement initState
     super.initState();
   }
@@ -38,90 +34,90 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text("Your order will be served in ..."),
       ),
       body: Center(
-          child: FutureBuilder(
-              future:
-                  Future.value(TimerProvider().getTime(order: widget.order)),
-              builder: (context, snapshot) {
-                print(snapshot.hasData ? snapshot.data : "no data");
-                return snapshot.hasData
-                    ? CircularCountDownTimer(
-                        // Countdown duration in Seconds.
-                        //duration: 10,
-                        //duration: 10,
-                        duration: snapshot.hasData ? snapshot.data as int : 20,
-                        // Countdown initial elapsed Duration in Seconds.
-                        //
-                        //initialDuration: _duration.inSeconds,
+        child: FutureBuilder(
+          future: Future.value(TimerProvider().getTime(order: widget.order)),
+          builder: (context, snapshot) {
+            print(snapshot.hasData ? snapshot.data.runtimeType : "no data");
+            return snapshot.hasData
+                ? CircularCountDownTimer(
+                    // Countdown duration in Seconds.
 
-                        // Controls (i.e Start, Pause, Resume, Restart) the Countdown Timer.
-                        controller: _controller,
+                    duration: snapshot.hasData ? snapshot.data as int : 20,
+                    // Countdown initial elapsed Duration in Seconds.
+                    //
+                    //initialDuration: _duration.inSeconds,
 
-                        // Width of the Countdown Widget.
-                        width: MediaQuery.of(context).size.width / 2,
+                    // Controls (i.e Start, Pause, Resume, Restart) the Countdown Timer.
+                    controller: _controller,
 
-                        // Height of the Countdown Widget.
-                        height: MediaQuery.of(context).size.height / 2,
+                    // Width of the Countdown Widget.
+                    width: MediaQuery.of(context).size.width / 2,
 
-                        // Ring Color for Countdown Widget.
-                        ringColor: Colors.grey[300]!,
+                    // Height of the Countdown Widget.
+                    height: MediaQuery.of(context).size.height / 2,
 
-                        // Ring Gradient for Countdown Widget.
-                        ringGradient: null,
+                    // Ring Color for Countdown Widget.
+                    ringColor: Colors.grey[300]!,
 
-                        // Filling Color for Countdown Widget.
-                        fillColor: Colors.tealAccent,
+                    // Ring Gradient for Countdown Widget.
+                    ringGradient: null,
 
-                        // Filling Gradient for Countdown Widget.
-                        fillGradient: null,
+                    // Filling Color for Countdown Widget.
+                    fillColor: Colors.tealAccent,
 
-                        // Background Color for Countdown Widget.
-                        backgroundColor: Colors.teal,
+                    // Filling Gradient for Countdown Widget.
+                    fillGradient: null,
 
-                        // Background Gradient for Countdown Widget.
-                        backgroundGradient: null,
+                    // Background Color for Countdown Widget.
+                    backgroundColor: Colors.teal,
 
-                        // Border Thickness of the Countdown Ring.
-                        strokeWidth: 20.0,
+                    // Background Gradient for Countdown Widget.
+                    backgroundGradient: null,
 
-                        // Begin and end contours with a flat edge and no extension.
-                        strokeCap: StrokeCap.butt,
+                    // Border Thickness of the Countdown Ring.
+                    strokeWidth: 20.0,
 
-                        // Text Style for Countdown Text.
-                        textStyle: const TextStyle(
-                          fontSize: 33.0,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
+                    // Begin and end contours with a flat edge and no extension.
+                    strokeCap: StrokeCap.butt,
 
-                        // Format for the Countdown Text.
-                        textFormat: CountdownTextFormat.S,
+                    // Text Style for Countdown Text.
+                    textStyle: const TextStyle(
+                      fontSize: 33.0,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
 
-                        // Handles Countdown Timer (true for Reverse Countdown (max to 0), false for Forward Countdown (0 to max)).
-                        isReverse: false,
+                    // Format for the Countdown Text.
+                    textFormat: CountdownTextFormat.S,
 
-                        // Handles Animation Direction (true for Reverse Animation, false for Forward Animation).
-                        isReverseAnimation: false,
+                    // Handles Countdown Timer (true for Reverse Countdown (max to 0), false for Forward Countdown (0 to max)).
+                    isReverse: false,
 
-                        // Handles visibility of the Countdown Text.
-                        isTimerTextShown: true,
+                    // Handles Animation Direction (true for Reverse Animation, false for Forward Animation).
+                    isReverseAnimation: false,
 
-                        // Handles the timer start.
-                        autoStart: true,
+                    // Handles visibility of the Countdown Text.
+                    isTimerTextShown: true,
 
-                        // This Callback will execute when the Countdown Starts.
-                        onStart: () {
-                          // Here, do whatever you want
-                          debugPrint('Countdown Started');
-                        },
+                    // Handles the timer start.
+                    autoStart: true,
 
-                        // This Callback will execute when the Countdown Ends.
-                        onComplete: () {
-                          // Here, do whatever you want
-                          debugPrint('Countdown Ended');
-                        },
-                      )
-                    : Loading();
-              })),
+                    // This Callback will execute when the Countdown Starts.
+                    onStart: () {
+                      // Here, do whatever you want
+                      debugPrint('Countdown Started');
+                    },
+
+                    // This Callback will execute when the Countdown Ends.
+                    onComplete: () {
+                      // Here, do whatever you want
+                      debugPrint('Countdown Ended');
+                    },
+                  )
+                : Loading();
+          },
+        ),
+      ),
       floatingActionButton: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

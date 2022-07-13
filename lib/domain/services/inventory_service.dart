@@ -16,7 +16,7 @@ const jsonVariable = '.json';
 FirebaseDatabase database = FirebaseDatabase.instance;
 
 class InventoryService {
-  Stream<List<InventoryItemModel>> getMenuItems() {
+  Stream<List<InventoryItemModel>> getInventoryItems() {
     Stream<DatabaseEvent> stream =
         FirebaseDatabase.instance.ref(inventoryURL).onValue;
     final streamToPublish = stream.map((event) {
@@ -24,14 +24,64 @@ class InventoryService {
       Map<String, dynamic>.from(event.snapshot.value as dynamic).forEach(
         (key, value) async {
           itemList.add(
-            InventoryItemModel.fromJson(json: value),
+            InventoryItemModel.fromJson(json: value, key: key),
           );
         },
       );
+      itemList.forEach((item) {
+        updateExpiryStatus(inventoryItem: item);
+      });
       print(itemList);
       return itemList;
     });
     return streamToPublish.asBroadcastStream();
+  }
+
+  updateExpiryStatus({
+    required InventoryItemModel inventoryItem,
+  }) async {
+    try {
+      if (inventoryItem.daysTillExpiry <= 0) {
+        inventoryItem.expired = true;
+      }
+      var response = await httpClient.patch(
+          Uri.parse(baseURL +
+              inventoryURL +
+              "/" +
+              inventoryItem.itemID.toString() +
+              jsonVariable),
+          body: jsonEncode(inventoryItem.toJson()));
+      var parsedResponse = ApiResponse.fromJson(response.statusCode);
+
+      if (response.statusCode == 200) {
+        return success;
+      }
+      throw parsedResponse.returnException();
+    } on SocketException catch (e) {
+      return noInternet;
+    }
+  }
+
+  deleteInventoryItem({
+    required String inventoryItemID,
+  }) async {
+    try {
+      var response = await httpClient.delete(
+        Uri.parse(baseURL +
+            inventoryURL +
+            '/' +
+            inventoryItemID.toString() +
+            jsonVariable),
+      );
+      var parsedResponse = ApiResponse.fromJson(response.statusCode);
+
+      if (response.statusCode == 200) {
+        return success;
+      }
+      throw parsedResponse.returnException();
+    } on SocketException catch (e) {
+      return noInternet;
+    }
   }
 
   postInventoryItem({
@@ -41,7 +91,7 @@ class InventoryService {
     required DateTime expiryDate,
   }) async {
     try {
-      InventoryItemModel item = InventoryItemModel(
+      InventoryItemModel item = InventoryItemModel.postMenu(
         itemName: itemName,
         boughtDate: boughtDate,
         expiryDate: expiryDate,

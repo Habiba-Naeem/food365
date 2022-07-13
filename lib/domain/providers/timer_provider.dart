@@ -23,19 +23,33 @@ class TimerProvider extends ChangeNotifier {
     return times;
   }
 
-  getTime({
+  Future<int> getTime({
     required OrderModel order,
   }) async {
-    List<Duration> times = [];
-    Duration sum = Duration();
-    return order.allOrderItems.map((item) async {
-      MenuItemModel menuItem =
-          await MenuService().getMenuItem(menuItemID: item.menuItemID);
-      times.add(menuItem.time);
-      print(times);
-      sum = (sum + menuItem.time);
-      print(sum);
+    // List<Duration> times = [];
+    try {
+      Duration sum = Duration();
+      order.allOrderItems.forEach((item) async  {
+        MenuItemModel menuItem =
+             await MenuService().getMenuItem(menuItemID: item.menuItemID);
+        sum = (sum + menuItem.time);
+        print(sum);
+        print(sum.inMinutes / order.allOrderItems.length);
+      
+      });
       return sum.inMinutes;
-    });
+    } catch (e) {
+      return 550;
+    }
+
+    // return order.allOrderItems.map((item) async {
+    //   MenuItemModel menuItem =
+    //       await MenuService().getMenuItem(menuItemID: item.menuItemID);
+    //   // times.add(menuItem.time);
+    //   // print(times);
+    //   sum = (sum + menuItem.time);
+    //   print(sum.inMinutes / order.allOrderItems.length);
+    //   return sum.inMinutes / order.allOrderItems.length;
+    // });
   }
 }
