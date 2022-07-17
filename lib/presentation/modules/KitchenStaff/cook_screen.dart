@@ -31,38 +31,6 @@ class CookScreen extends StatelessWidget {
         ),
         body: TabBarView(
           children: [
-<<<<<<< HEAD
-            //  FutureProvider.value(
-            //     //initialData: [],
-            //     value: OrderService().getbyRef(),
-            //     child: AllOrders(),
-            //   ),
-            FutureProvider<List<OrderModel>>.value(
-              initialData: [],
-              value: OrderService().getAllOrders(),
-              child: AllOrders(),
-            ),
-            FutureProvider<List<OrderModel>>.value(
-              initialData: [],
-              value: OrderService().getCurrentOrders(),
-              child: CurrentOrders(),
-            ),
-
-            FutureProvider<List<OrderModel>>.value(
-              initialData: [],
-              value: OrderService().getReadyOrders(),
-              child: FutureBuilder(
-                  future: OrderService().getReadyOrders(),
-                  builder: (context, snapshot) {
-                    return snapshot.hasData ? ReadyOrders() : Loading();
-                  }),
-            ),
-            FutureProvider<List<OrderModel>>.value(
-              initialData: [],
-              value: OrderService().getServedOrders(),
-              child: ServedOrders(),
-            ),
-=======
             
             // FutureProvider<List<OrderModel>>.value(
             //   initialData: [],
@@ -129,7 +97,6 @@ class CookScreen extends StatelessWidget {
             //   value: OrderService().getServedOrders(),
             //   child: ServedOrders(),
             // ),
->>>>>>> 1d5514c5d324d9606f680178dad275e491162890
           ],
         ),
       ),
