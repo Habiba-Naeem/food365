@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:food365/domain/services/image_service.dart';
+import 'package:food365/domain/services/menu_service.dart';
+import 'package:food365/utils/shared/loading.dart';
 import 'package:provider/provider.dart';
 
 import 'package:food365/domain/models/modules/ordering/cart_item.dart';
@@ -50,9 +53,15 @@ class EditProductItem extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              MenuItemImage(
-                imagePath: menuItem.imagePath,
-              ),
+              FutureBuilder(
+                  future: ImageService().getImage(menuItemId: menuItem.itemID),
+                  builder: (context, snapshot) {
+                    return snapshot.hasData
+                        ? MenuItemImage(
+                            imagePath: snapshot.data.toString(),
+                          )
+                        : Center(child: Loading());
+                  }),
               Container(
                 padding: const EdgeInsets.only(left: 8, right: 8),
                 child: Column(
@@ -84,21 +93,36 @@ class EditProductItem extends StatelessWidget {
                       ),
                       child: InkWell(
                         onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(builder: (context){
+                          Navigator.of(context)
+                              .push(MaterialPageRoute(builder: (context) {
                             return Provider<MenuItemModel>.value(
-                            
-                            value: menuItem,
-                            child: EditItem(),
-                           
-                          );
+                              value: menuItem,
+                              child: EditItem(),
+                            );
                           }));
-                          
                         },
                         splashColor: Colors.white70,
                         customBorder: RoundedRectangleBorder(
                           borderRadius: BorderRadiusDirectional.circular(12),
                         ),
                         child: Icon(Icons.edit),
+                      ),
+                    ),
+                    Card(
+                      margin: EdgeInsets.only(right: 0),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadiusDirectional.circular(12),
+                      ),
+                      child: InkWell(
+                        onTap: () async {
+                          await MenuService().deleteMenuItem(
+                              menuItemID: menuItem.itemID.toString());
+                        },
+                        splashColor: Colors.white70,
+                        customBorder: RoundedRectangleBorder(
+                          borderRadius: BorderRadiusDirectional.circular(12),
+                        ),
+                        child: Icon(Icons.delete),
                       ),
                     )
                   ],
@@ -121,11 +145,23 @@ class MenuItemImage extends StatelessWidget {
     return Container(
       height: MediaQuery.of(context).size.width / 2.5,
       child: ClipRRect(
-          borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
-          child: Image.asset(
-            imagePath,
-            fit: BoxFit.cover,
-          )),
+        borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
+        child: Image.network(
+          imagePath.toString(),
+          fit: BoxFit.cover,
+          loadingBuilder: (BuildContext context, Widget child,
+              ImageChunkEvent? loadingProgress) {
+            if (loadingProgress == null) {
+              return child;
+            }
+            return Loading();
+          },
+        ),
+        // child: Image.asset(
+        //   imagePath,
+        //   fit: BoxFit.cover,
+        // ),
+      ),
     );
   }
 }

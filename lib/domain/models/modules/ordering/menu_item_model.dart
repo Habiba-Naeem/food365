@@ -13,7 +13,7 @@ class MenuItemModel {
   double price;
   Duration time;
   //double time;
-  String imagePath;
+  String? imagePath;
 
   MenuItemModel({
     required this.itemID,
@@ -31,7 +31,7 @@ class MenuItemModel {
     required this.description,
     required this.price,
     required this.time,
-    required this.imagePath,
+    //required this.imagePath,
   });
 
   factory MenuItemModel.fromJson({

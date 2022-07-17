@@ -23,13 +23,12 @@ class EditProductScreen extends StatelessWidget {
         headingText: "Your Products",
         height: 116.0,
       ),
-    
       body: Container(
         margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
         child: Column(
           children: <Widget>[
             const Divider(),
-            FutureProvider<dynamic>.value(
+            StreamProvider<List<MenuItemModel>>.value(
               initialData: [],
               value: MenuService().getMenuItems(),
               child: MenuItems(),
@@ -40,7 +39,6 @@ class EditProductScreen extends StatelessWidget {
     );
   }
 }
-
 
 class MenuItems extends StatelessWidget {
   const MenuItems({Key? key}) : super(key: key);
@@ -57,15 +55,18 @@ class MenuItems extends StatelessWidget {
         crossAxisCount: 2,
         physics: const BouncingScrollPhysics(),
         children: [
-          ...newmenuItems.map((e) => FutureBuilder(
-              future: MenuService().getMenuItems(),
+          ...newmenuItems.map(
+            (e) => StreamBuilder(
+              stream: MenuService().getMenuItems(),
               builder: (context, snapshot) {
                 return snapshot.hasData
                     ? EditProductItem(
                         menuItem: e,
                       )
                     : Loading();
-              }))
+              },
+            ),
+          )
         ],
       ),
     );

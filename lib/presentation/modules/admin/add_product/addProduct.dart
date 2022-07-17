@@ -63,6 +63,7 @@ class _AddProductFormState extends State<AddProductForm> {
     setState(() {
       if (pickedFile != null) {
         _image = File(pickedFile.path);
+        print(pickedFile.path);
       } else {
         print('No image selected.');
       }
@@ -292,25 +293,7 @@ class _AddProductFormState extends State<AddProductForm> {
                 },
               ).showDialog(context);
             },
-          )
-          // TextFormField(
-          //   cursorColor: Colors.orange[200],
-          //   keyboardType: TextInputType.number,
-          //   onChanged: (val) =>
-          //       setState(() => time = double.tryParse(val) ?? 0),
-          //   decoration: InputDecoration(
-          //     labelText: "Cooking Time",
-          //     fillColor: const Color.fromARGB(255, 127, 228, 218),
-          //     filled: true,
-          //     //prefixText: "In minutes",
-          //     prefixIcon:
-          //         Icon(Icons.timer, color: Colors.orange[200], size: 20),
-          //     border: OutlineInputBorder(
-          //         borderRadius: BorderRadius.circular(30.0),
-          //         borderSide: BorderSide.none),
-          //   ),
-          // )
-          ,
+          ),
           const SizedBox(
             height: 16,
           ),
@@ -323,7 +306,8 @@ class _AddProductFormState extends State<AddProductForm> {
                   imagePath: imagePath,
                   name: name,
                   price: price,
-                  time: time);
+                  time: time,
+                  image: _image!);
             },
             child: Container(
               alignment: Alignment.center,

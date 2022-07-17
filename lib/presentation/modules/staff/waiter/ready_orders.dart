@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food365/domain/models/modules/ordering/order.dart';
 import 'package:food365/domain/services/order_service.dart';
+import 'package:food365/domain/services/order_status_service.dart';
 import 'package:food365/presentation/modules/KitchenStaff/items_modal.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
@@ -82,7 +83,7 @@ class _ButtonStatus extends State<ButtonStatus> {
     return Center(
         child: ElevatedButton(
             onPressed: () {
-              OrderService().updateReadyStatus(order: widget.order);
+              OrderStatusService().updateReadyStatus(order: widget.order);
               setState(() {
                 buttonText = 'Ready';
               });

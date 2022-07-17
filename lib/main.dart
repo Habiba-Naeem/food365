@@ -1,6 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:food365/domain/models/modules/ordering/cart_item.dart';
+import 'package:food365/presentation/modules/KitchenStaff/cook_screen.dart';
+import 'package:food365/presentation/modules/ordering/cart/cart_item.dart';
 import 'package:food365/presentation/modules/ordering/checkout/controller/checkout_controller.dart';
 import 'package:food365/presentation/modules/ordering/checkout/views/timer.dart';
 import 'package:food365/splash_screen.dart';
@@ -36,19 +39,12 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider.value(value: CartModel()),
-        // ChangeNotifierProvider.value(value: CheckoutController),
-        FutureProvider<List<MenuItemModel>>.value(
-            value: MenuService().getMenuItems()),
-        // FutureProvider<List<OrderModel>>.value(value: OrderService().getAllOrders())
+       
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
         onGenerateRoute: RouteGenerator.generateRoute,
-        //home: MyHomePage(),
         home: FutureBuilder(
-          // future: Firebase.initializeApp(
-          //   options: DefaultFirebaseOptions.currentPlatform,
-          // ),
           builder: (context, snapshot) {
             return snapshot.hasData ? const Wrapper() : SplashScreenPage();
           },

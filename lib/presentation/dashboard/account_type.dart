@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:food365/presentation/modules/admin/admin_screen.dart';
 import 'package:food365/presentation/modules/KitchenStaff/cook_screen.dart';
+import 'package:food365/presentation/modules/admin/auth/auth.dart';
 import 'package:food365/presentation/modules/ordering/menu/menu_screen.dart';
 import 'package:food365/presentation/modules/staff/waiter/waiter_dashboard.dart';
 import 'package:food365/utils/constants.dart';
-
 
 class AccountType extends StatelessWidget {
   static const String id = 'account type';
@@ -14,12 +14,12 @@ class AccountType extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-backgroundColor: Color.fromARGB(230, 255, 255, 255),
+        backgroundColor: Colors.teal,
         body: Padding(
           padding: const EdgeInsets.all(10.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
+            //crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Align(
                 alignment: Alignment.topCenter,
@@ -28,50 +28,39 @@ backgroundColor: Color.fromARGB(230, 255, 255, 255),
                   child: Text('Food365', style: headerStyle),
                 ),
               ),
-              Expanded(
-                child: InkWell(
-                  child: const Text(
-                    "Waiter",
-                    style: TextStyle(fontSize: 24),
-                  ),
-                  onTap: () {
-                    Navigator.of(context)
-                        .pushReplacementNamed(WaiterDashboard.id);
-                  },
+              Container(
+                child: Column(
+                  children: [
+                    InkWell(
+                      child: const Text(
+                        "Waiter",
+                        style: TextStyle(fontSize: 24),
+                      ),
+                      onTap: () {
+                        Navigator.of(context).pushNamed(WaiterDashboard.id);
+                      },
+                    ),
+                    InkWell(
+                      child: const Text(
+                        "Cook",
+                        style: TextStyle(fontSize: 24),
+                      ),
+                      onTap: () {
+                        Navigator.of(context).pushNamed(CookScreen.id);
+                      },
+                    ),
+                    InkWell(
+                      child: const Text(
+                        "Admin",
+                        style: TextStyle(fontSize: 24),
+                      ),
+                      onTap: () {
+                        Navigator.of(context).pushNamed(Authenticate.id);
+                      },
+                    )
+                  ],
                 ),
               ),
-              Expanded(
-                child: InkWell(
-                  child: const Text(
-                    "Cook",
-                    
-                    style: TextStyle(fontSize: 24),
-                  ),
-                  onTap: () {
-                    Navigator.of(context).pushReplacementNamed(CookScreen.id);
-                  },
-                ),
-              ),
-              Expanded(
-                child: InkWell(
-                  child: const Text(
-                    "Manager",
-                    style: TextStyle(fontSize: 24),
-                  ),
-                  onTap: () {},
-                ),
-              ),
-              Expanded(
-                child: InkWell(
-                  child: const Text(
-                    "Admin",
-                    style: TextStyle(fontSize: 24),
-                  ),
-                  onTap: () {
-                    Navigator.of(context).pushReplacementNamed(AdminScreen.id);
-                  },
-                ),
-              )
             ],
           ),
         ),
@@ -79,7 +68,3 @@ backgroundColor: Color.fromARGB(230, 255, 255, 255),
     );
   }
 }
-
-
-
-

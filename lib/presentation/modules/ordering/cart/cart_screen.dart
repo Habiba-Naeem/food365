@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food365/domain/models/modules/ordering/cart_model.dart';
+import 'package:food365/domain/models/modules/ordering/menu_item_model.dart';
+import 'package:food365/domain/services/menu_service.dart';
 import 'package:food365/presentation/modules/ordering/cart/cart_item.dart';
 import 'package:food365/presentation/modules/ordering/checkout/views/checkout_screen.dart';
 import 'package:food365/utils/constants.dart';
@@ -52,8 +54,11 @@ class CartScreen extends StatelessWidget {
                     shrinkWrap: true,
                     itemBuilder: (BuildContext context, int index) {
                       print(cart.cartItems);
-
-                      return CartItems(cartItem: cart.cartItems[index]);
+                      return StreamProvider<List<MenuItemModel>>.value(
+                        initialData: [],
+                        value: MenuService().getMenuItems(),
+                        child: CartItems(cartItem: cart.cartItems[index]),
+                      );
                     },
                   );
                 },

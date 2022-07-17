@@ -4,10 +4,10 @@ import 'package:food365/domain/models/modules/ordering/cart_item.dart';
 import 'package:food365/domain/models/modules/ordering/cart_model.dart';
 import 'package:food365/domain/models/modules/ordering/menu_item_model.dart';
 import 'package:food365/domain/models/modules/ordering/order_item.dart';
-import 'package:food365/domain/models/providers/timer_provider.dart';
 import 'package:food365/domain/services/menu_service.dart';
 import 'package:food365/presentation/modules/ordering/cart/cart_item.dart';
 import 'package:food365/presentation/modules/ordering/menu/menu_item.dart';
+import 'package:intl/intl.dart';
 
 class OrderModel extends ChangeNotifier {
   bool serviceStatus = false;
@@ -18,6 +18,7 @@ class OrderModel extends ChangeNotifier {
   DateTime updatedAt;
   double totalPrice;
   List<OrderItem> items = [];
+  Duration timeLeft = Duration();
 
   OrderModel({
     required this.serviceStatus,
@@ -30,38 +31,6 @@ class OrderModel extends ChangeNotifier {
     required this.items,
   });
 
-  List<OrderItem> get allOrderItems => items;
-
-  int get pendingItems {
-    final allItems = allOrderItems;
-    notifyListeners();
-    return allItems.where((element) => element.cookingStatus == false).length;
-  }
-
-  int get readyItems {
-    final allItems = allOrderItems;
-    notifyListeners();
-    return allItems.where((element) => element.cookingStatus == true).length;
-  }
-
-  int get servedItems {
-    final allItems = allOrderItems;
-    notifyListeners();
-    return allItems.where((element) => element.cookingStatus == true).length;
-  }
-
-  // Future<Duration> serviceTimeLeft() async {
-  //   final allItems = allOrderItems;
-  //   var menuItemTimes = allItems.map((e) async {
-  //     var menuItem = await MenuService().getMenuItem(menuItemID: e.menuItemID);
-  //     return menuItem.time;
-  //   }).toList();
-
-  //   var averageTime = menuItemTimes.forEach((time) {
-  //      var hrs =
-  //   });
-  // }
-
   OrderModel.postOrder({
     required this.createdAt,
     required this.updatedAt,
@@ -73,22 +42,11 @@ class OrderModel extends ChangeNotifier {
     required json,
     required key,
   }) {
-    //print(json["items"].runtimeType);
     List<OrderItem> orderItems = json['items'] != null
         ? List<OrderItem>.from(
             json['items'].map((x) => OrderItem.fromJson(json: x)).toList())
         : [];
-    // List<OrderItem> orderItems = json['items']
-    //     .map<OrderItem>((item) => OrderItem(
-    //           //orderItemID: index,
-    //           cookingStatus: item['cookingStatus'],
-    //           readyStatus: item['readyStatus'],
-    //           serviceStatus: item['serviceStatus'],
-    //           menuItemID: item['menuItemID'],
-    //           menuName: item['menuName'],
-    //           quantity: item['quantity'],
-    //         ))
-    //     .toList();
+
     return OrderModel(
         orderID: key,
         serviceStatus: json['serviceStatus'],
@@ -109,4 +67,65 @@ class OrderModel extends ChangeNotifier {
         "totalPrice": totalPrice,
         "items": items
       };
+
+  List<OrderItem> get allOrderItems => items;
+
+  int get pendingItems {
+    final allItems = allOrderItems;
+
+    var len =
+        allItems.where((element) => element.cookingStatus == false).length;
+
+    if (len == 0) {
+      cookingStatus = true;
+    }
+    notifyListeners();
+    return len;
+  }
+
+  int get readyItems {
+    final allItems = allOrderItems;
+    var len = allItems.where((element) => element.readyStatus == true).length;
+
+    // if (len == 0) {
+    //   readyStatus = true;
+    // }
+    notifyListeners();
+    return len;
+    // notifyListeners();
+    // return allItems.where((element) => element.cookingStatus == true).length;
+  }
+
+  int get servedItems {
+    final allItems = allOrderItems;
+    var len = allItems.where((element) => element.serviceStatus == true).length;
+
+    notifyListeners();
+    return len;
+    // notifyListeners();
+    // return allItems.where((element) => element.cookingStatus == true).length;
+  }
+
+  get createdAgo {
+    DateFormat dateFormat = DateFormat("HH:mm:ss yyyy-MM-dd");
+    return dateFormat.format(createdAt);
+    //return prettyDuration(DateTime.now().difference(createdAt));
+  }
+
+  Duration get allTimeLeft => timeLeft;
+
+  Future serviceTimeLeft() async {
+    print(timeLeft);
+    final allItems = allOrderItems;
+
+    var menuItemTime = await allItems.map((item) async {
+      var menuItem =
+          await MenuService().getMenuItem(menuItemID: item.menuItemID);
+      print(menuItem.time);
+      timeLeft = menuItem.time + timeLeft;
+    });
+    print(timeLeft);
+    notifyListeners();
+    return timeLeft;
+  }
 }
