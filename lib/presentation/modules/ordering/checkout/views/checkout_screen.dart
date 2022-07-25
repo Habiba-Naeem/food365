@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:food365/domain/models/modules/ordering/cart_model.dart';
 import 'package:food365/domain/models/modules/ordering/order.dart';
 import 'package:food365/domain/services/order_service.dart';
@@ -16,9 +17,13 @@ import 'package:food365/utils/shared/widgets/dialogs.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../../utils/colors.dart';
+import '../../../../../utils/custom_style.dart';
+
 class CheckoutScreen extends StatefulWidget {
   static const String id = "checkout";
-  const CheckoutScreen({Key? key}) : super(key: key);
+  final String amount;
+  const CheckoutScreen({Key key,this.amount}) : super(key: key);
 
   @override
   State<CheckoutScreen> createState() => _CheckoutScreenState();
@@ -28,8 +33,18 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   bool loading = false;
   @override
   Widget build(BuildContext context) {
+
+    final cartModel = Provider.of<CartModel>(context);
     return LoaderOverlay(
       child: Scaffold(
+        appBar: AppBar(
+        title: Text("Checkout",style: CustomStyle.appbarTitleStyle,),
+    backgroundColor: CustomColor.primaryColor,
+    leading: IconButton(
+    icon: Icon(FontAwesomeIcons.arrowAltCircleLeft, color: CustomColor.whiteColor),
+    onPressed: () => Navigator.of(context).pop(),
+          ),
+        ),
         body: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Container(
@@ -45,7 +60,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Text('Total:6776', style: headerStyle),
+                    Text('Total:${cartModel.totalPrice??""}', style: headerStyle),
                   ],
                 ),
                 Container(
@@ -56,6 +71,9 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                         ? SpinKitChasingDots(color: Colors.blue, size: 20)
                         : Text('Confirm Order', style: titleStyle),
                     onPressed: () async {
+                      if(cartModel.totalPrice<0){
+                        return;
+                      }
                       // CheckoutController(
                       //   cartItems: Provider.of<CartModel>(context).allCartItems,
                       //   total: Provider.of<CartModel>(context).totalPrice,
@@ -66,20 +84,17 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                       context.loaderOverlay.show();
                       try {
                         var response = await OrderService().postOrder(
-                            totalPrice:
-                                Provider.of<CartModel>(context, listen: false)
-                                    .total,
-                            items:
-                                Provider.of<CartModel>(context, listen: false)
-                                    .allCartItems);
+                            totalPrice:cartModel.totalPrice,
+                            items:cartModel.allCartItems);
                         if (response["success"] == success) {
                           context.loaderOverlay.hide();
+                          cartModel.resetState();
                           await showAlertDialog(context);
                           // FutureProvider<OrderModel>.value(
                           //   value: response['order'],
-                          //   child: MyHomePage(order: response['order'],)
+                          //   child: TimePage(order: response['order'],)
                           // );
-                          Navigator.of(context).pushNamed(MyHomePage.id,
+                          Navigator.of(context).pushNamed(TimePage.id,
                               arguments: response['order']);
                         }
                       } on SomethingWentWrong catch (e) {
@@ -97,7 +112,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                       }
                     },
                     padding: EdgeInsets.symmetric(horizontal: 64, vertical: 12),
-                    color: mainColor,
+                    color: AppColors.primaryColor,
                     shape: StadiumBorder(),
                   ),
                 ),

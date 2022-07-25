@@ -4,7 +4,7 @@ import 'package:food365/domain/models/modules/admin/admin.dart';
 class AuthService {
   final FirebaseAuth auth = FirebaseAuth.instance;
 
-  Future signIn({required String email, required String password}) async {
+  Future signIn({ String email,  String password}) async {
     try {
       
       UserCredential result = await auth.signInWithEmailAndPassword(
@@ -24,7 +24,7 @@ class AuthService {
     }
   }
 
-  Future signUp({required String email, required String password}) async {
+  Future signUp({ String email,  String password}) async {
     try {
       UserCredential result = await auth.createUserWithEmailAndPassword(
         email: email,
@@ -47,7 +47,7 @@ class AuthService {
   }
 
   dynamic getUser() {
-    final User? user = auth.currentUser;
+    final User user = auth.currentUser;
     return user != null ? user : null;
   }
 }

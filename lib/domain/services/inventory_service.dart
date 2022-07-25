@@ -38,7 +38,7 @@ class InventoryService {
   }
 
   updateExpiryStatus({
-    required InventoryItemModel inventoryItem,
+     InventoryItemModel inventoryItem,
   }) async {
     try {
       if (inventoryItem.daysTillExpiry <= 0) {
@@ -63,7 +63,7 @@ class InventoryService {
   }
 
   deleteInventoryItem({
-    required String inventoryItemID,
+     String inventoryItemID,
   }) async {
     try {
       var response = await httpClient.delete(
@@ -85,10 +85,10 @@ class InventoryService {
   }
 
   postInventoryItem({
-    required String itemName,
-    required int quantity,
-    required DateTime boughtDate,
-    required DateTime expiryDate,
+     String itemName,
+     int quantity,
+     DateTime boughtDate,
+     DateTime expiryDate,
   }) async {
     try {
       InventoryItemModel item = InventoryItemModel.postMenu(

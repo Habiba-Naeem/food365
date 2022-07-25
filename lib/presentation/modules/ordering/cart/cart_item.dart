@@ -9,11 +9,13 @@ import 'package:provider/provider.dart';
 
 class CartItems extends StatelessWidget {
   final CartItem cartItem;
-  const CartItems({Key? key, required this.cartItem}) : super(key: key);
+  const CartItems({Key key,  this.cartItem}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final menuItems = Provider.of<List<MenuItemModel>>(context);
+
+    final cartModel = Provider.of<CartModel>(context);
     print("my menuitems in cart");
     print(menuItems);
     return Card(
@@ -58,7 +60,7 @@ class CartItems extends StatelessWidget {
                       InkWell(
                         customBorder: roundedRectangle4,
                         onTap: () {
-                          Provider.of<CartModel>(context, listen: false)
+                         cartModel
                               .decreaseItem(cartItem);
                         },
                         child: Icon(Icons.remove_circle),
@@ -70,8 +72,7 @@ class CartItems extends StatelessWidget {
                       ),
                       InkWell(
                         customBorder: roundedRectangle4,
-                        onTap: () {
-                          Provider.of<CartModel>(context, listen: false)
+                        onTap: () {cartModel
                               .increaseItem(cartItem);
                         },
                         child: Icon(Icons.add_circle),
@@ -108,7 +109,7 @@ class CartItems extends StatelessWidget {
 
 class CartItemImage extends StatelessWidget {
   final String imagePath;
-  const CartItemImage({Key? key, required this.imagePath}) : super(key: key);
+  const CartItemImage({Key key,  this.imagePath}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -118,7 +119,7 @@ class CartItemImage extends StatelessWidget {
         imagePath.toString(),
         fit: BoxFit.cover,
         loadingBuilder: (BuildContext context, Widget child,
-            ImageChunkEvent? loadingProgress) {
+            ImageChunkEvent loadingProgress) {
           if (loadingProgress == null) {
             return child;
           }
@@ -131,7 +132,7 @@ class CartItemImage extends StatelessWidget {
 
 class CartItemName extends StatelessWidget {
   final String name;
-  const CartItemName({Key? key, required this.name}) : super(key: key);
+  const CartItemName({Key key,  this.name}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -148,7 +149,7 @@ class CartItemName extends StatelessWidget {
 
 class CartItemPrice extends StatelessWidget {
   final double price;
-  const CartItemPrice({Key? key, required this.price}) : super(key: key);
+  const CartItemPrice({Key key,  this.price}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

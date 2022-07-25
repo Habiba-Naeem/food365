@@ -40,15 +40,15 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => AdminScreen());
       case Authenticate.id:
         return MaterialPageRoute(builder: (_) => Authenticate());
-      case MyHomePage.id:
+      case TimePage.id:
         return MaterialPageRoute(
-          builder: (_) => MyHomePage(order: settings.arguments as OrderModel,)
+          builder: (_) => TimePage(order: settings.arguments as OrderModel,)
           // builder: (_) => FutureBuilder(
           //   future: OrderService().getOrder(orderID: settings.arguments),
           //   builder: (context, snapshot) {
           //     print(snapshot.data as OrderModel);
           //     return snapshot.hasData
-          //         ? MyHomePage(
+          //         ? TimePage(
           //             order: snapshot.data as OrderModel,
           //           )
           //         : Loading();

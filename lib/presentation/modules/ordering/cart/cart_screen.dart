@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:food365/domain/models/modules/ordering/cart_model.dart';
 import 'package:food365/domain/models/modules/ordering/menu_item_model.dart';
 import 'package:food365/domain/services/menu_service.dart';
@@ -9,16 +10,25 @@ import 'package:food365/utils/shared/custom_appbar.dart';
 import 'package:food365/utils/shared/custom_bottom_nav_bar.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../utils/colors.dart';
+import '../../../../utils/custom_style.dart';
+
 class CartScreen extends StatelessWidget {
   static const String id = 'cart item';
-  const CartScreen({Key? key}) : super(key: key);
+  const CartScreen({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final cartModel = Provider.of<CartModel>(context);
     return Scaffold(
-      appBar: MyCustomAppBar(
-        headingText: "Cart",
-        height: 116.0,
+
+      appBar: AppBar(
+        title: Text("Cart",style: CustomStyle.appbarTitleStyle,),
+        backgroundColor: CustomColor.primaryColor,
+        leading: IconButton(
+          icon: Icon(FontAwesomeIcons.arrowAltCircleLeft, color: CustomColor.whiteColor),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
       ),
       // appBar: AppBar(
       //   title: Text("Menu"),
@@ -44,20 +54,19 @@ class CartScreen extends StatelessWidget {
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.only(top: 24.0),
-                child: Text('Cart', style: headerStyle),
+                child: Text('Menu Items', style: headerStyle),
               ),
               Consumer<CartModel>(
                 builder: (context, cart, child) {
                   return ListView.builder(
                     physics: const NeverScrollableScrollPhysics(),
-                    itemCount: cart.cartItems.length,
+                    itemCount: cart.allCartItems.length,
                     shrinkWrap: true,
                     itemBuilder: (BuildContext context, int index) {
-                      print(cart.cartItems);
                       return StreamProvider<List<MenuItemModel>>.value(
                         initialData: [],
                         value: MenuService().getMenuItems(),
-                        child: CartItems(cartItem: cart.cartItems[index]),
+                        child: CartItems(cartItem: cart.allCartItems[index]),
                       );
                     },
                   );
@@ -69,7 +78,10 @@ class CartScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Text(
-                      '\$ ${Provider.of<CartModel>(context, listen: false).total.toStringAsFixed(2)}',
+                      'Total: ',
+                      style: headerStyle),
+                  Text(
+                      '\$ ${cartModel.totalPrice}',
                       style: headerStyle),
                 ],
               ),
@@ -79,17 +91,19 @@ class CartScreen extends StatelessWidget {
                 child: RaisedButton(
                   child: Text(
                     'Checkout',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold),
+                    style: CustomStyle.appbarTitleStyle,
                   ),
                   onPressed: () {
-                    Navigator.of(context)
-                        .pushReplacementNamed(CheckoutScreen.id);
+                    if(cartModel.totalPrice>0) {
+                      Navigator.of(context)
+                          .pushReplacementNamed(CheckoutScreen.id);
+                    }
+                    else{
+
+                    }
                   },
                   padding: EdgeInsets.symmetric(horizontal: 64, vertical: 12),
-                  color: mainColor,
+                  color: CustomColor.primaryColor,
                   shape: StadiumBorder(),
                 ),
               ),

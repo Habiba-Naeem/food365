@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_search_bar/flutter_search_bar.dart';
+//import 'package:flutter_search_bar/flutter_search_bar.dart';
 import 'package:http/retry.dart';
 
 // class MyCustomAppBar extends StatefulWidget {
 //   String headingText;
 //    MyCustomAppBar({
-//     Key? key,
-//     required this.headingText,
+//     Key key,
+//      this.headingText,
 //   }) : super(key: key);
 
 //   @override
@@ -37,12 +37,12 @@ import 'package:http/retry.dart';
 //   }
 // }
 class MyCustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-  final double? height;
+  final double height;
   String headingText;
   MyCustomAppBar({
-    Key? key,
+    Key key,
     this.height,
-    required this.headingText,
+     this.headingText,
   }) : super(key: key);
 
   @override

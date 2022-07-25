@@ -7,7 +7,7 @@ class ImageService {
   // final storageRef = FirebaseStorage.instance.ref();
 
   getImage({
-    required menuItemId,
+     menuItemId,
   }) async {
     final _firebaseStorage = FirebaseStorage.instance;
     final imageUrl = await _firebaseStorage
@@ -19,8 +19,8 @@ class ImageService {
   }
 
   uploadImage({
-    required image,
-    required menuItemId,
+     image,
+     menuItemId,
   }) async {
     final _firebaseStorage = FirebaseStorage.instance;
     //var file = File(image);

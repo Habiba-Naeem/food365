@@ -26,11 +26,11 @@ class CustomTextField extends StatefulWidget {
   //  bool medium;
 
   CustomTextField({
-    Key? key,
-    required this.hint,
-    required this.keyboardType,
-    required this.obscureText,
-    required this.icon,
+    Key key,
+     this.hint,
+     this.keyboardType,
+     this.obscureText,
+     this.icon,
   }) : super(key: key);
 
   @override

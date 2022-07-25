@@ -7,10 +7,10 @@ class CartItem {
   int quantity;
 
   CartItem({
-    required this.menuItemID,
-    required this.menuName,
-    required this.price,
-    required this.quantity,
+     this.menuItemID,
+     this.menuName,
+     this.price,
+     this.quantity,
   });
   Map<String, dynamic> toJson() => {
         "menuItemID": menuItemID,

@@ -7,7 +7,7 @@ class LogIn extends StatelessWidget {
   TextEditingController emailEditingController = TextEditingController();
   TextEditingController passwordEditingController = TextEditingController();
 
-  LogIn({Key? key}) : super(key: key);
+  LogIn({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -57,8 +57,8 @@ class LogIn extends StatelessWidget {
 class EmailInput extends StatelessWidget {
   TextEditingController emailEditingController;
   EmailInput({
-    Key? key,
-    required this.emailEditingController,
+    Key key,
+     this.emailEditingController,
   }) : super(key: key);
 
   @override
@@ -76,8 +76,8 @@ class EmailInput extends StatelessWidget {
 class PasswordInput extends StatelessWidget {
   TextEditingController passwordEditingController;
   PasswordInput({
-    Key? key,
-    required this.passwordEditingController,
+    Key key,
+     this.passwordEditingController,
   }) : super(key: key);
 
   @override
@@ -94,9 +94,9 @@ class SignInButton extends StatelessWidget {
   final email;
   final password;
   SignInButton({
-    Key? key,
-    required this.email,
-    required this.password,
+    Key key,
+    this.email,
+    this.password,
   }) : super(key: key);
 
   @override

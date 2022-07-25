@@ -8,7 +8,7 @@ import 'package:food365/utils/constants.dart';
 
 class AccountType extends StatelessWidget {
   static const String id = 'account type';
-  const AccountType({Key? key}) : super(key: key);
+  const AccountType({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

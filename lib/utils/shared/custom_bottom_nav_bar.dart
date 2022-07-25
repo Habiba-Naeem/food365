@@ -6,11 +6,13 @@ import 'package:food365/presentation/modules/ordering/menu/menu_screen.dart';
 
 import 'package:food365/presentation/modules/ordering/cart/cart_item.dart';
 
+import '../colors.dart';
+
 class CustomBottomNavBar extends StatelessWidget {
   final String id;
   const CustomBottomNavBar({
-    Key? key,
-    required this.id,
+    Key key,
+     this.id,
   }) : super(key: key);
 
   // final MenuState selectedMenu;
@@ -42,21 +44,22 @@ class CustomBottomNavBar extends StatelessWidget {
               IconButton(
                 icon: Icon(Icons.home_outlined),
                 onPressed: () =>
+
                     Navigator.pushReplacementNamed(context, HomeScreen.id),
-                color: id == HomeScreen.id ? Colors.teal : inActiveIconColor,
+                color: id == HomeScreen.id ? CustomColor.primaryColor : inActiveIconColor,
               ),
               IconButton(
                 icon: Icon(Icons.dining_outlined),
                 onPressed: () =>
                     Navigator.pushReplacementNamed(context, MenuScreen.id),
-                color: id == MenuScreen.id ? Colors.teal : inActiveIconColor,
+                color: id == MenuScreen.id ? CustomColor.primaryColor : inActiveIconColor,
               ),
               IconButton(
                 icon: Icon(Icons.shopping_cart_outlined),
                 onPressed: () {
                   Navigator.of(context).pushNamed(CartScreen.id);
                 },
-                color: id == CartScreen.id ? Colors.teal : inActiveIconColor,
+                color: id == CartScreen.id ? CustomColor.primaryColor : inActiveIconColor,
               ),
             ],
           )),

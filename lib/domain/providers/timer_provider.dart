@@ -9,7 +9,7 @@ class TimerProvider extends ChangeNotifier {
   //final List<Duration> itemTimes;
 
   List<Duration> getTimes({
-    required List<OrderItem> allItems,
+     List<OrderItem> allItems,
   }) {
     List<Duration> times = [];
     var sum = Duration();
@@ -24,20 +24,26 @@ class TimerProvider extends ChangeNotifier {
   }
 
   Future<int> getTime({
-    required OrderModel order,
+     OrderModel order,
   }) async {
     // List<Duration> times = [];
     try {
       Duration sum = Duration();
       order.allOrderItems.forEach((item) async  {
-        MenuItemModel menuItem =
-             await MenuService().getMenuItem(menuItemID: item.menuItemID);
-        sum = (sum + menuItem.time);
-        print(sum);
-        print(sum.inMinutes / order.allOrderItems.length);
+         MenuService().getMenuItem(menuItemID: item.menuItemID).then((value) {
+           sum = (sum + value.time);
+
+
+         }).whenComplete(() {
+
+           print("sum");
+           print(sum.inMinutes / order.allOrderItems.length);
+           return ((sum.inMinutes));
+
+         });
+
       
       });
-      return sum.inMinutes;
     } catch (e) {
       return 550;
     }

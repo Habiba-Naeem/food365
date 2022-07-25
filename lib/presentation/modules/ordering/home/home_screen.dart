@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:food365/domain/models/modules/ordering/category.dart';
 import 'package:food365/domain/services/menu_service.dart';
 import 'package:food365/presentation/modules/ordering/cart/cart_item.dart';
 import 'package:food365/presentation/modules/ordering/cart/cart_screen.dart';
 import 'package:food365/presentation/style.dart';
+import 'package:food365/utils/colors.dart';
 import 'package:food365/utils/shared/category_card.dart';
 import 'package:food365/utils/shared/custom_appbar.dart';
 import 'package:food365/utils/shared/custom_bottom_nav_bar.dart';
 import 'package:food365/utils/shared/customsidedrawer.dart';
+
+import '../../../../utils/custom_style.dart';
 
 //SINCE THE MENU WILL BE CUSTOMIZABLE BY THE ADMIN THEREFORE WE
 //NEED TO FETCH MENU ITEMS FROM DATABASE ONCE THE APPLICATION STARTS
@@ -17,45 +21,44 @@ class HomeScreen extends StatelessWidget {
   static const String id = 'home';
 
   HomeScreen({
-    Key? key,
+    Key key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        drawer: const CustomSideDrawer(),
+        // drawer: const CustomSideDrawer(),
         bottomNavigationBar: const CustomBottomNavBar(
           id: HomeScreen.id,
         ),
         appBar: AppBar(
-          backgroundColor: Colors.transparent,
-        elevation: 0,
+
+          title: Text("Home",style: CustomStyle.appbarTitleStyle,),
+          backgroundColor: CustomColor.primaryColor,
+          leading: IconButton(
+            icon: Icon(FontAwesomeIcons.arrowAltCircleLeft, color: CustomColor.whiteColor),
+            onPressed: () => Navigator.of(context).pop(),
+          ),
           //headingText: "Home",
       //height: 0,
-      leading: IconButton(
-          onPressed: () {
-            //do your operation while chaning value
-          },
-          icon: Icon(
-            Icons.arrow_back,
-            size: 27,
-          ),
-        ),
         actions: [
-          IconButton(
-            onPressed: () {
-              //do your operation while chaning value
-            },
-            icon: Icon(
-              Icons.search,
-              size: 27,
-              color: Colors.grey,
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: IconButton(
+              icon: Icon(
+                Icons.add_shopping_cart,
+                color: Colors.white,
+              ),
+              onPressed: (){
+
+                Navigator.of(context).pushNamed(CartScreen.id);
+              },
             ),
-          )
+          ),
         ],
       ),
-     
+
         body: SafeArea(
         child: SingleChildScrollView(
           child: Container(
@@ -65,49 +68,6 @@ class HomeScreen extends StatelessWidget {
               children: [
                 SizedBox(
                   height: 20,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Today's Special",
-                      style: TextStyle(fontSize: 26, fontWeight: FontWeight.w700),
-                    ),
-                    Container(
-                      child: Column(
-                        children: [
-                          Container(
-                            padding: EdgeInsets.symmetric(horizontal: 25, vertical: 10),
-                            decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(25)), color: tealBtn),
-                            child: Center(
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(
-                                    Icons.add_shopping_cart,
-                                    color: Colors.white,
-                                    size: 18,
-                                  ),
-                                  Text(
-                                    " CART",
-                                    style: TextStyle(color: Colors.white, fontSize: 13, fontWeight: FontWeight.w700),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                          Container(
-                            padding: EdgeInsets.symmetric(horizontal: 40, vertical: 5),
-                            margin: EdgeInsets.symmetric(horizontal: 10),
-                            decoration: BoxDecoration(borderRadius: BorderRadius.only(bottomRight: Radius.circular(20), bottomLeft: Radius.circular(20)), color: tealBtn.withOpacity(0.7)),
-                          )
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-                SizedBox(
-                  height: 10,
                 ),
                 Text(
                   "Find out what's cooking today!",

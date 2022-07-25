@@ -55,8 +55,8 @@ class MenuService {
     // }
   }
 
-  getMenuItem({
-    required menuItemID,
+  Future getMenuItem({
+     menuItemID,
   }) async {
     try {
       var response = await httpClient.get(Uri.parse(
@@ -77,7 +77,7 @@ class MenuService {
     }
   }
 
-  deleteMenuItem({required String menuItemID}) async {
+  deleteMenuItem({ String menuItemID}) async {
     try {
       var response = await httpClient.delete(
         Uri.parse(
@@ -95,8 +95,8 @@ class MenuService {
   }
 
   updateMenuItem({
-    required MenuItemModel item,
-    required File image,
+     MenuItemModel item,
+     File image,
   }) async {
     try {
       var response = await httpClient.patch(
@@ -117,13 +117,13 @@ class MenuService {
   }
 
   postMenuItem({
-    required String categoryID,
-    required String name,
-    required String description,
-    required double price,
-    required Duration time,
-    required String imagePath,
-    required File image,
+     String categoryID,
+     String name,
+     String description,
+     double price,
+     Duration time,
+     String imagePath,
+     File image,
   }) async {
     try {
       MenuItemModel menuItem = MenuItemModel.postMenu(

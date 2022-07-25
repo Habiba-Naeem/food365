@@ -9,7 +9,7 @@ import 'package:food365/utils/shared/category_card.dart';
 // THEN POPULATE THE DRAWER ITEM WITH APPROPRIATE TEXT AND TAP
 
 class CustomSideDrawer extends StatelessWidget {
-  const CustomSideDrawer({Key? key}) : super(key: key);
+  const CustomSideDrawer({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +47,7 @@ class CustomSideDrawer extends StatelessWidget {
 class _DrawerItems extends StatelessWidget {
   final Category category;
   final Gradient gradient;
-  const _DrawerItems({Key? key, required this.category, required this.gradient})
+  const _DrawerItems({Key key, this.category,  this.gradient})
       : super(key: key);
 
   @override

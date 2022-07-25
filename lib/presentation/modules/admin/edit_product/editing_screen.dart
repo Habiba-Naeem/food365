@@ -32,8 +32,8 @@ class EditItem extends StatelessWidget {
 class EditProductForm extends StatefulWidget {
   MenuItemModel item;
   EditProductForm({
-    Key? key,
-    required this.item,
+    Key key,
+     this.item,
   }) : super(key: key);
 
   @override
@@ -43,7 +43,7 @@ class EditProductForm extends StatefulWidget {
 class _EditProductFormState extends State<EditProductForm> {
   final ImagePicker picker = ImagePicker();
   final _formKey = GlobalKey<FormState>();
-  File? _image;
+  File _image;
   String imagePath = '';
   String category = '';
   String name = '';
@@ -140,7 +140,7 @@ class _EditProductFormState extends State<EditProductForm> {
                           ? ClipRRect(
                               borderRadius: BorderRadius.circular(50),
                               child: Image.file(
-                                _image!,
+                                _image,
                                 width: 100,
                                 height: 100,
                                 fit: BoxFit.fitHeight,
@@ -328,7 +328,7 @@ class _EditProductFormState extends State<EditProductForm> {
               //widget.item.name = name;
               MenuService().updateMenuItem(
                 item: widget.item,
-                image: _image!,
+                image: _image,
               );
             },
             child: Container(

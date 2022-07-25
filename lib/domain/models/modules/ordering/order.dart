@@ -13,7 +13,7 @@ class OrderModel extends ChangeNotifier {
   bool serviceStatus = false;
   bool readyStatus = false;
   bool cookingStatus = false;
-  String? orderID;
+  String orderID;
   DateTime createdAt;
   DateTime updatedAt;
   double totalPrice;
@@ -21,26 +21,26 @@ class OrderModel extends ChangeNotifier {
   Duration timeLeft = Duration();
 
   OrderModel({
-    required this.serviceStatus,
-    required this.cookingStatus,
-    required this.readyStatus,
-    required this.orderID,
-    required this.createdAt,
-    required this.updatedAt,
-    required this.totalPrice,
-    required this.items,
+     this.serviceStatus,
+     this.cookingStatus,
+     this.readyStatus,
+     this.orderID,
+     this.createdAt,
+     this.updatedAt,
+     this.totalPrice,
+     this.items,
   });
 
   OrderModel.postOrder({
-    required this.createdAt,
-    required this.updatedAt,
-    required this.totalPrice,
-    required this.items,
+     this.createdAt,
+     this.updatedAt,
+     this.totalPrice,
+     this.items,
   });
 
   factory OrderModel.fromJson({
-    required json,
-    required key,
+     json,
+     key,
   }) {
     List<OrderItem> orderItems = json['items'] != null
         ? List<OrderItem>.from(

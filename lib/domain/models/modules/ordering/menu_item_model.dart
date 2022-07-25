@@ -6,37 +6,37 @@ import 'package:flutter/material.dart';
 import 'package:food365/domain/models/modules/ordering/category.dart' as mycat;
 
 class MenuItemModel {
-  String? itemID;
+  String itemID;
   String categoryID;
   String name;
   String description;
   double price;
   Duration time;
   //double time;
-  String? imagePath;
+  String imagePath;
 
   MenuItemModel({
-    required this.itemID,
-    required this.categoryID,
-    required this.name,
-    required this.description,
-    required this.price,
-    required this.time,
-    required this.imagePath,
+     this.itemID,
+     this.categoryID,
+     this.name,
+     this.description,
+     this.price,
+     this.time,
+     this.imagePath,
   });
 
   MenuItemModel.postMenu({
-    required this.categoryID,
-    required this.name,
-    required this.description,
-    required this.price,
-    required this.time,
-    //required this.imagePath,
+     this.categoryID,
+     this.name,
+     this.description,
+     this.price,
+     this.time,
+    // this.imagePath,
   });
 
   factory MenuItemModel.fromJson({
-    required json,
-    required key,
+     json,
+     key,
   }) {
     return MenuItemModel(
       itemID: key,

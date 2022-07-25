@@ -68,8 +68,8 @@ class ReadyOrders extends StatelessWidget {
 class ButtonStatus extends StatefulWidget {
   final OrderModel order;
   ButtonStatus({
-    Key? key,
-    required this.order,
+    Key key,
+     this.order,
   }) : super(key: key);
 
   @override

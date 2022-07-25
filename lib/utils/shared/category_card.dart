@@ -3,7 +3,7 @@ import 'package:food365/domain/models/modules/ordering/category.dart';
 
 class CategoryChoiceChip extends StatelessWidget {
   final Category category;
-  const CategoryChoiceChip({Key? key, required this.category})
+  const CategoryChoiceChip({Key key,  this.category})
       : super(key: key);
 
   @override
@@ -52,11 +52,11 @@ BoxDecoration(
 //     this.height = Sizes.HEIGHT_100,
 //     this.borderRadius = Sizes.RADIUS_8,
 //     this.opacity = 0.65,
-//     required this.gradient,
+//      this.gradient,
 //     this.handleColor = AppColors.whiteShade_50,
 //     this.categoryTextStyle = Styles.normalTextStyle,
 //     this.onTap,
-//     required this.category,
+//      this.category,
 //   });
 
 //   @override

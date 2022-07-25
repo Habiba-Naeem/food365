@@ -12,14 +12,14 @@ import 'editing_screen.dart';
 
 class EditProductItem extends StatelessWidget {
   final MenuItemModel menuItem;
-  EditProductItem({required this.menuItem});
+  EditProductItem({ this.menuItem});
 
   @override
   Widget build(BuildContext context) {
     addItemToCard() {
       bool isAddSuccess = Provider.of<CartModel>(context, listen: false)
           .addItem(CartItem(
-              menuItemID: menuItem.itemID!,
+              menuItemID: menuItem.itemID,
               menuName: menuItem.name,
               price: menuItem.price,
               quantity: 1));
@@ -138,7 +138,7 @@ class EditProductItem extends StatelessWidget {
 
 class MenuItemImage extends StatelessWidget {
   final String imagePath;
-  const MenuItemImage({Key? key, required this.imagePath}) : super(key: key);
+  const MenuItemImage({Key key,  this.imagePath}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -150,7 +150,7 @@ class MenuItemImage extends StatelessWidget {
           imagePath.toString(),
           fit: BoxFit.cover,
           loadingBuilder: (BuildContext context, Widget child,
-              ImageChunkEvent? loadingProgress) {
+              ImageChunkEvent loadingProgress) {
             if (loadingProgress == null) {
               return child;
             }
@@ -170,9 +170,9 @@ class MenuItemName extends StatelessWidget {
   final String name;
   final Duration time;
   const MenuItemName({
-    Key? key,
-    required this.name,
-    required this.time,
+    Key key,
+     this.name,
+     this.time,
   }) : super(key: key);
 
   @override
@@ -188,7 +188,7 @@ class MenuItemName extends StatelessWidget {
 
 class MenuItemDescription extends StatelessWidget {
   final String description;
-  const MenuItemDescription({Key? key, required this.description})
+  const MenuItemDescription({Key key,  this.description})
       : super(key: key);
 
   @override
@@ -204,7 +204,7 @@ class MenuItemDescription extends StatelessWidget {
 
 class MenuItemPrice extends StatelessWidget {
   final double price;
-  const MenuItemPrice({Key? key, required this.price}) : super(key: key);
+  const MenuItemPrice({Key key,  this.price}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -216,7 +216,7 @@ class MenuItemPrice extends StatelessWidget {
 }
 
 class AddItem extends StatelessWidget {
-  const AddItem({Key? key}) : super(key: key);
+  const AddItem({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

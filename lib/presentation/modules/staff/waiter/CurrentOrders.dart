@@ -25,7 +25,7 @@ class CurrentOrders extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final orders = Provider.of<List<OrderModel>>(context);
+    final orders = Provider.of<List<OrderModel>>(context,listen: false);
 
     return DataTable(
       key: Key("${Random().nextDouble()}"),
@@ -78,8 +78,8 @@ class CurrentOrders extends StatelessWidget {
 class ButtonStatus extends StatefulWidget {
   final OrderModel order;
   ButtonStatus({
-    Key? key,
-    required this.order,
+    Key key,
+    this.order,
   }) : super(key: key);
 
   @override
@@ -116,8 +116,8 @@ class _ButtonStatus extends State<ButtonStatus> {
 // class DropDownExample extends StatefulWidget {
 //    String state;
 //    DropDownExample({
-//     Key? key,
-//     required this.state,
+//     Key key,
+//      this.state,
 //   }) : super(key: key);
 
 //   @override

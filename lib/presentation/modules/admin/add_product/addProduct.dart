@@ -27,7 +27,7 @@ class AddProductScreen extends StatelessWidget {
 }
 
 class AddProductForm extends StatefulWidget {
-  const AddProductForm({Key? key}) : super(key: key);
+  const AddProductForm({Key key}) : super(key: key);
 
   @override
   State<AddProductForm> createState() => _AddProductFormState();
@@ -35,7 +35,7 @@ class AddProductForm extends StatefulWidget {
 
 class _AddProductFormState extends State<AddProductForm> {
   final _formKey = GlobalKey<FormState>();
-  File? _image;
+  File _image;
   final ImagePicker picker = ImagePicker();
   String imagePath = '';
   String category = '';
@@ -123,7 +123,7 @@ class _AddProductFormState extends State<AddProductForm> {
                           ? ClipRRect(
                               borderRadius: BorderRadius.circular(50),
                               child: Image.file(
-                                _image!,
+                                _image,
                                 width: 100,
                                 height: 100,
                                 fit: BoxFit.fitHeight,
@@ -307,7 +307,7 @@ class _AddProductFormState extends State<AddProductForm> {
                   name: name,
                   price: price,
                   time: time,
-                  image: _image!);
+                  image: _image);
             },
             child: Container(
               alignment: Alignment.center,

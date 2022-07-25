@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:food365/domain/models/modules/ordering/cart_item.dart';
 import 'package:food365/domain/models/modules/ordering/cart_model.dart';
 import 'package:food365/domain/models/modules/ordering/menu_item_model.dart';
@@ -7,23 +8,29 @@ import 'package:food365/presentation/modules/ordering/menu/menu_item.dart';
 
 import 'package:food365/domain/services/menu_service.dart';
 import 'package:food365/utils/constants.dart';
+import 'package:food365/utils/custom_style.dart';
 import 'package:food365/utils/shared/custom_appbar.dart';
 import 'package:food365/utils/shared/custom_bottom_nav_bar.dart';
 import 'package:food365/utils/shared/customsidedrawer.dart';
 import 'package:food365/utils/shared/loading.dart';
 import 'package:provider/provider.dart';
+import '../../../../utils/colors.dart';
 import 'menu_item.dart' as menuIemWidget;
 
 class MenuScreen extends StatelessWidget {
   static const String id = 'menu screen';
-  const MenuScreen({Key? key}) : super(key: key);
+  const MenuScreen({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MyCustomAppBar(
-        headingText: "Menu",
-        height: 116.0,
+      appBar: AppBar(
+title: Text("Menu",style: CustomStyle.appbarTitleStyle,),
+        backgroundColor: CustomColor.primaryColor,
+        leading: IconButton(
+          icon: Icon(FontAwesomeIcons.arrowAltCircleLeft, color: CustomColor.whiteColor),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
       ),
      
       drawer: CustomSideDrawer(),
@@ -50,7 +57,7 @@ class MenuScreen extends StatelessWidget {
 
 
 class MenuItems extends StatelessWidget {
-  const MenuItems({Key? key}) : super(key: key);
+  const MenuItems({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
