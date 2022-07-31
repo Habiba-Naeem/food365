@@ -120,17 +120,21 @@ class MenuItemImage extends StatelessWidget {
       height: MediaQuery.of(context).size.width / 2.5,
       child: ClipRRect(
         borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
-        child: Image.network(
-          imagePath.toString(),
+        child: Image.asset(
+          imagePath,
           fit: BoxFit.cover,
-          loadingBuilder: (BuildContext context, Widget child,
-              ImageChunkEvent? loadingProgress) {
-            if (loadingProgress == null) {
-              return child;
-            }
-            return Loading();
-          },
         ),
+        // child: Image.network(
+        //   imagePath.toString(),
+        //   fit: BoxFit.cover,
+        //   loadingBuilder: (BuildContext context, Widget child,
+        //       ImageChunkEvent? loadingProgress) {
+        //     if (loadingProgress == null) {
+        //       return child;
+        //     }
+        //     return Loading();
+        //   },
+        // ),
       ),
     );
   }

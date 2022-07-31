@@ -114,17 +114,21 @@ class CartItemImage extends StatelessWidget {
   Widget build(BuildContext context) {
     return ClipRRect(
       borderRadius: BorderRadius.all(Radius.circular(6)),
-      child: Image.network(
-        imagePath.toString(),
-        fit: BoxFit.cover,
-        loadingBuilder: (BuildContext context, Widget child,
-            ImageChunkEvent? loadingProgress) {
-          if (loadingProgress == null) {
-            return child;
-          }
-          return Loading();
-        },
-      ),
+      child: Image.asset(
+          imagePath,
+          fit: BoxFit.cover,
+        ),
+      // child: Image.network(
+      //   imagePath.toString(),
+      //   fit: BoxFit.cover,
+      //   loadingBuilder: (BuildContext context, Widget child,
+      //       ImageChunkEvent? loadingProgress) {
+      //     if (loadingProgress == null) {
+      //       return child;
+      //     }
+      //     return Loading();
+      //   },
+      // ),
     );
   }
 }

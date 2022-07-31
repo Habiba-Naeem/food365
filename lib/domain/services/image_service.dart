@@ -9,11 +9,12 @@ class ImageService {
   getImage({
     required menuItemId,
   }) async {
-    final _firebaseStorage = FirebaseStorage.instance;
-    final imageUrl = await _firebaseStorage
-        .ref()
-        .child("images/" + menuItemId)
-        .getDownloadURL();
+    //final _firebaseStorage = FirebaseStorage.instance;
+    // final imageUrl = await _firebaseStorage
+    //     .ref()
+    //     .child("images/" + menuItemId)
+    //     .getDownloadURL();
+    final imageUrl = "assets/images/menu_items/mexican.png";
     print(imageUrl);
     return imageUrl;
   }
@@ -22,12 +23,12 @@ class ImageService {
     required image,
     required menuItemId,
   }) async {
-    final _firebaseStorage = FirebaseStorage.instance;
+    // final _firebaseStorage = FirebaseStorage.instance;
     //var file = File(image);
     print(image);
     if (image != null) {
-      var snapshot =
-          await _firebaseStorage.ref("images/" + menuItemId).putFile(image);
+      // var snapshot =
+      //     await _firebaseStorage.ref("images/" + menuItemId).putFile(image);
     } else {
       print('No Image Path Received');
     }
