@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:food365/utils/colors.dart';
 
 showAlertDialog(BuildContext context) {
   // Create button
   Widget okButton = FlatButton(
     child: Text("OK"),
-    color: Colors.teal,
+    color:CustomColor.primaryColor,
     onPressed: () {
       Navigator.of(context).pop();
     },

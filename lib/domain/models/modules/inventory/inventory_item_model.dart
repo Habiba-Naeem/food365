@@ -1,5 +1,5 @@
 class InventoryItemModel {
-  String? itemID;
+  String itemID;
   String itemName;
   int quantity;
   DateTime boughtDate;
@@ -7,23 +7,23 @@ class InventoryItemModel {
   bool expired = false;
 
   InventoryItemModel(
-      {required this.itemID,
-      required this.itemName,
-      required this.quantity,
-      required this.boughtDate,
-      required this.expiryDate,
-      required this.expired});
+      { this.itemID,
+       this.itemName,
+       this.quantity,
+       this.boughtDate,
+       this.expiryDate,
+       this.expired});
 
   InventoryItemModel.postMenu({
-    required this.itemName,
-    required this.boughtDate,
-    required this.expiryDate,
-    required this.quantity,
+     this.itemName,
+     this.boughtDate,
+     this.expiryDate,
+     this.quantity,
   });
 
   factory InventoryItemModel.fromJson({
-    required json,
-    required key,
+     json,
+     key,
   }) {
     return InventoryItemModel(
         itemID: key,

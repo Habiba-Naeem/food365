@@ -11,8 +11,8 @@ class CheckoutController extends ChangeNotifier {
   bool isLoading = false;
 
   CheckoutController({
-    required this.total,
-    required this.cartItems,
+     this.total,
+     this.cartItems,
   });
 
   Future checkOut() async {

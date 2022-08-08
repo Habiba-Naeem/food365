@@ -10,7 +10,7 @@ import 'package:provider/provider.dart';
 
 class CookScreen extends StatelessWidget {
   static const String id = "cook screen";
-  const CookScreen({Key? key}) : super(key: key);
+  const CookScreen({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

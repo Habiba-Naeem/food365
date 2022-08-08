@@ -67,7 +67,7 @@ class OrderService {
   }
 
   getOrder({
-    required orderID,
+     orderID,
   }) async {
     print(orderID);
     try {
@@ -161,8 +161,8 @@ class OrderService {
   }
 
   postOrder({
-    required totalPrice,
-    required List<CartItem> items,
+     totalPrice,
+     List<CartItem> items,
   }) async {
     try {
       List<OrderItem> orderItems = items.map((item) {

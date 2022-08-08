@@ -11,9 +11,9 @@ class ItemsModal extends StatelessWidget {
 
   final String orderID;
   const ItemsModal({
-    Key? key,
-    required this.orderItems,
-    required this.orderID,
+    Key key,
+     this.orderItems,
+     this.orderID,
   }) : super(key: key);
 
   @override
@@ -49,10 +49,10 @@ class Myexpansiontile extends StatefulWidget {
   final int orderItemID;
   final String orderID;
   const Myexpansiontile({
-    Key? key,
-    required this.orderItem,
-    required this.orderID,
-    required this.orderItemID,
+    Key key,
+     this.orderItem,
+     this.orderID,
+     this.orderItemID,
   }) : super(key: key);
 
   @override
@@ -62,7 +62,7 @@ class Myexpansiontile extends StatefulWidget {
 class _MyexpansiontileState extends State<Myexpansiontile> {
   bool _myTileExpanded = false;
 
-  late int initialIndex;
+   int initialIndex;
   @override
   initState() {
     initialIndex = getIndex();

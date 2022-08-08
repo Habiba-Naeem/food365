@@ -12,7 +12,7 @@ class Authenticate extends StatelessWidget {
   static const String id = 'authenticate screen';
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<User?>(
+    return StreamBuilder<User>(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
           print(AuthService().getUser());

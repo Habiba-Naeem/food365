@@ -33,30 +33,31 @@ class MenuService {
       return menuList;
     });
     return streamToPublish.asBroadcastStream();
-    // try {
-    //   var response =
-    //       await httpClient.get(Uri.parse(baseURL + menuURL + jsonVariable));
-    //   print(response.statusCode);
-    //   Map<String, dynamic> data =
-    //       jsonDecode(response.body) as Map<String, dynamic>;
-
-    //   List<MenuItemModel> menuItems = data.entries
-    //       .map((e) => MenuItemModel.fromJson(json: e.value, key: e.key))
-    //       .toList();
-
-    //   var parsedResponse = ApiResponse.fromJson(response.statusCode);
-
-    //   if (response.statusCode == 200) {
-    //     return menuItems;
-    //   }
-    //   throw parsedResponse.returnException();
-    // } on SocketException catch (e) {
-    //   return [];
-    // }
   }
 
-  getMenuItem({
-    required menuItemID,
+  Stream<List<MenuItemModel>> getFamousMenuItems() {
+    Stream<DatabaseEvent> stream = FirebaseDatabase.instance
+        .ref(menuURL)
+        .orderByChild("famous")
+        .equalTo(true)
+        .onValue;
+    final streamToPublish = stream.map((event) {
+      List<MenuItemModel> menuList = [];
+      Map<String, dynamic>.from(event.snapshot.value as dynamic).forEach(
+        (key, value) async {
+          menuList.add(
+            MenuItemModel.fromJson(json: value, key: key),
+          );
+        },
+      );
+      print(menuList);
+      return menuList;
+    });
+    return streamToPublish.asBroadcastStream();
+  }
+
+  Future getMenuItem({
+    menuItemID,
   }) async {
     try {
       var response = await httpClient.get(Uri.parse(
@@ -77,7 +78,7 @@ class MenuService {
     }
   }
 
-  deleteMenuItem({required String menuItemID}) async {
+  deleteMenuItem({String menuItemID}) async {
     try {
       var response = await httpClient.delete(
         Uri.parse(
@@ -94,9 +95,27 @@ class MenuService {
     }
   }
 
+  togglefamousMenuItem({String menuItemID, MenuItemModel menuItem}) async {
+    try {
+      var response = await httpClient.patch(
+          Uri.parse(
+            baseURL + menuURL + '/' + menuItemID.toString() + jsonVariable,
+          ),
+          body: jsonEncode(menuItem.toJson()));
+      var parsedResponse = ApiResponse.fromJson(response.statusCode);
+
+      if (response.statusCode == 200) {
+        return success;
+      }
+      throw parsedResponse.returnException();
+    } on SocketException catch (e) {
+      return noInternet;
+    }
+  }
+
   updateMenuItem({
-    required MenuItemModel item,
-    required File image,
+    MenuItemModel item,
+    File image,
   }) async {
     try {
       var response = await httpClient.patch(
@@ -117,13 +136,13 @@ class MenuService {
   }
 
   postMenuItem({
-    required String categoryID,
-    required String name,
-    required String description,
-    required double price,
-    required Duration time,
-    required String imagePath,
-    required File image,
+    String categoryID,
+    String name,
+    String description,
+    double price,
+    Duration time,
+    String imagePath,
+    File image,
   }) async {
     try {
       MenuItemModel menuItem = MenuItemModel.postMenu(
@@ -153,38 +172,3 @@ class MenuService {
     }
   }
 }
-
-
-// Future<List<mycat.Category>> getCategories() async {
-//     var response = await httpClient.get(
-//       Uri.parse(baseURL + categoriesURL + jsonVariable),
-//     );
-
-//     Map<String, dynamic> data =
-//         jsonDecode(response.body) as Map<String, dynamic>;
-
-//     List<mycat.Category> categories = data.entries.map((e) {
-//       return mycat.Category.fromJson(json: e.value, key: e.key);
-//     }).toList();
-
-//     return categories;
-//   }
-
-//   postCategories() async {
-//     try {
-//       var response = mycat.categories.forEach(
-//         (category) => http
-//             .post(
-//               Uri.parse(baseURL + categoriesURL + jsonVariable),
-//               body: json.encode(
-//                 {
-//                   'name': category.name,
-//                 },
-//               ),
-//             )
-//             .then((value) => print(jsonDecode(value.body))),
-//       );
-//     } on Exception catch (e) {
-//       // TODO
-//     }
-//   }

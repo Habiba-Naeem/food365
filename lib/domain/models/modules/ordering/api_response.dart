@@ -6,9 +6,9 @@ class ApiResponse {
   int status;
   //String message;
   ApiResponse({
-    //required this.success,
-    required this.status,
-    //required this.message,
+    // this.success,
+     this.status,
+    // this.message,
   });
 
   factory ApiResponse.fromJson(int statusCode) => ApiResponse(

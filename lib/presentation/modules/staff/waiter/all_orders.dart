@@ -23,7 +23,7 @@ class AllOrders extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final orders = Provider.of<List<OrderModel>>(context);
+    final orders = Provider.of<List<OrderModel>>(context,listen: false);
 
     return LoaderOverlay(
       child: DataTable(

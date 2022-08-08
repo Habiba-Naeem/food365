@@ -83,7 +83,7 @@ class AdminScreen extends StatelessWidget {
       itemName: "Tomatoes",
       quantity: 5,
       boughtDate: DateTime.now(),
-      expiryDate: DateTime(2022, 10, 5),
+      expiryDate: DateTime(2022, 1, 5),
     );
     Navigator.of(context)
         .push(MaterialPageRoute(builder: (context) => Inventory()));

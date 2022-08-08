@@ -10,18 +10,18 @@ class OrderItem {
   //int orderItemID;
 
   OrderItem({
-    //required this.orderItemID,
-    required this.cookingStatus,
-    required this.serviceStatus,
-    required this.readyStatus,
-    required this.menuItemID,
-    required this.menuName,
-    //required this.menuItemTime,
-    required this.quantity,
+    // this.orderItemID,
+     this.cookingStatus,
+     this.serviceStatus,
+     this.readyStatus,
+     this.menuItemID,
+     this.menuName,
+    // this.menuItemTime,
+     this.quantity,
   });
 
   factory OrderItem.fromJson({
-    required json
+     json
   }){
     return OrderItem(
 cookingStatus: json['cookingStatus'],
@@ -37,11 +37,11 @@ cookingStatus: json['cookingStatus'],
   //factory OrderItem.fromJson(){};
 
   OrderItem.postOrderItem({
-    //required this.orderItemID,
-    required this.menuItemID,
-    required this.menuName,
-    required this.quantity,
-   // required this.menuItemTime,
+    // this.orderItemID,
+     this.menuItemID,
+     this.menuName,
+     this.quantity,
+   //  this.menuItemTime,
   });
 
   getStatus() {

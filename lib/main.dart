@@ -7,12 +7,14 @@ import 'package:food365/presentation/modules/ordering/cart/cart_item.dart';
 import 'package:food365/presentation/modules/ordering/checkout/controller/checkout_controller.dart';
 import 'package:food365/presentation/modules/ordering/checkout/views/timer.dart';
 import 'package:food365/splash_screen.dart';
+import 'package:food365/utils/strings.dart';
 import 'package:food365/wrapper.dart';
 import 'package:provider/provider.dart';
 
 import 'domain/models/modules/ordering/cart_model.dart';
 import 'domain/models/modules/ordering/menu_item_model.dart';
 import 'domain/models/modules/ordering/order.dart';
+import 'domain/providers/timer_provider.dart';
 import 'domain/services/menu_service.dart';
 import 'domain/services/order_service.dart';
 import 'firebase_options.dart';
@@ -31,7 +33,7 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   static const String id = 'my app';
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({Key key}) : super(key: key);
 
   // This widget is the root of your application.
   @override
@@ -39,10 +41,12 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider.value(value: CartModel()),
-       
+        ChangeNotifierProvider.value(value: TimerProvider()),
+        ChangeNotifierProvider.value(value: OrderModel()),
+        ChangeNotifierProvider.value(value: CheckoutController())
       ],
       child: MaterialApp(
-        title: 'Flutter Demo',
+        title: Strings.appName,
         onGenerateRoute: RouteGenerator.generateRoute,
         home: FutureBuilder(
           builder: (context, snapshot) {

@@ -4,13 +4,13 @@ class Category {
   String id;
   String name;
   Category({
-    required this.id,
-    required this.name,
+     this.id,
+     this.name,
   });
 
   factory Category.fromJson({
-    required  json,
-    required key,
+      json,
+     key,
   }) {
     print(json);
     return Category(id: key, name: json['name']);

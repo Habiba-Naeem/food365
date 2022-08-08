@@ -17,7 +17,7 @@ FirebaseDatabase database = FirebaseDatabase.instance;
 
 class OrderStatusService {
   updateCookingStatus({
-    required OrderModel order,
+     OrderModel order,
   }) async {
     try {
       print(order.pendingItems);
@@ -43,7 +43,7 @@ class OrderStatusService {
   }
 
   updateReadyStatus({
-    required OrderModel order,
+     OrderModel order,
   }) async {
     try {
       if (order.readyItems == order.allOrderItems.length) {
@@ -69,7 +69,7 @@ class OrderStatusService {
   }
 
   updateServiceStatus({
-    required OrderModel order,
+     OrderModel order,
   }) async {
     try {
       if (order.servedItems == order.allOrderItems.length) {
@@ -94,9 +94,9 @@ class OrderStatusService {
   }
 
   updateOrderItemCookingStatus({
-    required int id,
-    required OrderItem orderItem,
-    required String orderID,
+     int id,
+     OrderItem orderItem,
+     String orderID,
   }) async {
     try {
       orderItem.cookingStatus = true;
@@ -124,9 +124,9 @@ class OrderStatusService {
   }
 
   updateOrderItemReadyStatus({
-    required int id,
-    required OrderItem orderItem,
-    required String orderID,
+     int id,
+     OrderItem orderItem,
+     String orderID,
   }) async {
     try {
       orderItem.readyStatus = true;
@@ -154,9 +154,9 @@ class OrderStatusService {
   }
 
   updateOrderItemServiceStatus({
-    required int id,
-    required OrderItem orderItem,
-    required String orderID,
+     int id,
+     OrderItem orderItem,
+     String orderID,
   }) async {
     try {
       orderItem.serviceStatus = true;

@@ -14,7 +14,7 @@ import 'package:provider/provider.dart';
 
 class EditProductScreen extends StatelessWidget {
   static const String id = 'menu screen';
-  const EditProductScreen({Key? key}) : super(key: key);
+  const EditProductScreen({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +41,7 @@ class EditProductScreen extends StatelessWidget {
 }
 
 class MenuItems extends StatelessWidget {
-  const MenuItems({Key? key}) : super(key: key);
+  const MenuItems({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

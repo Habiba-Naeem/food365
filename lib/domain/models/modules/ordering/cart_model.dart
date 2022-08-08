@@ -6,7 +6,7 @@ class CartModel extends ChangeNotifier {
   double total = 0;
 
   // CartModel({
-  //   required this.cartItems,
+  //    this.cartItems,
   // });
 
   List<CartItem> get allCartItems => cartItems;
@@ -19,20 +19,35 @@ class CartModel extends ChangeNotifier {
       };
 
   bool addItem(CartItem cartItem) {
-    for (CartItem cart in cartItems) {
-      if (cartItem.menuItemID == cart.menuItemID) {
-        cartItems[cartItems.indexOf(cart)].quantity++;
-        print(cartItem);
-        return true;
-      }
+    // for (CartItem cart in cartItems) {
+    //   if (cartItem.menuItemID == cart.menuItemID) {
+    //     print("cartitem");
+    //     print(cartItem.price);
+    //     print(cartItem.quantity);
+    //     total = total + (cartItem.price*cartItem.quantity);
+    //
+    //     print(cartItem);
+    //     return true;
+    //   }
+    // }
+    if(cartItems.contains(cartItem)){
+      cartItems[cartItems.indexOf(cartItem)].quantity++;
+
     }
-    total = total + cartItem.price;
+    print("cartitem");
+    print(cartItem.price);
+    print(cartItem.quantity);
+    total = total + (cartItem.price);
+
     cartItems.add(cartItem);
     print(cartItems);
     notifyListeners();
     return true;
   }
-
+void resetState(){
+    total=0;cartItems=[];
+    notifyListeners();
+}
   void decreaseItem(CartItem cartItem) {
     if (cartItems[cartItems.indexOf(cartItem)].quantity <= 1) {
       return;
@@ -44,7 +59,11 @@ class CartModel extends ChangeNotifier {
   }
 
   void increaseItem(CartItem cartItem) {
+
+
     total = total + cartItem.price;
+    print("total");
+    print(total);
     cartItems[cartItems.indexOf(cartItem)].quantity++;
 
     notifyListeners();
