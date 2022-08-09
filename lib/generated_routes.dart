@@ -42,19 +42,9 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => Authenticate());
       case TimePage.id:
         return MaterialPageRoute(
-          builder: (_) => TimePage(order: settings.arguments as OrderModel,)
-          // builder: (_) => FutureBuilder(
-          //   future: OrderService().getOrder(orderID: settings.arguments),
-          //   builder: (context, snapshot) {
-          //     print(snapshot.data as OrderModel);
-          //     return snapshot.hasData
-          //         ? TimePage(
-          //             order: snapshot.data as OrderModel,
-          //           )
-          //         : Loading();
-          //   },
-          // ),
-        );
+            builder: (_) => TimePage(
+                  order: settings.arguments as OrderModel,
+                ));
 
       default:
         return _errorRoute();

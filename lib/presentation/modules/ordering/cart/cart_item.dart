@@ -3,6 +3,7 @@ import 'package:food365/domain/models/modules/ordering/cart_item.dart';
 import 'package:food365/domain/models/modules/ordering/cart_model.dart';
 import 'package:food365/domain/models/modules/ordering/menu_item_model.dart';
 import 'package:food365/domain/services/image_service.dart';
+import 'package:food365/presentation/modules/admin/edit_product/edit_product_item.dart';
 import 'package:food365/utils/constants.dart';
 import 'package:food365/utils/shared/loading.dart';
 import 'package:provider/provider.dart';
@@ -18,6 +19,8 @@ class CartItems extends StatelessWidget {
     final cartModel = Provider.of<CartModel>(context);
     print("my menuitems in cart");
     print(menuItems);
+    print(cartItem.imageUrl);
+
     return Card(
       margin: EdgeInsets.only(bottom: 16),
       child: Container(
@@ -27,24 +30,38 @@ class CartItems extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            ...menuItems.map((menuItem) {
-              if (menuItem.itemID == cartItem.menuItemID) {
-                FutureBuilder(
-                  future: ImageService().getImage(menuItemId: menuItem.itemID),
-                  builder: (context, snapshot) {
-                    return snapshot.hasData
-                        ? CartItemImage(
-                            imagePath: snapshot.data.toString(),
-                          )
-                        : Center(
-                            child: Loading(),
-                          );
-                  },
-                );
-              }
-              return Container();
-            }),
+            // ...menuItems.map((menuItem) {  print("menu item");
+            // print(menuItem);
+            //   if (menuItem.itemID == cartItem.menuItemID) {
+            //     FutureBuilder(
+            //       future: ImageService().getImage(menuItemId: menuItem.itemID),
+            //       builder: (context, snapshot) {
+            // print("snapshot");
+            // print(snapshot.data);
+            //         return snapshot.hasData
+            //             ? CartItemImage(
+            //                 imagePath: snapshot.data.toString(),
+            //               )
+            //             : Center(
+            //                 child: Loading(),
+            //               );
+            //       },
+            //     );
+            //   }
+            //   return Container();
+            // }),
             //CartItemImage(imagePath: imagePath),
+            FutureBuilder(
+                future: ImageService().getImage(menuItemId: cartItem.menuItemID),
+                builder: (context, snapshot) {
+                  print("snapshot");
+                  print(snapshot.data);
+                  return snapshot.hasData
+                      ? Image.asset(
+                    snapshot.data.toString(),
+                  )
+                      : Center(child: Loading());
+                }),
             Flexible(
               flex: 3,
               child: Column(
@@ -115,6 +132,10 @@ class CartItemImage extends StatelessWidget {
   Widget build(BuildContext context) {
     return ClipRRect(
       borderRadius: BorderRadius.all(Radius.circular(6)),
+      // child: Image.asset(
+      //     imagePath,
+      //     fit: BoxFit.cover,
+      //   ),
       child: Image.network(
         imagePath.toString(),
         fit: BoxFit.cover,

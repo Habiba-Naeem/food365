@@ -17,11 +17,14 @@ class MenuItem extends StatelessWidget {
   Widget build(BuildContext context) {
    var cartmodel= Provider.of<CartModel>(context);
     addItemToCard() {
+      print("menuItem.imagePath");
+      print(menuItem.imagePath);
       bool isAddSuccess = cartmodel
           .addItem(CartItem(
               menuItemID: menuItem.itemID,
               menuName: menuItem.name,
               price: menuItem.price,
+              imageUrl: menuItem.imagePath,
               quantity: 1));
       print(Provider.of<CartModel>(context, listen: false).allCartItems);
       if (isAddSuccess) {
@@ -124,17 +127,28 @@ class MenuItemImage extends StatelessWidget {
       height: MediaQuery.of(context).size.width / 2.5,
       child: ClipRRect(
         borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
-        child: Image.network(
-          imagePath.toString(),
+        child: Image.asset(
+          imagePath,
           fit: BoxFit.cover,
-          loadingBuilder: (BuildContext context, Widget child,
-              ImageChunkEvent loadingProgress) {
-            if (loadingProgress == null) {
-              return child;
-            }
-            return Loading();
-          },
+          // loadingBuilder: (BuildContext context, Widget child,
+          //     ImageChunkEvent loadingProgress) {
+          //   if (loadingProgress == null) {
+          //     return child;
+          //   }
+          //   return Loading();
+          // },
         ),
+        // child: Image.network(
+        //   imagePath.toString(),
+        //   fit: BoxFit.cover,
+        //   loadingBuilder: (BuildContext context, Widget child,
+        //       ImageChunkEvent? loadingProgress) {
+        //     if (loadingProgress == null) {
+        //       return child;
+        //     }
+        //     return Loading();
+        //   },
+        // ),
       ),
     );
   }

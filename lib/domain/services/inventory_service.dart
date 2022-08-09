@@ -29,6 +29,7 @@ class InventoryService {
         },
       );
       itemList.forEach((item) {
+        //print(item.daysTillExpiry);
         updateExpiryStatus(inventoryItem: item);
       });
       print(itemList);
@@ -38,9 +39,10 @@ class InventoryService {
   }
 
   updateExpiryStatus({
-     InventoryItemModel inventoryItem,
+    InventoryItemModel inventoryItem,
   }) async {
     try {
+      print(inventoryItem.expired);
       if (inventoryItem.daysTillExpiry <= 0) {
         inventoryItem.expired = true;
       }
@@ -63,7 +65,7 @@ class InventoryService {
   }
 
   deleteInventoryItem({
-     String inventoryItemID,
+    String inventoryItemID,
   }) async {
     try {
       var response = await httpClient.delete(
@@ -85,10 +87,10 @@ class InventoryService {
   }
 
   postInventoryItem({
-     String itemName,
-     int quantity,
-     DateTime boughtDate,
-     DateTime expiryDate,
+    String itemName,
+    int quantity,
+    DateTime boughtDate,
+    DateTime expiryDate,
   }) async {
     try {
       InventoryItemModel item = InventoryItemModel.postMenu(

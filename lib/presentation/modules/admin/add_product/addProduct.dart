@@ -3,19 +3,36 @@ import 'dart:io';
 import 'package:duration/duration.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_picker/Picker.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:food365/domain/models/modules/ordering/category.dart';
 import 'package:food365/domain/services/menu_service.dart';
 import 'package:food365/utils/shared/loading.dart';
 import 'package:image_picker/image_picker.dart';
+
+import '../../../../utils/colors.dart';
+import '../../../../utils/custom_style.dart';
 
 class AddProductScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+
+
         appBar: AppBar(
-          title: const Text('Add Product'),
-          backgroundColor: Colors.teal,
+          title: Text(
+            "Add Product",
+            style: CustomStyle.appbarTitleStyle,
+          ),
+          backgroundColor: CustomColor.primaryColor,
+          leading: IconButton(
+            icon: Icon(FontAwesomeIcons.arrowAltCircleLeft,
+                color: CustomColor.whiteColor),
+            onPressed: () => Navigator.of(context).pop(),
+          ),
+          //headingText: "Home",
+          //height: 0,
+
         ),
         body: const Padding(
           padding: const EdgeInsets.all(8.0),
@@ -104,95 +121,98 @@ class _AddProductFormState extends State<AddProductForm> {
   Widget build(BuildContext context) {
     return Form(
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
-          Container(
-            child: Column(
-              children: <Widget>[
-                const SizedBox(
-                  height: 32,
-                ),
-                Center(
-                  child: GestureDetector(
-                    onTap: () {
-                      _showPicker(context);
-                    },
-                    child: CircleAvatar(
-                      radius: 55,
-                      backgroundColor: const Color(0xffFDCF09),
-                      child: _image != null
-                          ? ClipRRect(
-                              borderRadius: BorderRadius.circular(50),
-                              child: Image.file(
-                                _image,
-                                width: 100,
-                                height: 100,
-                                fit: BoxFit.fitHeight,
-                              ),
-                            )
-                          : Container(
-                              decoration: BoxDecoration(
-                                  color: Colors.grey[200],
-                                  borderRadius: BorderRadius.circular(50)),
-                              width: 100,
-                              height: 100,
-                              child: Icon(
-                                Icons.camera_alt,
-                                color: Colors.grey[800],
-                              ),
-                            ),
-                    ),
+          const SizedBox(
+            height: 32,
+          ),
+          Center(
+            child: GestureDetector(
+              onTap: () {
+                _showPicker(context);
+              },
+              child: CircleAvatar(
+                radius: 75,
+                //backgroundColor: const Color(0xffFDCF09),
+                child: _image != null
+                    ? ClipRRect(
+                  borderRadius: BorderRadius.circular(50),
+                  child: Image.file(
+                    _image,
+                    width: 200,
+                    height: 200,
+                    fit: BoxFit.fitHeight,
                   ),
                 )
-              ],
+                    : Container(
+                  decoration: BoxDecoration(
+                      color: Colors.grey[200],
+                      borderRadius: BorderRadius.circular(50)),
+                  width: 150,
+                  height: 150,
+                  child: Icon(
+                    Icons.camera_alt,
+                    color: Colors.grey[800],
+                  ),
+                ),
+              ),
             ),
           ),
           const SizedBox(
             height: 16,
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text("Name",style: CustomStyle.headingStyle,),
           ),
           TextFormField(
             cursorColor: const Color.fromARGB(255, 255, 128, 128),
             onChanged: (val) => setState(() => name = val),
             decoration: InputDecoration(
               labelText: "Name",
-              fillColor: const Color.fromARGB(255, 127, 228, 218),
+              //fillColor: const Color.fromARGB(255, 127, 228, 218),
               filled: true,
               border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(30.0),
+                  borderRadius: BorderRadius.circular(5.0),
                   borderSide: BorderSide.none),
             ),
           ),
-          const SizedBox(
-            height: 16,
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text("Description",style: CustomStyle.headingStyle,),
           ),
           TextFormField(
             cursorColor: Colors.orange[200],
             onChanged: (val) => setState(() => description = val),
             decoration: InputDecoration(
               labelText: "Description",
-              fillColor: const Color.fromARGB(255, 127, 228, 218),
+           //   fillColor: const Color.fromARGB(255, 127, 228, 218),
               filled: true,
               border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(30.0),
+                  borderRadius: BorderRadius.circular(5.0),
                   borderSide: BorderSide.none),
             ),
           ),
-          const SizedBox(
-            height: 16,
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text("Categort",style: CustomStyle.headingStyle,),
           ),
           TextFormField(
             cursorColor: Colors.orange[200],
             onChanged: (val) => setState(() => category = val),
             decoration: InputDecoration(
               labelText: "Category",
-              fillColor: const Color.fromARGB(255, 127, 228, 218),
+              //fillColor: const Color.fromARGB(255, 127, 228, 218),
               filled: true,
               border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(30.0),
+                  borderRadius: BorderRadius.circular(5.0),
                   borderSide: BorderSide.none),
             ),
           ),
-          const SizedBox(
-            height: 16,
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text("Price",style: CustomStyle.headingStyle,),
           ),
           TextFormField(
             cursorColor: Colors.orange[200],
@@ -201,7 +221,6 @@ class _AddProductFormState extends State<AddProductForm> {
                 setState(() => price = double.tryParse(val) ?? 0),
             decoration: InputDecoration(
               labelText: "Price",
-              fillColor: const Color.fromARGB(255, 127, 228, 218),
               filled: true,
               prefixIcon: Icon(Icons.currency_rupee,
                   color: Colors.orange[200], size: 20),
@@ -210,8 +229,9 @@ class _AddProductFormState extends State<AddProductForm> {
                   borderSide: BorderSide.none),
             ),
           ),
-          const SizedBox(
-            height: 16,
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text("Product Time",style: CustomStyle.headingStyle,),
           ),
           TextButton(
             child: Container(
@@ -228,14 +248,11 @@ class _AddProductFormState extends State<AddProductForm> {
                             Icon(
                               Icons.timer,
                               size: 18.0,
-                              color: Colors.teal,
+                              color:CustomColor.primaryColor,
                             ),
                             Text(
                               "${printDuration(time)}",
-                              style: TextStyle(
-                                  color: Colors.teal,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 18.0),
+                              style: CustomStyle.headingStyle,
                             ),
                           ],
                         ),
@@ -244,10 +261,7 @@ class _AddProductFormState extends State<AddProductForm> {
                   ),
                   Text(
                     "  Change",
-                    style: TextStyle(
-                        color: Colors.teal,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18.0),
+                    style: CustomStyle.headingStyle,
                   ),
                 ],
               ),
@@ -294,9 +308,7 @@ class _AddProductFormState extends State<AddProductForm> {
               ).showDialog(context);
             },
           ),
-          const SizedBox(
-            height: 16,
-          ),
+
           ElevatedButton(
             onPressed: () async {
               setState(() => loading = true);
@@ -311,21 +323,17 @@ class _AddProductFormState extends State<AddProductForm> {
             },
             child: Container(
               alignment: Alignment.center,
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                gradient: LinearGradient(
-                  colors: <Color>[
-                    Color.fromARGB(255, 40, 109, 97),
-                    Color.fromARGB(255, 64, 255, 245)
-                  ],
-                ),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(5.0)),
+
+                color: CustomColor.primaryColor
               ),
               padding: const EdgeInsets.all(12.0),
               child: loading
                   ? Loading()
                   : Text(
                       'Add',
-                      style: TextStyle(fontSize: 14),
+                      style: CustomStyle.appbarTitleStyle,
                     ),
             ),
           )

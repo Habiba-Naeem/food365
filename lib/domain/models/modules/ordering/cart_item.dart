@@ -4,6 +4,7 @@ class CartItem {
   String menuItemID;
   String menuName;
   double price;
+  String imageUrl;
   int quantity;
 
   CartItem({
@@ -11,6 +12,7 @@ class CartItem {
      this.menuName,
      this.price,
      this.quantity,
+    this.imageUrl
   });
   Map<String, dynamic> toJson() => {
         "menuItemID": menuItemID,

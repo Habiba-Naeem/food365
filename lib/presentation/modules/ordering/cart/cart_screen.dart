@@ -30,33 +30,25 @@ class CartScreen extends StatelessWidget {
           onPressed: () => Navigator.of(context).pop(),
         ),
       ),
-      // appBar: AppBar(
-      //   title: Text("Menu"),
-      //   actions: [
-      //     IconButton(
-      //       icon: Icon(Icons.shopping_cart_sharp),
-      //       onPressed: () {
-      //         Navigator.of(context).pushNamed(CartScreen.id);
-      //       },
-      //     )
-      //   ],
-      // ),
-      bottomNavigationBar: CustomBottomNavBar(
+
+      bottomNavigationBar:CustomBottomNavBar(
         id: CartScreen.id,
       ),
-      body: SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
-        scrollDirection: Axis.vertical,
-        child: Container(
-          margin: EdgeInsets.symmetric(horizontal: 16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(top: 24.0),
-                child: Text('Menu Items', style: headerStyle),
-              ),
-              Consumer<CartModel>(
+      // CustomBottomNavBar(
+      //   id: CartScreen.id,
+      // ),
+      body: Container(
+        margin: EdgeInsets.symmetric(horizontal: 16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(top: 24.0,bottom: 24),
+              child: Text('Menu Items', style: headerStyle),
+            ),
+            Expanded(
+              child: Consumer<CartModel>(
                 builder: (context, cart, child) {
                   return ListView.builder(
                     physics: const NeverScrollableScrollPhysics(),
@@ -72,20 +64,24 @@ class CartScreen extends StatelessWidget {
                   );
                 },
               ),
-              SizedBox(height: 16),
-              Divider(),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text(
-                      'Total: ',
-                      style: headerStyle),
-                  Text(
-                      '\$ ${cartModel.totalPrice}',
-                      style: headerStyle),
-                ],
-              ),
-              Container(
+            ),
+            SizedBox(height: 16),
+            Divider(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Text(
+                    'Total: ',
+                    style: headerStyle),
+                Text(
+                    '\$ ${cartModel.totalPrice}',
+                    style: headerStyle),
+              ],
+            ),
+
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Container(
                 margin: EdgeInsets.only(top: 24, bottom: 64),
                 width: double.infinity,
                 child: RaisedButton(
@@ -109,8 +105,8 @@ class CartScreen extends StatelessWidget {
                   shape: StadiumBorder(),
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

@@ -30,16 +30,19 @@ class CartModel extends ChangeNotifier {
     //     return true;
     //   }
     // }
-    if(cartItems.contains(cartItem)){
-      cartItems[cartItems.indexOf(cartItem)].quantity++;
+    if(cartItems.indexWhere((element) => element.menuName==cartItem.menuName)>=0){
+      cartItems[cartItems.indexWhere((element) => element.menuName==cartItem.menuName)].quantity++;
 
+    }
+    else{
+
+      cartItems.add(cartItem);
     }
     print("cartitem");
     print(cartItem.price);
     print(cartItem.quantity);
     total = total + (cartItem.price);
 
-    cartItems.add(cartItem);
     print(cartItems);
     notifyListeners();
     return true;

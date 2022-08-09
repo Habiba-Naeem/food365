@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:food365/domain/services/auth_service.dart';
 import 'package:food365/domain/services/inventory_service.dart';
+import '../../../utils/colors.dart';
+import '../../../utils/custom_style.dart';
 import 'add_product/addProduct.dart';
 import 'edit_product/editproduct_screen.dart';
 import 'inventory/manage_inventory.dart';
@@ -9,66 +12,46 @@ class AdminScreen extends StatelessWidget {
   static const String id = "Admin screen";
   Widget build(BuildContext context) {
     return Scaffold(
+
       appBar: AppBar(
-        title: Text('Admin Dashboard'),
-        backgroundColor: Colors.teal,
+        title: Text(
+          "Admin Dashboard",
+          style: CustomStyle.appbarTitleStyle,
+        ),
+        backgroundColor: CustomColor.primaryColor,
+        leading: IconButton(
+          icon: Icon(FontAwesomeIcons.arrowAltCircleLeft,
+              color: CustomColor.whiteColor),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        //headingText: "Home",
+        //height: 0,
         actions: [
-          ElevatedButton(
-            child: Text("Sign Out"),
-            onPressed: () {
-              AuthService().signOut();
-            },
-          )
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: IconButton(
+              icon: Icon(
+                FontAwesomeIcons.signOutAlt,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                AuthService().signOut();
+              },
+            ),
+          ),
         ],
       ),
       body: Center(
-          child: Column(children: <Widget>[
-        Container(
-          margin: EdgeInsets.all(35.0),
-          padding: EdgeInsets.all(25.0),
-          child: FlatButton(
-            child: Text(
-              'Manage Inventory',
-              style: TextStyle(fontSize: 25.0),
-            ),
-            color: Colors.tealAccent,
-            textColor: Colors.white,
-            onPressed: () {
-              _viewInventory(context);
-            },
-          ),
-        ),
-        Container(
-          margin: EdgeInsets.all(35.0),
-          padding: EdgeInsets.all(35.0),
-          child: FlatButton(
-            child: Text(
-              'View All Products',
-              style: TextStyle(fontSize: 25.0),
-            ),
-            color: Colors.tealAccent,
-            textColor: Colors.white,
-            onPressed: () {
-              Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => EditProductScreen()));
-            },
-          ),
-        ),
-        Container(
-          margin: EdgeInsets.all(0.0),
-          padding: EdgeInsets.all(35.0),
-          child: FlatButton(
-            child: Text(
-              'Add New Product',
-              style: TextStyle(fontSize: 25.0),
-            ),
-            color: Colors.tealAccent,
-            textColor: Colors.white,
-            onPressed: () {
-              _addProduct(context);
-            },
-          ),
-        ),
+          child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+            serviceCard(context, "Manage Inventory"),
+            SizedBox(height: 10,),
+            serviceCard(context, "View All Products"),
+            SizedBox(height: 10,),
+            serviceCard(context, "Add New Product"),
+
       ])),
     );
   }
@@ -78,12 +61,57 @@ class AdminScreen extends StatelessWidget {
         .push(MaterialPageRoute(builder: (context) => AddProductScreen()));
   }
 
+  Widget serviceCard(context, String name) {
+    //bool isActive = active == item["key"];
+    return GestureDetector(
+      onTap: () {
+        if(name=="Manage Inventory"){
+          _viewInventory(context);
+
+        }
+        else if(name=="View All Products"){
+          Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => EditProductScreen()));
+
+        }
+        else{
+
+
+          _addProduct(context);
+        }
+
+        // setActive(item["key"]);
+        // Future.delayed(Duration(milliseconds: 350), () {
+        //   nextPage();
+        // });
+      },
+      child: AnimatedContainer(
+        height: 130,
+        duration: Duration(milliseconds: 300),
+        decoration: BoxDecoration(
+          color: CustomColor.primaryColor,
+          borderRadius: BorderRadius.circular(12.0),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(name, style: CustomStyle.appbarTitleStyle),
+            )
+          ],
+        ),
+      ),
+    );
+  }
   void _viewInventory(BuildContext context) async {
     await InventoryService().postInventoryItem(
       itemName: "Tomatoes",
       quantity: 5,
       boughtDate: DateTime.now(),
-      expiryDate: DateTime(2022, 10, 5),
+      expiryDate: DateTime(2022, 1, 5),
     );
     Navigator.of(context)
         .push(MaterialPageRoute(builder: (context) => Inventory()));

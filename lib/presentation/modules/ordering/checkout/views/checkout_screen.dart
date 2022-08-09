@@ -45,79 +45,71 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     onPressed: () => Navigator.of(context).pop(),
           ),
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Container(
-            margin: EdgeInsets.symmetric(horizontal: 16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(top: 24.0),
-                  child: Text('Checkout', style: headerStyle),
-                ),
-                SizedBox(height: 16),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Text('Total:${cartModel.totalPrice??""}', style: headerStyle),
-                  ],
-                ),
-                Container(
-                  margin: EdgeInsets.only(top: 24, bottom: 64),
-                  width: double.infinity,
-                  child: RaisedButton(
-                    child: loading
-                        ? SpinKitChasingDots(color: Colors.blue, size: 20)
-                        : Text('Confirm Order', style: titleStyle),
-                    onPressed: () async {
-                      if(cartModel.totalPrice<0){
-                        return;
-                      }
-                      // CheckoutController(
-                      //   cartItems: Provider.of<CartModel>(context).allCartItems,
-                      //   total: Provider.of<CartModel>(context).totalPrice,
-                      // ).checkOut();
-                      // Provider.of<CheckoutController>(context).isLoading
-                      //     ? context.loaderOverlay.show()
-                      //     : context.loaderOverlay.hide();
-                      context.loaderOverlay.show();
-                      try {
-                        var response = await OrderService().postOrder(
-                            totalPrice:cartModel.totalPrice,
-                            items:cartModel.allCartItems);
-                        if (response["success"] == success) {
-                          context.loaderOverlay.hide();
-                          cartModel.resetState();
-                          await showAlertDialog(context);
-                          // FutureProvider<OrderModel>.value(
-                          //   value: response['order'],
-                          //   child: TimePage(order: response['order'],)
-                          // );
-                          Navigator.of(context).pushNamed(TimePage.id,
-                              arguments: response['order']);
-                        }
-                      } on SomethingWentWrong catch (e) {
-                        context.loaderOverlay.hide();
-                        showErrorDialog(context, e.cause);
-                      } on DatabaseNotFound catch (e) {
-                        context.loaderOverlay.hide();
-                        showErrorDialog(context, e.cause);
-                      } on ServiceUnavailable catch (e) {
-                        context.loaderOverlay.hide();
-                        showErrorDialog(context, e.cause);
-                      } on SocketException catch (e) {
-                        context.loaderOverlay.hide();
-                        showErrorDialog(context, noInternet);
-                      }
-                    },
-                    padding: EdgeInsets.symmetric(horizontal: 64, vertical: 12),
-                    color: AppColors.primaryColor,
-                    shape: StadiumBorder(),
-                  ),
-                ),
-              ],
-            ),
+ bottomNavigationBar:
+ Container(
+   margin: EdgeInsets.only(top: 24, bottom: 64,left: 24,right: 24),
+   width: double.infinity,
+   child: RaisedButton(
+
+     child: loading
+         ? SpinKitChasingDots(color: Colors.blue, size: 20)
+         : Text('Confirm Order', style: titleStyle),
+     onPressed: () async {
+       if(cartModel.totalPrice<0){
+         return;
+       }
+       // CheckoutController(
+       //   cartItems: Provider.of<CartModel>(context).allCartItems,
+       //   total: Provider.of<CartModel>(context).totalPrice,
+       // ).checkOut();
+       // Provider.of<CheckoutController>(context).isLoading
+       //     ? context.loaderOverlay.show()
+       //     : context.loaderOverlay.hide();
+       context.loaderOverlay.show();
+       try {
+         var response = await OrderService().postOrder(
+             totalPrice:cartModel.totalPrice,
+             items:cartModel.allCartItems);
+         if (response["success"] == success) {
+           context.loaderOverlay.hide();
+           cartModel.resetState();
+           await showAlertDialog(context);
+           // FutureProvider<OrderModel>.value(
+           //   value: response['order'],
+           //   child: TimePage(order: response['order'],)
+           // );
+           Navigator.of(context).pushNamed(TimePage.id,
+               arguments: response['order']);
+         }
+       } on SomethingWentWrong catch (e) {
+         context.loaderOverlay.hide();
+         showErrorDialog(context, e.cause);
+       } on DatabaseNotFound catch (e) {
+         context.loaderOverlay.hide();
+         showErrorDialog(context, e.cause);
+       } on ServiceUnavailable catch (e) {
+         context.loaderOverlay.hide();
+         showErrorDialog(context, e.cause);
+       } on SocketException catch (e) {
+         context.loaderOverlay.hide();
+         showErrorDialog(context, noInternet);
+       }
+     },
+     padding: EdgeInsets.symmetric(horizontal: 64, vertical: 12),
+     color: AppColors.primaryColor,
+     shape: StadiumBorder(),
+   ),
+ ),
+        body: Center(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+
+              Text('Total', style: CustomStyle.headingStyle.merge(TextStyle(fontSize: 32))),
+
+              Text('${cartModel.totalPrice??""}', style: CustomStyle.headingStyle.merge(TextStyle(fontSize: 28))),
+            ],
           ),
         ),
       ),

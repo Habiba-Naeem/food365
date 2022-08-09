@@ -41,11 +41,9 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider.value(value: CartModel()),
-
         ChangeNotifierProvider.value(value: TimerProvider()),
         ChangeNotifierProvider.value(value: OrderModel()),
         ChangeNotifierProvider.value(value: CheckoutController())
-       
       ],
       child: MaterialApp(
         title: Strings.appName,

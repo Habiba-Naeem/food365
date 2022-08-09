@@ -25,9 +25,9 @@ class TimePage extends StatefulWidget {
 
 class _TimePageState extends State<TimePage> {
   Duration _duration = Duration();
-bool loader=true;
-int time=0;
-final CountDownController _controller = CountDownController();
+  bool loader = true;
+  int time = 0;
+  final CountDownController _controller = CountDownController();
 
   @override
   void initState() {
@@ -35,6 +35,29 @@ final CountDownController _controller = CountDownController();
     getTime();
     super.initState();
   }
+  //
+  // getTime() {
+  //   widget.order.allOrderItems.forEach(
+  //     (item) async {
+  //       await MenuService()
+  //           .getMenuItem(menuItemID: item.menuItemID)
+  //           .then((value) {
+  //         print(value.time);
+  //         _duration = (_duration + value.time);
+  //       });
+  //       if (item == widget.order.allOrderItems.last) {
+  //         setState(
+  //           () {
+  //             loader = false;
+  //             time = (_duration.inSeconds ~/ widget.order.allOrderItems.length)
+  //                 .toInt();
+  //             print(time);
+  //           },
+  //         );
+  //       }
+  //     },
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -51,80 +74,78 @@ final CountDownController _controller = CountDownController();
             onPressed: () => Navigator.of(context).pop(),
           )),
       body: Center(
-        child:
-        loader?Loading()
-            : CircularCountDownTimer(
-          // Countdown duration in Seconds.
+          child: loader
+              ? Loading()
+              : CircularCountDownTimer(
+                  // Countdown duration in Seconds.
+                  duration: time,
 
-          duration: time,
-          // Countdown initial elapsed Duration in Seconds.
-          //
-          //initialDuration: _duration.inSeconds,
+                  // Countdown initial elapsed Duration in Seconds.
+                  //initialDuration: _duration.inSeconds,
 
-          // Controls (i.e Start, Pause, Resume, Restart) the Countdown Timer.
-          controller: _controller,
+                  // Controls (i.e Start, Pause, Resume, Restart) the Countdown Timer.
+                  controller: _controller,
 
-          // Width of the Countdown Widget.
-          width: MediaQuery.of(context).size.width / 2,
+                  // Width of the Countdown Widget.
+                  width: MediaQuery.of(context).size.width / 2,
 
-          // Height of the Countdown Widget.
-          height: MediaQuery.of(context).size.height / 2,
+                  // Height of the Countdown Widget.
+                  height: MediaQuery.of(context).size.height / 2,
 
-          // Ring Color for Countdown Widget.
-          ringColor: Colors.grey[300],
+                  // Ring Color for Countdown Widget.
+                  ringColor: Colors.grey[300],
 
-          // Ring Gradient for Countdown Widget.
-          ringGradient: null,
+                  // Ring Gradient for Countdown Widget.
+                  ringGradient: null,
 
-          // Filling Color for Countdown Widget.
-          fillColor: Colors.tealAccent,
+                  // Filling Color for Countdown Widget.
+                  fillColor: Colors.tealAccent,
 
-          // Filling Gradient for Countdown Widget.
-          fillGradient: null,
+                  // Filling Gradient for Countdown Widget.
+                  fillGradient: null,
 
-          // Background Color for Countdown Widget.
-          backgroundColor:CustomColor.primaryColor,
+                  // Background Color for Countdown Widget.
+                  backgroundColor: CustomColor.primaryColor,
 
-          // Background Gradient for Countdown Widget.
-          backgroundGradient: null,
+                  // Background Gradient for Countdown Widget.
+                  backgroundGradient: null,
 
-          // Border Thickness of the Countdown Ring.
-          strokeWidth: 5.0,
+                  // Border Thickness of the Countdown Ring.
+                  strokeWidth: 5.0,
 
-          // Begin and end contours with a flat edge and no extension.
-          strokeCap: StrokeCap.butt,
+                  // Begin and end contours with a flat edge and no extension.
+                  strokeCap: StrokeCap.butt,
 
-          // Text Style for Countdown Text.
-          textStyle: const TextStyle(
-            fontSize: 33.0,
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-          ),
+                  // Text Style for Countdown Text.
+                  textStyle: const TextStyle(
+                    fontSize: 33.0,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
 
           // Format for the Countdown Text.
-          textFormat: CountdownTextFormat.MM_SS,
+          textFormat: CountdownTextFormat.S,
 
-          // Handles Countdown Timer (true for Reverse Countdown (max to 0), false for Forward Countdown (0 to max)).
-          isReverse: false,
+                  // Handles Countdown Timer (true for Reverse Countdown (max to 0), false for Forward Countdown (0 to max)).
+                  isReverse: true,
 
-          // Handles Animation Direction (true for Reverse Animation, false for Forward Animation).
-          isReverseAnimation: false,
+                  // Handles Animation Direction (true for Reverse Animation, false for Forward Animation).
+                  isReverseAnimation: true,
 
-          // Handles visibility of the Countdown Text.
-          isTimerTextShown: true,
+                  // Handles visibility of the Countdown Text.
+                  isTimerTextShown: true,
 
-          // Handles the timer start.
-          autoStart: true,
+                  // Handles the timer start.
+                  autoStart: true,
 
-          // This Callback will execute when the Countdown Starts.
-          onStart: () {
-            // Here, do whatever you want
-            debugPrint('Countdown Started');
-          },
+                  // This Callback will execute when the Countdown Starts.
+                  onStart: () {
+                    // Here, do whatever you want
+                    debugPrint('Countdown Started');
+                  },
 
           // This Callback will execute when the Countdown Ends.
           onComplete: () {
-            Navigator.of(context).pop();
             // Here, do whatever you want
             debugPrint('Countdown Ended');
           },
@@ -152,7 +173,7 @@ final CountDownController _controller = CountDownController();
       // ),
     );
   }
-getTime(){
+  getTime(){
   widget.order.allOrderItems.forEach((item) async  {
     MenuService().getMenuItem(menuItemID: item.menuItemID).then((value) {
       _duration = (_duration + value.time);
@@ -161,7 +182,7 @@ getTime(){
     }).whenComplete(() {
 setState(() {
   loader=false;
-  time=(_duration.inSeconds/widget.order.allOrderItems.length).toInt();
+  time=(_duration.inMinutes/widget.order.allOrderItems.length).toInt();
 });
       //print("sum");
       //print(_d.inMinutes / order.allOrderItems.length);

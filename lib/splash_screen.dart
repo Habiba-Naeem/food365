@@ -24,6 +24,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:food365/presentation/modules/onboarding_screen.dart';
+import 'package:food365/utils/colors.dart';
 import 'package:food365/utils/custom_style.dart';
 import 'package:food365/utils/strings.dart';
 import 'package:splashscreen/splashscreen.dart';
@@ -39,14 +40,14 @@ class SplashScreenPage extends StatelessWidget {
       loadingTextPadding:EdgeInsets.zero,
       navigateAfterSeconds: new OnboardingScreen(),
 
-      backgroundColor: Colors.teal,
+      backgroundColor: CustomColor.primaryColor,
       title:  Text(
         Strings.appName,
-        textScaleFactor: 5,
-        style: CustomStyle.headingStyle,
+        textScaleFactor: 2,
+        style: CustomStyle.appbarTitleStyle,
       ),
-      image: Image.asset(Strings.logoUri),
-      photoSize: 100.0,
+      image: Image.asset(Strings.logoUri,color: Colors.white),
+      photoSize: 50.0,
       loaderColor: Colors.white,
     );
   }

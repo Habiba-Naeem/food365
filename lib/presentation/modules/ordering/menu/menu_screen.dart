@@ -25,14 +25,17 @@ class MenuScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-title: Text("Menu",style: CustomStyle.appbarTitleStyle,),
+        title: Text(
+          "Menu",
+          style: CustomStyle.appbarTitleStyle,
+        ),
         backgroundColor: CustomColor.primaryColor,
         leading: IconButton(
-          icon: Icon(FontAwesomeIcons.arrowAltCircleLeft, color: CustomColor.whiteColor),
+          icon: Icon(FontAwesomeIcons.arrowAltCircleLeft,
+              color: CustomColor.whiteColor),
           onPressed: () => Navigator.of(context).pop(),
         ),
       ),
-     
       drawer: CustomSideDrawer(),
       bottomNavigationBar: const CustomBottomNavBar(
         id: MenuScreen.id,
@@ -43,18 +46,16 @@ title: Text("Menu",style: CustomStyle.appbarTitleStyle,),
           children: <Widget>[
             const Divider(),
             //const MenuItems(),
-             StreamProvider<List<MenuItemModel>>.value(
-              initialData: [],
-              value: MenuService().getMenuItems(),
-              child: MenuItems()
-            ),
+            StreamProvider<List<MenuItemModel>>.value(
+                initialData: [],
+                value: MenuService().getMenuItems(),
+                child: MenuItems()),
           ],
         ),
       ),
     );
   }
 }
-
 
 class MenuItems extends StatelessWidget {
   const MenuItems({Key key}) : super(key: key);

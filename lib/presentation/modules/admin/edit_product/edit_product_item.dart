@@ -12,37 +12,10 @@ import 'editing_screen.dart';
 
 class EditProductItem extends StatelessWidget {
   final MenuItemModel menuItem;
-  EditProductItem({ this.menuItem});
+  EditProductItem({this.menuItem});
 
   @override
   Widget build(BuildContext context) {
-    addItemToCard() {
-      bool isAddSuccess = Provider.of<CartModel>(context, listen: false)
-          .addItem(CartItem(
-              menuItemID: menuItem.itemID,
-              menuName: menuItem.name,
-              price: menuItem.price,
-              quantity: 1));
-      print(Provider.of<CartModel>(context, listen: false).allCartItems);
-      if (isAddSuccess) {
-        final snackBar = SnackBar(
-          content: Text('${menuItem.name} added to cart'),
-          action: SnackBarAction(
-            label: 'view',
-            onPressed: () {},
-          ),
-          duration: Duration(milliseconds: 1500),
-        );
-        Scaffold.of(context).showSnackBar(snackBar);
-      } else {
-        const snackBar = const SnackBar(
-          content: Text('You can\'t order from multiple shop at the same time'),
-          duration: Duration(milliseconds: 1500),
-        );
-        Scaffold.of(context).showSnackBar(snackBar);
-      }
-    }
-
     return Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadiusDirectional.circular(12),
@@ -124,6 +97,28 @@ class EditProductItem extends StatelessWidget {
                         ),
                         child: Icon(Icons.delete),
                       ),
+                    ),
+                    Card(
+                      margin: EdgeInsets.only(right: 0),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadiusDirectional.circular(12),
+                      ),
+                      child: InkWell(
+                        onTap: () async {
+                          menuItem.famous = !menuItem.famous;
+                          await MenuService().togglefamousMenuItem(
+                            menuItem: menuItem,
+                            menuItemID: menuItem.itemID,
+                          );
+                        },
+                        splashColor: Colors.white70,
+                        customBorder: RoundedRectangleBorder(
+                          borderRadius: BorderRadiusDirectional.circular(12),
+                        ),
+                        child: menuItem.famous
+                            ? Icon(Icons.star)
+                            : Icon(Icons.star_border_outlined),
+                      ),
                     )
                   ],
                 ),
@@ -138,7 +133,7 @@ class EditProductItem extends StatelessWidget {
 
 class MenuItemImage extends StatelessWidget {
   final String imagePath;
-  const MenuItemImage({Key key,  this.imagePath}) : super(key: key);
+  const MenuItemImage({Key key, this.imagePath}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -146,6 +141,8 @@ class MenuItemImage extends StatelessWidget {
       height: MediaQuery.of(context).size.width / 2.5,
       child: ClipRRect(
         borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
+        // child: Image.network(
+        //   imagePath.toString(),
         child: Image.network(
           imagePath.toString(),
           fit: BoxFit.cover,
@@ -157,6 +154,7 @@ class MenuItemImage extends StatelessWidget {
             return Loading();
           },
         ),
+
         // child: Image.asset(
         //   imagePath,
         //   fit: BoxFit.cover,
@@ -171,8 +169,8 @@ class MenuItemName extends StatelessWidget {
   final Duration time;
   const MenuItemName({
     Key key,
-     this.name,
-     this.time,
+    this.name,
+    this.time,
   }) : super(key: key);
 
   @override
@@ -188,8 +186,7 @@ class MenuItemName extends StatelessWidget {
 
 class MenuItemDescription extends StatelessWidget {
   final String description;
-  const MenuItemDescription({Key key,  this.description})
-      : super(key: key);
+  const MenuItemDescription({Key key, this.description}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -204,7 +201,7 @@ class MenuItemDescription extends StatelessWidget {
 
 class MenuItemPrice extends StatelessWidget {
   final double price;
-  const MenuItemPrice({Key key,  this.price}) : super(key: key);
+  const MenuItemPrice({Key key, this.price}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

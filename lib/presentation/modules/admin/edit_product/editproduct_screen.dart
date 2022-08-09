@@ -1,6 +1,7 @@
 // import 'package:flutter/material.dart';
 
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:food365/domain/models/modules/ordering/cart_item.dart';
 import 'package:food365/domain/models/modules/ordering/cart_model.dart';
 import 'package:food365/domain/models/modules/ordering/menu_item_model.dart';
@@ -12,6 +13,9 @@ import 'package:food365/utils/shared/custom_appbar.dart';
 import 'package:food365/utils/shared/loading.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../utils/colors.dart';
+import '../../../../utils/custom_style.dart';
+
 class EditProductScreen extends StatelessWidget {
   static const String id = 'menu screen';
   const EditProductScreen({Key key}) : super(key: key);
@@ -19,9 +23,25 @@ class EditProductScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MyCustomAppBar(
-        headingText: "Your Products",
-        height: 116.0,
+      // appBar: MyCustomAppBar(
+      //   headingText: "Your Products",
+      //   height: 116.0,
+      // ),
+
+      appBar: AppBar(
+        title: Text(
+          "Your Products",
+          style: CustomStyle.appbarTitleStyle,
+        ),
+        backgroundColor: CustomColor.primaryColor,
+        leading: IconButton(
+          icon: Icon(FontAwesomeIcons.arrowAltCircleLeft,
+              color: CustomColor.whiteColor),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        //headingText: "Home",
+        //height: 0,
+
       ),
       body: Container(
         margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
