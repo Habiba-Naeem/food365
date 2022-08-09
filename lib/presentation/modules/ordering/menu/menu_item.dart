@@ -62,19 +62,20 @@ class MenuItem extends StatelessWidget {
                           )
                         : Center(child: Loading());
                   }),
-              Container(
-                padding: const EdgeInsets.only(left: 8, right: 8),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    MenuItemName(
-                      name: menuItem.name,
-                      time: menuItem.time,
-                    ),
-                    MenuItemDescription(
-                      description: menuItem.description,
-                    ),
-                  ],
+              Center(
+                child: Container(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      MenuItemName(
+                        name: menuItem.name,
+                        time: menuItem.time,
+                      ),
+                      MenuItemDescription(
+                        description: menuItem.description,
+                      ),
+                    ],
+                  ),
                 ),
               ),
               Padding(
@@ -83,8 +84,10 @@ class MenuItem extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    MenuItemPrice(
-                      price: menuItem.price,
+                    Center(
+                      child: MenuItemPrice(
+                        price: menuItem.price,
+                      ),
                     ),
                     Card(
                       margin: EdgeInsets.only(right: 0),

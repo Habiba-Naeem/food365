@@ -34,7 +34,9 @@ class AllOrders extends StatelessWidget {
     // }
 
     return LoaderOverlay(
-      child: DataTable(
+      child:
+
+      DataTable(
         columns: [
           const DataColumn(
               label: Text('OrderID',
@@ -62,7 +64,7 @@ class AllOrders extends StatelessWidget {
                           e.orderID.toString(),
                         ),
                         Text(
-                          
+
                           e.createdAgo,
                         ),
                       ],

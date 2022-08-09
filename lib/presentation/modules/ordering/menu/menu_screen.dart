@@ -79,7 +79,7 @@ class MenuItems extends StatelessWidget {
                     ? menuIemWidget.MenuItem(
                         menuItem: e,
                       )
-                    : Loading();
+                    : Center(child: Loading());
               },
             ),
           )

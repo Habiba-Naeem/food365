@@ -102,7 +102,7 @@ final CountDownController _controller = CountDownController();
           ),
 
           // Format for the Countdown Text.
-          textFormat: CountdownTextFormat.S,
+          textFormat: CountdownTextFormat.MM_SS,
 
           // Handles Countdown Timer (true for Reverse Countdown (max to 0), false for Forward Countdown (0 to max)).
           isReverse: false,
@@ -124,6 +124,7 @@ final CountDownController _controller = CountDownController();
 
           // This Callback will execute when the Countdown Ends.
           onComplete: () {
+            Navigator.of(context).pop();
             // Here, do whatever you want
             debugPrint('Countdown Ended');
           },
@@ -160,7 +161,7 @@ getTime(){
     }).whenComplete(() {
 setState(() {
   loader=false;
-  time=(_duration.inMinutes/widget.order.allOrderItems.length).toInt();
+  time=(_duration.inSeconds/widget.order.allOrderItems.length).toInt();
 });
       //print("sum");
       //print(_d.inMinutes / order.allOrderItems.length);

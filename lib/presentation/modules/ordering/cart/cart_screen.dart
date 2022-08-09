@@ -95,6 +95,8 @@ class CartScreen extends StatelessWidget {
                   ),
                   onPressed: () {
                     if(cartModel.totalPrice>0) {
+
+                      Navigator.of(context).pop();
                       Navigator.of(context)
                           .pushReplacementNamed(CheckoutScreen.id);
                     }
