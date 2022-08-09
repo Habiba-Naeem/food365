@@ -196,7 +196,7 @@ class _AddProductFormState extends State<AddProductForm> {
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text("Categort",style: CustomStyle.headingStyle,),
+            child: Text("Category",style: CustomStyle.headingStyle,),
           ),
           TextFormField(
             cursorColor: Colors.orange[200],
@@ -260,7 +260,7 @@ class _AddProductFormState extends State<AddProductForm> {
                     ],
                   ),
                   Text(
-                    "  Change",
+                    "Change",
                     style: CustomStyle.headingStyle,
                   ),
                 ],
