@@ -23,7 +23,7 @@ import '../../../../../utils/custom_style.dart';
 class CheckoutScreen extends StatefulWidget {
   static const String id = "checkout";
   final String amount;
-  const CheckoutScreen({Key key,this.amount}) : super(key: key);
+  const CheckoutScreen({Key key, this.amount}) : super(key: key);
 
   @override
   State<CheckoutScreen> createState() => _CheckoutScreenState();
@@ -33,82 +33,85 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   bool loading = false;
   @override
   Widget build(BuildContext context) {
-
     final cartModel = Provider.of<CartModel>(context);
     return LoaderOverlay(
       child: Scaffold(
         appBar: AppBar(
-        title: Text("Checkout",style: CustomStyle.appbarTitleStyle,),
-    backgroundColor: CustomColor.primaryColor,
-    leading: IconButton(
-    icon: Icon(FontAwesomeIcons.arrowAltCircleLeft, color: CustomColor.whiteColor),
-    onPressed: () => Navigator.of(context).pop(),
+          title: Text(
+            "Checkout",
+            style: CustomStyle.appbarTitleStyle,
+          ),
+          backgroundColor: CustomColor.primaryColor,
+          leading: IconButton(
+            icon: Icon(FontAwesomeIcons.arrowAltCircleLeft,
+                color: CustomColor.whiteColor),
+            onPressed: () => Navigator.of(context).pop(),
           ),
         ),
- bottomNavigationBar:
- Container(
-   margin: EdgeInsets.only(top: 24, bottom: 64,left: 24,right: 24),
-   width: double.infinity,
-   child: RaisedButton(
-
-     child: loading
-         ? SpinKitChasingDots(color: Colors.blue, size: 20)
-         : Text('Confirm Order', style: titleStyle),
-     onPressed: () async {
-       if(cartModel.totalPrice<0){
-         return;
-       }
-       // CheckoutController(
-       //   cartItems: Provider.of<CartModel>(context).allCartItems,
-       //   total: Provider.of<CartModel>(context).totalPrice,
-       // ).checkOut();
-       // Provider.of<CheckoutController>(context).isLoading
-       //     ? context.loaderOverlay.show()
-       //     : context.loaderOverlay.hide();
-       context.loaderOverlay.show();
-       try {
-         var response = await OrderService().postOrder(
-             totalPrice:cartModel.totalPrice,
-             items:cartModel.allCartItems);
-         if (response["success"] == success) {
-           context.loaderOverlay.hide();
-           cartModel.resetState();
-           await showAlertDialog(context);
-           // FutureProvider<OrderModel>.value(
-           //   value: response['order'],
-           //   child: TimePage(order: response['order'],)
-           // );
-           Navigator.of(context).pushNamed(TimePage.id,
-               arguments: response['order']);
-         }
-       } on SomethingWentWrong catch (e) {
-         context.loaderOverlay.hide();
-         showErrorDialog(context, e.cause);
-       } on DatabaseNotFound catch (e) {
-         context.loaderOverlay.hide();
-         showErrorDialog(context, e.cause);
-       } on ServiceUnavailable catch (e) {
-         context.loaderOverlay.hide();
-         showErrorDialog(context, e.cause);
-       } on SocketException catch (e) {
-         context.loaderOverlay.hide();
-         showErrorDialog(context, noInternet);
-       }
-     },
-     padding: EdgeInsets.symmetric(horizontal: 64, vertical: 12),
-     color: AppColors.primaryColor,
-     shape: StadiumBorder(),
-   ),
- ),
+        bottomNavigationBar: Container(
+          margin: EdgeInsets.only(top: 24, bottom: 64, left: 24, right: 24),
+          width: double.infinity,
+          child: RaisedButton(
+            child: loading
+                ? SpinKitChasingDots(color: Colors.blue, size: 20)
+                : Text('Confirm Order', style: titleStyle),
+            onPressed: () async {
+              if (cartModel.totalPrice < 0) {
+                return;
+              }
+              // CheckoutController(
+              //   cartItems: Provider.of<CartModel>(context).allCartItems,
+              //   total: Provider.of<CartModel>(context).totalPrice,
+              // ).checkOut();
+              // Provider.of<CheckoutController>(context).isLoading
+              //     ? context.loaderOverlay.show()
+              //     : context.loaderOverlay.hide();
+              context.loaderOverlay.show();
+              try {
+                var response = await OrderService().postOrder(
+                    totalPrice: cartModel.totalPrice,
+                    items: cartModel.allCartItems);
+                if (response["success"] == success) {
+                  context.loaderOverlay.hide();
+                  cartModel.resetState();
+                  await showAlertDialog(context);
+                  // FutureProvider<OrderModel>.value(
+                  //   value: response['order'],
+                  //   child: TimePage(order: response['order'],)
+                  // );
+                  Navigator.of(context)
+                      .pushNamed(TimePage.id, arguments: response["order"]);
+                }
+              } on SomethingWentWrong catch (e) {
+                context.loaderOverlay.hide();
+                showErrorDialog(context, e.cause);
+              } on DatabaseNotFound catch (e) {
+                context.loaderOverlay.hide();
+                showErrorDialog(context, e.cause);
+              } on ServiceUnavailable catch (e) {
+                context.loaderOverlay.hide();
+                showErrorDialog(context, e.cause);
+              } on SocketException catch (e) {
+                context.loaderOverlay.hide();
+                showErrorDialog(context, noInternet);
+              }
+            },
+            padding: EdgeInsets.symmetric(horizontal: 64, vertical: 12),
+            color: AppColors.primaryColor,
+            shape: StadiumBorder(),
+          ),
+        ),
         body: Center(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-
-              Text('Total', style: CustomStyle.headingStyle.merge(TextStyle(fontSize: 32))),
-
-              Text('${cartModel.totalPrice??""}', style: CustomStyle.headingStyle.merge(TextStyle(fontSize: 28))),
+              Text('Total',
+                  style:
+                      CustomStyle.headingStyle.merge(TextStyle(fontSize: 32))),
+              Text('Rs. ${cartModel.totalPrice ?? ""}',
+                  style:
+                      CustomStyle.headingStyle.merge(TextStyle(fontSize: 28))),
             ],
           ),
         ),

@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+
 import 'package:food365/domain/models/modules/ordering/menu_item_model.dart';
 import 'package:food365/domain/models/modules/ordering/order.dart';
 import 'package:food365/domain/models/modules/ordering/order_item.dart';
@@ -7,13 +8,19 @@ import 'package:food365/domain/services/menu_service.dart';
 class TimerProvider extends ChangeNotifier {
   OrderModel order;
   var totalDuration = Duration();
-  Duration totalTime;
-  TimerProvider();
+  Duration totalTime = Duration();
+  TimerProvider({
+    this.order,
+  });
 
-  getTotalTime() {
-    
+  get getTotalTime {
+    return totalTime.inSeconds;
+  }
+
+  setTotatTime() {
     order.allOrderItems.forEach(
       (item) async {
+        print(item.menuItemID);
         await MenuService().getMenuItem(menuItemID: item.menuItemID).then(
           (value) {
             print(value.time);
@@ -22,6 +29,7 @@ class TimerProvider extends ChangeNotifier {
         );
         if (item == order.allOrderItems.last) {
           totalTime = (totalDuration ~/ order.allOrderItems.length);
+         
           notifyListeners();
         }
       },

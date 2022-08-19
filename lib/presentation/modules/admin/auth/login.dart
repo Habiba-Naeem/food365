@@ -90,6 +90,7 @@ backgroundColor: Colors.white70,
               TextField(
                 controller: passwordEditingController,
                 showCursor: true,
+                obscureText: true,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(10.0)),

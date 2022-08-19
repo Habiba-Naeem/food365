@@ -21,26 +21,26 @@ class OrderModel extends ChangeNotifier {
   Duration timeLeft = Duration();
 
   OrderModel({
-     this.serviceStatus,
-     this.cookingStatus,
-     this.readyStatus,
-     this.orderID,
-     this.createdAt,
-     this.updatedAt,
-     this.totalPrice,
-     this.items,
+    this.serviceStatus,
+    this.cookingStatus,
+    this.readyStatus,
+    this.orderID,
+    this.createdAt,
+    this.updatedAt,
+    this.totalPrice,
+    this.items,
   });
 
   OrderModel.postOrder({
-     this.createdAt,
-     this.updatedAt,
-     this.totalPrice,
-     this.items,
+    this.createdAt,
+    this.updatedAt,
+    this.totalPrice,
+    this.items,
   });
 
   factory OrderModel.fromJson({
-     json,
-     key,
+    json,
+    key,
   }) {
     List<OrderItem> orderItems = json['items'] != null
         ? List<OrderItem>.from(
@@ -59,6 +59,7 @@ class OrderModel extends ChangeNotifier {
   }
 
   Map<String, dynamic> toJson() => {
+        
         "serviceStatus": serviceStatus,
         "cookingStatus": cookingStatus,
         "readyStatus": readyStatus,

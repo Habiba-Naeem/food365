@@ -147,7 +147,6 @@ class MenuService {
   }) async {
     try {
       MenuItemModel menuItem = MenuItemModel.postMenu(
-        categoryID: categoryID,
         name: name,
         description: description,
         price: price,

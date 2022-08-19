@@ -66,8 +66,8 @@ class OrderService {
     }
   }
 
-  getOrder({
-     orderID,
+  Future<OrderModel> getOrder({
+    orderID,
   }) async {
     print(orderID);
     try {
@@ -161,8 +161,8 @@ class OrderService {
   }
 
   postOrder({
-     totalPrice,
-     List<CartItem> items,
+    totalPrice,
+    List<CartItem> items,
   }) async {
     try {
       List<OrderItem> orderItems = items.map((item) {
@@ -190,6 +190,7 @@ class OrderService {
       var parsedResponse = ApiResponse.fromJson(response.statusCode);
 
       if (response.statusCode == 200) {
+        order.orderID = data.values.first;
         return {
           "order": order,
           "orderID": data.values.first,
