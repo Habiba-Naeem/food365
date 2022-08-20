@@ -2,15 +2,53 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:food365/domain/models/modules/inventory/inventory_item_model.dart';
 import 'package:food365/domain/services/inventory_service.dart';
+import 'package:food365/presentation/modules/admin/inventory/addInventory.dart';
 
 import '../../../../utils/colors.dart';
 import '../../../../utils/custom_style.dart';
 
-class Inventory extends StatelessWidget {
+class Inventory extends StatefulWidget {
+  const Inventory({Key key}) : super(key: key);
+
+  @override
+  State<Inventory> createState() => _InventoryState();
+}
+
+class _InventoryState extends State<Inventory> {
+ List<DataRow> rows=[];
+ 
+ getRows(){
+   InventoryService().getInventoryItems().forEach((element) {
+
+     List<InventoryItemModel> inventorylist=element;
+     for(int i=0;i<inventorylist.length;i++){
+
+       setState(() {
+         rows.add(DataRow(cells: [
+           DataCell(Text(inventorylist[i].itemName)),
+           DataCell(Text(inventorylist[i].boughtDate.toString())),
+           DataCell(Text(inventorylist[i].expiryDate.toString(),style: TextStyle(color:inventorylist[i].expired?Colors.red:Colors.black ),)),
+
+           DataCell(Text(inventorylist[i].quantity.toString())),
+         ]));
+
+       });
+     }
+
+   });
+
+
+ }
+ @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+ getRows();
+ }
   @override
   Widget build(BuildContext context) {
-    var items = InventoryService().getInventoryItems();
-    print(items);
+
     return Scaffold(
 
       appBar: AppBar(
@@ -24,67 +62,76 @@ class Inventory extends StatelessWidget {
               color: CustomColor.whiteColor),
           onPressed: () => Navigator.of(context).pop(),
         ),
+
         //headingText: "Home",
         //height: 0,
 
       ),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Container(
+          height: 60,
+          child: MaterialButton(
+            onPressed: () async {
+              Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (context) {
+                return AddInventoryScreen();
+              }));
 
 
-      body: ListView(children: <Widget>[
-        DataTable(
-          columns: [
-            DataColumn(
-                label: Text('Items',
-                    style:
-                        TextStyle(fontSize: 18, fontWeight: FontWeight.bold))),
-            DataColumn(
-                label: Text('Expiry',
-                    style:
-                        TextStyle(fontSize: 18, fontWeight: FontWeight.bold))),
-            DataColumn(
-                label: Text('InStock',
-                    style:
-                        TextStyle(fontSize: 18, fontWeight: FontWeight.bold))),
-            DataColumn(
-                label: Text('UnitPrice',
-                    style:
-                        TextStyle(fontSize: 18, fontWeight: FontWeight.bold))),
-          ],
-          rows: [
-            DataRow(cells: [
-              DataCell(
-                StreamBuilder<List<InventoryItemModel>>(
-                  stream: InventoryService().getInventoryItems(),
-                  builder: (context, snapshot) {
-                    return Text('Basil');
-                  },
-                ),
+
+            },
+            child: Container(
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(5.0)),
+
+                  color: CustomColor.primaryColor
               ),
-              DataCell(Text('3/2022')),
-              DataCell(Text('0')),
-              DataCell(Text('12PKR')),
-            ]),
-            DataRow(cells: [
-              DataCell(Text('Tomatoes')),
-              DataCell(Text('3/2022')),
-              DataCell(Text('0')),
-              DataCell(Text('12PKR')),
-            ]),
-            DataRow(cells: [
-              DataCell(Text('Buns/Bread')),
-              DataCell(Text('3/2022')),
-              DataCell(Text('0')),
-              DataCell(Text('12PKR')),
-            ]),
-            DataRow(cells: [
-              DataCell(Text('Chicken')),
-              DataCell(Text('3/2022')),
-              DataCell(Text('0')),
-              DataCell(Text('12PKR')),
-            ]),
-          ],
+              padding: const EdgeInsets.all(12.0),
+              child:  Text(
+                'Add Inventory',
+                style: CustomStyle.appbarTitleStyle,
+              ),
+            ),
+          ),
         ),
-      ]),
+      ),
+
+
+      body: Container(
+        width: MediaQuery.of(context).size.width,
+        child: ListView(
+            shrinkWrap: true,
+
+            children: <Widget>[
+          DataTable(
+            columnSpacing: 20,
+            columns: [
+              DataColumn(
+                  label: Text('Items',
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold))),
+              DataColumn(
+                  label: Text('Bought',
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold))),
+              DataColumn(
+                  label: Text('Expiry',
+                      style:
+                      TextStyle(fontSize: 18, fontWeight: FontWeight.bold))),
+
+              DataColumn(
+                  label: Text('InStock',
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold))),
+
+            ],
+            rows: rows,
+          ),
+
+        ]),
+      ),
     );
   }
 }

@@ -143,16 +143,16 @@ class MenuItemImage extends StatelessWidget {
         borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
         // child: Image.network(
         //   imagePath.toString(),
-        child: Image.network(
+        child: Image.asset(
           imagePath.toString(),
           fit: BoxFit.cover,
-          loadingBuilder: (BuildContext context, Widget child,
-              ImageChunkEvent loadingProgress) {
-            if (loadingProgress == null) {
-              return child;
-            }
-            return Loading();
-          },
+          // loadingBuilder: (BuildContext context, Widget child,
+          //     ImageChunkEvent loadingProgress) {
+          //   if (loadingProgress == null) {
+          //     return child;
+          //   }
+          //   return Loading();
+          // },
         ),
 
         // child: Image.asset(

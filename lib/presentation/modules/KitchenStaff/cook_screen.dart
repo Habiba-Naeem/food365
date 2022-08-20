@@ -34,9 +34,18 @@ class CookScreen extends StatelessWidget {
         // ),
 
         appBar: AppBar(
-          title: Text('Kitchen',style: CustomStyle.appbarTitleStyle,),
+          title: Text(
+            "Kitchen",
+            style: CustomStyle.appbarTitleStyle,
+          ),
+          backgroundColor: CustomColor.primaryColor,
+          leading: IconButton(
+            icon: Icon(FontAwesomeIcons.arrowAltCircleLeft,
+                color: CustomColor.whiteColor),
+            onPressed: () => Navigator.of(context).pop(),
+          ),
+
           bottom: TabBar(
-            isScrollable: true,
             tabs: [
               Tab(icon: Icon(Icons.fastfood), text: "All Orders",),
               Tab(icon: Icon(Icons.add_alert), text: "Current Orders"),
@@ -44,15 +53,6 @@ class CookScreen extends StatelessWidget {
               Tab(icon: Icon(Icons.fastfood_rounded), text: "Orders Served")
             ],
           ),
-          backgroundColor: CustomColor.primaryColor,
-          leading: IconButton(
-            icon: Icon(FontAwesomeIcons.arrowAltCircleLeft, color: CustomColor.whiteColor),
-            onPressed: () => Navigator.of(context).pop(),
-          ),
-          //headingText: "Home",
-          //height: 0,
-          actions: [
-          ],
         ),
         body: TabBarView(
           children: [

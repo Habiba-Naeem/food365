@@ -5,6 +5,7 @@ import 'package:food365/domain/models/modules/ordering/menu_item_model.dart';
 import 'package:food365/domain/services/menu_service.dart';
 import 'package:food365/presentation/modules/ordering/cart/cart_item.dart';
 import 'package:food365/presentation/modules/ordering/cart/cart_screen.dart';
+import 'package:food365/presentation/modules/ordering/menu/menu_screen.dart';
 import 'package:food365/presentation/style.dart';
 import 'package:food365/utils/colors.dart';
 import 'package:food365/utils/shared/category_card.dart';
@@ -70,272 +71,272 @@ class HomeScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Text(
-                    "Find out what's cooking today!",
-                    style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 15,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  SingleChildScrollView(
-                    padding: EdgeInsets.only(bottom: 20),
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: [
-                        Container(
-                          width: MediaQuery.of(context).size.width * 0.55,
-                          height: 350,
-                          padding: EdgeInsets.symmetric(
-                              vertical: 40, horizontal: 20),
-                          decoration: BoxDecoration(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(30)),
-                              color: tealDark,
-                              boxShadow: [
-                                BoxShadow(
-                                    spreadRadius: 0,
-                                    offset: Offset(0, 10),
-                                    blurRadius: 0,
-                                    color: tealDark.withOpacity(0.4))
-                              ]),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Expanded(
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                          image: AssetImage(
-                                              "assets/images/menu_items/salad.png"))),
-                                ),
-                              ),
-                              SizedBox(
-                                height: 15,
-                              ),
-                              Text(
-                                "White Karahi",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w700),
-                              ),
-                              SizedBox(
-                                height: 5,
-                              ),
-                              Row(
-                                children: [
-                                  Icon(
-                                    Icons.star,
-                                    color: Colors.white,
-                                    size: 17,
-                                  ),
-                                  Icon(
-                                    Icons.star,
-                                    color: Colors.white,
-                                    size: 17,
-                                  ),
-                                  Icon(
-                                    Icons.star,
-                                    color: Colors.white,
-                                    size: 17,
-                                  ),
-                                  Icon(
-                                    Icons.star,
-                                    color: Colors.white,
-                                    size: 17,
-                                  ),
-                                  Icon(
-                                    Icons.star,
-                                    color: Colors.white,
-                                    size: 17,
-                                  ),
-                                  Text(
-                                    " 250 Ratings",
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 10),
-                                  )
-                                ],
-                              ),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              Text(
-                                "Lorem ipsum is a dummy text used for printing",
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 13),
-                              )
-                            ],
-                          ),
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Column(
-                          children: [
-                            Container(
-                              width: MediaQuery.of(context).size.width * 0.35,
-                              height: 165,
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 20, horizontal: 20),
-                              decoration: BoxDecoration(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(30)),
-                                  color: tealLight,
-                                  boxShadow: [
-                                    BoxShadow(
-                                        spreadRadius: 0,
-                                        offset: Offset(0, 10),
-                                        blurRadius: 0,
-                                        color: tealLight.withOpacity(0.4))
-                                  ]),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Expanded(
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                          image: DecorationImage(
-                                              image: AssetImage(
-                                                  "assets/images/menu_items/salad.png"))),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 15,
-                                  ),
-                                  Text(
-                                    "Reshmi Kabab",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w700),
-                                  ),
-                                  SizedBox(
-                                    height: 5,
-                                  ),
-                                  Row(
-                                    children: [
-                                      Icon(
-                                        Icons.star,
-                                        color: Colors.white,
-                                        size: 14,
-                                      ),
-                                      Icon(
-                                        Icons.star,
-                                        color: Colors.white,
-                                        size: 14,
-                                      ),
-                                      Icon(
-                                        Icons.star,
-                                        color: Colors.white,
-                                        size: 14,
-                                      ),
-                                      Icon(
-                                        Icons.star,
-                                        color: Colors.white,
-                                        size: 14,
-                                      ),
-                                      Icon(
-                                        Icons.star,
-                                        color: Colors.white,
-                                        size: 14,
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            Column(
-                              children: [
-                                Container(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.35,
-                                  height: 165,
-                                  padding: EdgeInsets.symmetric(
-                                      vertical: 20, horizontal: 20),
-                                  decoration: BoxDecoration(
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(30)),
-                                      color: tealDark,
-                                      boxShadow: [
-                                        BoxShadow(
-                                            spreadRadius: 0,
-                                            offset: Offset(0, 10),
-                                            blurRadius: 0,
-                                            color: tealDark.withOpacity(0.4))
-                                      ]),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Expanded(
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                              image: DecorationImage(
-                                                  image: AssetImage(
-                                                      "assets/images/menu_items/salad.png"))),
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: 15,
-                                      ),
-                                      Text(
-                                        "BBQ Platter",
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w700),
-                                      ),
-                                      SizedBox(
-                                        height: 5,
-                                      ),
-                                      Row(
-                                        children: [
-                                          Icon(
-                                            Icons.star,
-                                            color: Colors.white,
-                                            size: 14,
-                                          ),
-                                          Icon(
-                                            Icons.star,
-                                            color: Colors.white,
-                                            size: 14,
-                                          ),
-                                          Icon(
-                                            Icons.star,
-                                            color: Colors.white,
-                                            size: 14,
-                                          ),
-                                          Icon(
-                                            Icons.star,
-                                            color: Colors.white,
-                                            size: 14,
-                                          ),
-                                          Icon(
-                                            Icons.star,
-                                            color: Colors.white,
-                                            size: 14,
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
+                  // SizedBox(
+                  //   height: 20,
+                  // ),
+                  // Text(
+                  //   "Find out what's cooking today!",
+                  //   style: TextStyle(
+                  //     color: Colors.grey,
+                  //     fontSize: 15,
+                  //   ),
+                  // ),
+                  // SizedBox(
+                  //   height: 15,
+                  // ),
+                  // SingleChildScrollView(
+                  //   padding: EdgeInsets.only(bottom: 20),
+                  //   scrollDirection: Axis.horizontal,
+                  //   child: Row(
+                  //     children: [
+                  //       Container(
+                  //         width: MediaQuery.of(context).size.width * 0.55,
+                  //         height: 350,
+                  //         padding: EdgeInsets.symmetric(
+                  //             vertical: 40, horizontal: 20),
+                  //         decoration: BoxDecoration(
+                  //             borderRadius:
+                  //                 BorderRadius.all(Radius.circular(30)),
+                  //             color: tealDark,
+                  //             boxShadow: [
+                  //               BoxShadow(
+                  //                   spreadRadius: 0,
+                  //                   offset: Offset(0, 10),
+                  //                   blurRadius: 0,
+                  //                   color: tealDark.withOpacity(0.4))
+                  //             ]),
+                  //         child: Column(
+                  //           crossAxisAlignment: CrossAxisAlignment.start,
+                  //           children: [
+                  //             Expanded(
+                  //               child: Container(
+                  //                 decoration: BoxDecoration(
+                  //                     image: DecorationImage(
+                  //                         image: AssetImage(
+                  //                             "assets/images/menu_items/salad.png"))),
+                  //               ),
+                  //             ),
+                  //             SizedBox(
+                  //               height: 15,
+                  //             ),
+                  //             Text(
+                  //               "White Karahi",
+                  //               style: TextStyle(
+                  //                   color: Colors.white,
+                  //                   fontSize: 16,
+                  //                   fontWeight: FontWeight.w700),
+                  //             ),
+                  //             SizedBox(
+                  //               height: 5,
+                  //             ),
+                  //             Row(
+                  //               children: [
+                  //                 Icon(
+                  //                   Icons.star,
+                  //                   color: Colors.white,
+                  //                   size: 17,
+                  //                 ),
+                  //                 Icon(
+                  //                   Icons.star,
+                  //                   color: Colors.white,
+                  //                   size: 17,
+                  //                 ),
+                  //                 Icon(
+                  //                   Icons.star,
+                  //                   color: Colors.white,
+                  //                   size: 17,
+                  //                 ),
+                  //                 Icon(
+                  //                   Icons.star,
+                  //                   color: Colors.white,
+                  //                   size: 17,
+                  //                 ),
+                  //                 Icon(
+                  //                   Icons.star,
+                  //                   color: Colors.white,
+                  //                   size: 17,
+                  //                 ),
+                  //                 Text(
+                  //                   " 250 Ratings",
+                  //                   style: TextStyle(
+                  //                       color: Colors.white, fontSize: 10),
+                  //                 )
+                  //               ],
+                  //             ),
+                  //             SizedBox(
+                  //               height: 10,
+                  //             ),
+                  //             Text(
+                  //               "Lorem ipsum is a dummy text used for printing",
+                  //               style: TextStyle(
+                  //                   color: Colors.white, fontSize: 13),
+                  //             )
+                  //           ],
+                  //         ),
+                  //       ),
+                  //       SizedBox(
+                  //         width: 10,
+                  //       ),
+                  //       Column(
+                  //         children: [
+                  //           Container(
+                  //             width: MediaQuery.of(context).size.width * 0.35,
+                  //             height: 165,
+                  //             padding: EdgeInsets.symmetric(
+                  //                 vertical: 20, horizontal: 20),
+                  //             decoration: BoxDecoration(
+                  //                 borderRadius:
+                  //                     BorderRadius.all(Radius.circular(30)),
+                  //                 color: tealLight,
+                  //                 boxShadow: [
+                  //                   BoxShadow(
+                  //                       spreadRadius: 0,
+                  //                       offset: Offset(0, 10),
+                  //                       blurRadius: 0,
+                  //                       color: tealLight.withOpacity(0.4))
+                  //                 ]),
+                  //             child: Column(
+                  //               crossAxisAlignment: CrossAxisAlignment.start,
+                  //               children: [
+                  //                 Expanded(
+                  //                   child: Container(
+                  //                     decoration: BoxDecoration(
+                  //                         image: DecorationImage(
+                  //                             image: AssetImage(
+                  //                                 "assets/images/menu_items/salad.png"))),
+                  //                   ),
+                  //                 ),
+                  //                 SizedBox(
+                  //                   height: 15,
+                  //                 ),
+                  //                 Text(
+                  //                   "Reshmi Kabab",
+                  //                   style: TextStyle(
+                  //                       color: Colors.white,
+                  //                       fontSize: 16,
+                  //                       fontWeight: FontWeight.w700),
+                  //                 ),
+                  //                 SizedBox(
+                  //                   height: 5,
+                  //                 ),
+                  //                 Row(
+                  //                   children: [
+                  //                     Icon(
+                  //                       Icons.star,
+                  //                       color: Colors.white,
+                  //                       size: 14,
+                  //                     ),
+                  //                     Icon(
+                  //                       Icons.star,
+                  //                       color: Colors.white,
+                  //                       size: 14,
+                  //                     ),
+                  //                     Icon(
+                  //                       Icons.star,
+                  //                       color: Colors.white,
+                  //                       size: 14,
+                  //                     ),
+                  //                     Icon(
+                  //                       Icons.star,
+                  //                       color: Colors.white,
+                  //                       size: 14,
+                  //                     ),
+                  //                     Icon(
+                  //                       Icons.star,
+                  //                       color: Colors.white,
+                  //                       size: 14,
+                  //                     ),
+                  //                   ],
+                  //                 ),
+                  //               ],
+                  //             ),
+                  //           ),
+                  //           SizedBox(
+                  //             height: 20,
+                  //           ),
+                  //           Column(
+                  //             children: [
+                  //               Container(
+                  //                 width:
+                  //                     MediaQuery.of(context).size.width * 0.35,
+                  //                 height: 165,
+                  //                 padding: EdgeInsets.symmetric(
+                  //                     vertical: 20, horizontal: 20),
+                  //                 decoration: BoxDecoration(
+                  //                     borderRadius:
+                  //                         BorderRadius.all(Radius.circular(30)),
+                  //                     color: tealDark,
+                  //                     boxShadow: [
+                  //                       BoxShadow(
+                  //                           spreadRadius: 0,
+                  //                           offset: Offset(0, 10),
+                  //                           blurRadius: 0,
+                  //                           color: tealDark.withOpacity(0.4))
+                  //                     ]),
+                  //                 child: Column(
+                  //                   crossAxisAlignment:
+                  //                       CrossAxisAlignment.start,
+                  //                   children: [
+                  //                     Expanded(
+                  //                       child: Container(
+                  //                         decoration: BoxDecoration(
+                  //                             image: DecorationImage(
+                  //                                 image: AssetImage(
+                  //                                     "assets/images/menu_items/salad.png"))),
+                  //                       ),
+                  //                     ),
+                  //                     SizedBox(
+                  //                       height: 15,
+                  //                     ),
+                  //                     Text(
+                  //                       "BBQ Platter",
+                  //                       style: TextStyle(
+                  //                           color: Colors.white,
+                  //                           fontSize: 16,
+                  //                           fontWeight: FontWeight.w700),
+                  //                     ),
+                  //                     SizedBox(
+                  //                       height: 5,
+                  //                     ),
+                  //                     Row(
+                  //                       children: [
+                  //                         Icon(
+                  //                           Icons.star,
+                  //                           color: Colors.white,
+                  //                           size: 14,
+                  //                         ),
+                  //                         Icon(
+                  //                           Icons.star,
+                  //                           color: Colors.white,
+                  //                           size: 14,
+                  //                         ),
+                  //                         Icon(
+                  //                           Icons.star,
+                  //                           color: Colors.white,
+                  //                           size: 14,
+                  //                         ),
+                  //                         Icon(
+                  //                           Icons.star,
+                  //                           color: Colors.white,
+                  //                           size: 14,
+                  //                         ),
+                  //                         Icon(
+                  //                           Icons.star,
+                  //                           color: Colors.white,
+                  //                           size: 14,
+                  //                         ),
+                  //                       ],
+                  //                     ),
+                  //                   ],
+                  //                 ),
+                  //               ),
+                  //             ],
+                  //           ),
+                  //         ],
+                  //       ),
+                  //     ],
+                  //   ),
+                  // ),
                   SizedBox(
                     height: 20,
                   ),
@@ -374,7 +375,7 @@ class HomeScreen extends StatelessWidget {
                           itemCount: snapshot.data.length,
                           itemBuilder:(context, index) {
 
-                            return   placesWidget(snapshot.data[index]);
+                            return   placesWidget(snapshot.data[index],context);
 
                           },)
                           : Center(child: Loading());
@@ -415,7 +416,7 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
-Row placesWidget(MenuItemModel menu) {
+Row placesWidget(MenuItemModel menu,context) {
   print("menu utem");
   print(menu.imagePath);
   return Row(
@@ -441,7 +442,11 @@ Row placesWidget(MenuItemModel menu) {
         ),
       ),
       InkWell(
-        onTap: openNextPage,
+        onTap:() {
+          Navigator.push(context, MaterialPageRoute(builder: (context)=>MenuScreen()));
+         // Navigator.push(context, MaterialPageRoute(builder: (context)=>HotelPage()));
+
+        },
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           decoration: BoxDecoration(
@@ -458,6 +463,6 @@ Row placesWidget(MenuItemModel menu) {
   );
 }
 
-void openNextPage() {
-  // Navigator.push(context, MaterialPageRoute(builder: (context)=>HotelPage()));
-}
+// void openNextPage() {
+//   // Navigator.push(context, MaterialPageRoute(builder: (context)=>HotelPage()));
+// }

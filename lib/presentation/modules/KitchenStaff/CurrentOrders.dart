@@ -3,6 +3,8 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:food365/domain/services/order_status_service.dart';
 import 'package:food365/presentation/modules/KitchenStaff/items_modal.dart';
+import 'package:food365/utils/colors.dart';
+import 'package:food365/utils/custom_style.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
 
@@ -29,12 +31,13 @@ class CurrentOrders extends StatelessWidget {
 
     return DataTable(
       key: Key("${Random().nextDouble()}"),
+   columnSpacing: 15,
       columns: [
         const DataColumn(
             label: Text('OrderID',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold))),
         const DataColumn(
-            label: Text('Pending items ',
+            label: Text('Pending Items',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold))),
         DataColumn(
           label: Text(""),
@@ -52,6 +55,7 @@ class CurrentOrders extends StatelessWidget {
                   width: 100,
                   child: Text(
                     e.orderID.toString(),
+                 style: CustomStyle.subHeadingStyle,
                   ),
                 ),
               ),
@@ -59,12 +63,14 @@ class CurrentOrders extends StatelessWidget {
                 Text(e.pendingItems.toString())
               ),
               DataCell(
-                  ElevatedButton(
+                  MaterialButton(
+
                     onPressed: () {
                       print(e.items.first.cookingStatus);
                       showCurrentItems(context, e.orderID, e.items);
                     },
-                    child: Text("View"),
+                    child: Text("View",style: CustomStyle.appbarTitleStyle.merge(TextStyle(fontSize: 15)),),
+                  color: CustomColor.primaryColor,
                   ),
                 )
             ],

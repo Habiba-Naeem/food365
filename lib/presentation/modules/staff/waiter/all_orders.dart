@@ -7,11 +7,17 @@ import 'package:food365/domain/services/menu_service.dart';
 import 'package:food365/presentation/modules/staff/waiter/items_modal.dart';
 import 'package:food365/presentation/style.dart';
 import 'package:food365/utils/colors.dart';
+import 'package:intl/intl.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../utils/custom_style.dart';
+
 class AllOrders extends StatelessWidget {
+
+  DateFormat date = new DateFormat("MM/dd/yyyy");
+  DateFormat time = new DateFormat("hh:mm:ss a");
   showAllItems(context, orderID, orderItems) {
     //final OrderModel order = e;
     print(orderItems.runtimeType);
@@ -32,15 +38,16 @@ class AllOrders extends StatelessWidget {
 
     return LoaderOverlay(
       child: DataTable(
+        columnSpacing: 18,
         columns: [
           const DataColumn(
               label: Text('OrderID',
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold))),
-          // const DataColumn(
-          //     label: Text('Status',
-          //         style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold))),
           const DataColumn(
-              label: const Text('TimeLeft',
+              label: Text('Date',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold))),
+          const DataColumn(
+              label: Text('Time',
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold))),
           DataColumn(
             label: Text(""),
@@ -50,11 +57,32 @@ class AllOrders extends StatelessWidget {
           ...orders.map((e) {
             return DataRow(
               cells: [
+
                 DataCell(
-                  Container(
-                    width: 100,
+                  SizedBox(
+
+                    width: 80,
+
                     child: Text(
                       e.orderID.toString(),
+                      style: CustomStyle.subHeadingStyle,
+                    ),
+                  ),
+                ),
+                DataCell(
+                  SizedBox(
+                    //width: 100,
+                    child: Text(
+                      date.format(e.createdAt).toString(),
+                    ),
+                  ),
+                ),
+                DataCell(
+                  SizedBox(
+                    //width: 100,
+                    child: Text(
+
+                      time.format(e.createdAt).toString(),
                     ),
                   ),
                 ),
@@ -65,18 +93,16 @@ class AllOrders extends StatelessWidget {
                 //         : e.cookingStatus == true
                 //             ? "In progress"
                 //             : "Pending")),
-
-                DataCell(Timer(
-                  order: e,
-                )),
-                // DataCell(Text(TimerProvider(order: e).totalTime.toString())),
+                //const DataCell(const Text('....')),
                 DataCell(
-                  ElevatedButton(
+                  MaterialButton(
                     onPressed: () {
                       print(e.items.first.cookingStatus);
                       showAllItems(context, e.orderID, e.items);
                     },
-                    child: Text("View"),
+
+                    child: Text("View",style: CustomStyle.appbarTitleStyle.merge(TextStyle(fontSize: 15)),),
+                    color: CustomColor.primaryColor,
                   ),
                 )
               ],

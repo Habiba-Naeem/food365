@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:food365/domain/models/modules/ordering/order.dart';
 import 'package:food365/presentation/modules/KitchenStaff/items_modal.dart';
+import 'package:food365/utils/colors.dart';
+import 'package:food365/utils/custom_style.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
 
@@ -21,6 +23,7 @@ class ServedOrders extends StatelessWidget {
     final orders = Provider.of<List<OrderModel>>(context);
     return ListView(children: <Widget>[
       DataTable(
+        columnSpacing: 20,
         columns: [
           DataColumn(
               label: Text('OrderID',
@@ -42,6 +45,7 @@ class ServedOrders extends StatelessWidget {
                   width: 100,
                   child: Text(
                     e.orderID.toString(),
+                  style: CustomStyle.subHeadingStyle,
                   ),
                 ),
               ),
@@ -49,12 +53,13 @@ class ServedOrders extends StatelessWidget {
                 Text(e.serviceStatus.toString())
               ),
               DataCell(
-                  ElevatedButton(
+                  MaterialButton(
                     onPressed: () {
                       print(e.items.first.cookingStatus);
                       showServedItems(context, e.orderID, e.items);
                     },
-                    child: Text("View"),
+                    child: Text("View",style: CustomStyle.appbarTitleStyle.merge(TextStyle(fontSize: 15)),),
+                    color: CustomColor.primaryColor,
                   ),
                 )
             ],

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:provider/provider.dart';
-import 'package:toggle_switch/toggle_switch.dart';
 
 import 'package:food365/domain/models/modules/ordering/order_item.dart';
 import 'package:food365/domain/services/order_service.dart';
+
+import '../../../../utils/shared/widgets/toggle_switch.dart';
 
 class ItemsModal extends StatelessWidget {
   final List<OrderItem> orderItems;
@@ -98,6 +99,7 @@ changeOnTap: false,
                 inactiveFgColor: Colors.white,
                 //totalSwitches: 4,
                 labels: ["Pending", "Cooking", "Ready", "Served"],
+                disableindex: [0,1,2],
                 iconSize: 30.0,
                 borderWidth: 2.0,
                 borderColor: [Colors.blueGrey],

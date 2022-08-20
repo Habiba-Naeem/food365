@@ -65,20 +65,19 @@ class MenuItem extends StatelessWidget {
                           )
                         : Center(child: Loading());
                   }),
-              Center(
-                child: Container(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      MenuItemName(
-                        name: menuItem.name,
-                        time: menuItem.time,
-                      ),
-                      MenuItemDescription(
-                        description: menuItem.description,
-                      ),
-                    ],
-                  ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    MenuItemName(
+                      name: menuItem.name,
+                      time: menuItem.time,
+                    ),
+                    MenuItemDescription(
+                      description: menuItem.description,
+                    ),
+                  ],
                 ),
               ),
               Padding(

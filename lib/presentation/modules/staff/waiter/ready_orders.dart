@@ -3,6 +3,8 @@ import 'package:food365/domain/models/modules/ordering/order.dart';
 import 'package:food365/domain/services/order_service.dart';
 import 'package:food365/domain/services/order_status_service.dart';
 import 'package:food365/presentation/modules/KitchenStaff/items_modal.dart';
+import 'package:food365/utils/colors.dart';
+import 'package:food365/utils/custom_style.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
 
@@ -23,6 +25,7 @@ class ReadyOrders extends StatelessWidget {
     final orders = Provider.of<List<OrderModel>>(context);
     return ListView(children: <Widget>[
       DataTable(
+        columnSpacing: 20,
         columns: [
           DataColumn(
               label: Text('OrderID',
@@ -43,17 +46,19 @@ class ReadyOrders extends StatelessWidget {
                     width: 100,
                     child: Text(
                       e.orderID.toString(),
+                    style: CustomStyle.subHeadingStyle,
                     ),
                   ),
                 ),
                 DataCell(Text(e.readyItems.toString())),
                 DataCell(
-                  ElevatedButton(
+                  MaterialButton(
                     onPressed: () {
                       print(e.items.first.cookingStatus);
                       showReadyItems(context, e.orderID, e.items);
                     },
-                    child: Text("View"),
+                    child: Text("View",style: CustomStyle.appbarTitleStyle.merge(TextStyle(fontSize: 15)),),
+               color: CustomColor.primaryColor,
                   ),
                 )
               ],

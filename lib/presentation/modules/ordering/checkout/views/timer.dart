@@ -84,7 +84,6 @@ class _TimePageState extends State<TimePage> {
           )),
       body: Column(
         children: [
-          Text("${order.orderID}"),
           Center(
             child: loader
                 ? Loading()
@@ -172,8 +171,11 @@ class _TimePageState extends State<TimePage> {
             //   },
             // ),
           ),
+
+          Text("Your order id is ${order.orderID}",style: CustomStyle.subHeadingStyle.merge(TextStyle(fontSize: 18,fontWeight: FontWeight.bold)),),
+          SizedBox(height: 10,),
           ElevatedButton(
-            child: Text("Get bill"),
+            child: Text("SHOW BILL",style: CustomStyle.headingStyle,),
           )
         ],
       ),

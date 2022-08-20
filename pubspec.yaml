@@ -47,7 +47,6 @@ dependencies:
   image: any
   back_button_interceptor: ^4.4.2
   image_picker: ^0.8.5+3
-  toggle_switch: ^2.0.1
   google_fonts: ^2.3.1
   flutter_svg: any
   font_awesome_flutter: any

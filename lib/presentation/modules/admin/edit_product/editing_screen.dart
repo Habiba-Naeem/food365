@@ -69,16 +69,16 @@ class _EditProductFormState extends State<EditProductForm> {
   Duration time = Duration(minutes: 0);
   bool loading = false;
 
-  // void initState() {
-  //   //super.initState();
-  //   // setState(() {
-  //   //   name = widget.item.name;
-  //   //   category = widget.item.categoryID;
-  //   //   description = widget.item.description;
-  //   //   price = widget.item.price;
-  //   //   time = widget.item.time;
-  //   // });
-  // }
+  void initState() {
+    super.initState();
+    setState(() {
+      name = widget.item.name;
+      category = widget.item.categoryID;
+      description = widget.item.description;
+      price = widget.item.price;
+      time = widget.item.time;
+    });
+  }
 
   Future getImageCamera() async {
     final pickedFile = await picker.pickImage(source: ImageSource.camera);
@@ -137,6 +137,7 @@ class _EditProductFormState extends State<EditProductForm> {
   @override
   Widget build(BuildContext context) {
     return Form(
+      key: _formKey,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -185,7 +186,7 @@ class _EditProductFormState extends State<EditProductForm> {
             child: Text("Name",style: CustomStyle.headingStyle,),
           ),
           TextFormField(
-            initialValue: widget.item.name,
+            initialValue: name,
             cursorColor: const Color.fromARGB(255, 255, 128, 128),
             onChanged: (val) => setState(() => name = val),
             decoration: InputDecoration(
@@ -195,13 +196,19 @@ class _EditProductFormState extends State<EditProductForm> {
                   borderRadius: BorderRadius.circular(5.0),
                   borderSide: BorderSide.none),
             ),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please enter name';
+              }
+              return null;
+            },
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text("Description",style: CustomStyle.headingStyle,),
           ),
           TextFormField(
-            initialValue: widget.item.description,
+            initialValue: description,
             cursorColor: Colors.orange[200],
             onChanged: (val) => setState(() => description = val),
             decoration: InputDecoration(
@@ -211,13 +218,19 @@ class _EditProductFormState extends State<EditProductForm> {
                   borderRadius: BorderRadius.circular(5.0),
                   borderSide: BorderSide.none),
             ),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please enter description';
+              }
+              return null;
+            },
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text("Category",style: CustomStyle.headingStyle,),
           ),
           TextFormField(
-            initialValue: widget.item.categoryID,
+            initialValue: category,
             cursorColor: Colors.orange[200],
             onChanged: (val) => setState(() => category = val),
             decoration: InputDecoration(
@@ -227,13 +240,19 @@ class _EditProductFormState extends State<EditProductForm> {
                   borderRadius: BorderRadius.circular(5.0),
                   borderSide: BorderSide.none),
             ),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please enter category';
+              }
+              return null;
+            },
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text("Price",style: CustomStyle.headingStyle,),
           ),
           TextFormField(
-            initialValue: widget.item.price.toString(),
+            initialValue: price.toString(),
             cursorColor: Colors.orange[200],
             keyboardType: TextInputType.number,
             onChanged: (val) =>
@@ -247,6 +266,12 @@ class _EditProductFormState extends State<EditProductForm> {
                   borderRadius: BorderRadius.circular(5.0),
                   borderSide: BorderSide.none),
             ),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please enter price';
+              }
+              return null;
+            },
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -329,20 +354,40 @@ class _EditProductFormState extends State<EditProductForm> {
             },
           ),
           const SizedBox(
-            height: 16,
+            height: 20,
           ),
-          ElevatedButton(
+          MaterialButton(
             onPressed: () async {
-              setState(() => loading = true);
-              widget.item.name = name;
-              widget.item.description = description;
-              widget.item.price = price;
-              widget.item.time = time;
-              //widget.item.name = name;
-              MenuService().updateMenuItem(
-                item: widget.item,
-                image: _image,
-              );
+      if (!_formKey.currentState.validate()) {
+        // If the form is valid, display a snackbar. In the real world,
+        // you'd often call a server or save the information in a database.
+
+      }
+      else if(_image==null){
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Please upload image')),);
+      }
+      else if(time==Duration(seconds: 0)){
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Please enter time')),);
+
+      }
+      else {
+        setState(() => loading = true);
+        widget.item.name = name;
+        widget.item.description = description;
+        widget.item.price = price;
+        widget.item.time = time;
+        widget.item.categoryID=category;
+        //widget.item.name = name;
+        MenuService().updateMenuItem(
+          item: widget.item,
+          image: _image,
+        );
+
+        Navigator.pop(context);
+
+      }
             },
             child: Container(
               alignment: Alignment.center,
@@ -355,7 +400,7 @@ class _EditProductFormState extends State<EditProductForm> {
                   ? Loading()
                   : Text(
                       'Edit',
-                      style: TextStyle(fontSize: 14),
+                      style: CustomStyle.appbarTitleStyle,
                     ),
             ),
           )

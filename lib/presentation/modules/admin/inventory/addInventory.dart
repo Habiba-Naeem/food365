@@ -12,7 +12,7 @@ import 'package:image_picker/image_picker.dart';
 import '../../../../utils/colors.dart';
 import '../../../../utils/custom_style.dart';
 
-class AddProductScreen extends StatelessWidget {
+class AddInventoryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -21,7 +21,7 @@ class AddProductScreen extends StatelessWidget {
 
         appBar: AppBar(
           title: Text(
-            "Add Product",
+            "Add Inventory",
             style: CustomStyle.appbarTitleStyle,
           ),
           backgroundColor: CustomColor.primaryColor,
@@ -350,15 +350,15 @@ SizedBox(height: 10,),
               }
               else{
 
-                setState(() => loading = true);
-                MenuService().postMenuItem(
-                    categoryID: category,
-                    description: description,
-                    imagePath: imagePath,
-                    name: name,
-                    price: price,
-                    time: time,
-                    image: _image);
+                // setState(() => loading = true);
+                // MenuService().postMenuItem(
+                //     categoryID: category,
+                //     description: description,
+                //     imagePath: imagePath,
+                //     name: name,
+                //     price: price,
+                //     time: time,
+                //     image: _image);
                 Navigator.pop(context);
 
               }

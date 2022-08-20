@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:food365/domain/models/modules/ordering/order.dart';
 import 'package:food365/domain/services/order_service.dart';
 import 'package:food365/utils/shared/loading.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../utils/colors.dart';
+import '../../../../utils/custom_style.dart';
 import 'CurrentOrders.dart';
 import 'ServedOrders.dart';
 import 'all_orders.dart';
@@ -19,14 +21,24 @@ class WaiterDashboard extends StatelessWidget {
     return DefaultTabController(
       length: 4,
       child: Scaffold(
+
         appBar: AppBar(
+          title: Text(
+            "Waiter",
+            style: CustomStyle.appbarTitleStyle,
+          ),
           backgroundColor: CustomColor.primaryColor,
-          title: Text('Kitchen'),
+          leading: IconButton(
+            icon: Icon(FontAwesomeIcons.arrowAltCircleLeft,
+                color: CustomColor.whiteColor),
+            onPressed: () => Navigator.of(context).pop(),
+          ),
+
           bottom: TabBar(
             tabs: [
               Tab(icon: Icon(Icons.fastfood), text: "All Orders"),
               Tab(icon: Icon(Icons.add_alert), text: "Current Orders"),
-               Tab(icon: Icon(Icons.add_alert), text: "Ready Orders"),
+              Tab(icon: Icon(Icons.add_alert), text: "Ready Orders"),
               Tab(icon: Icon(Icons.fastfood_rounded), text: "Orders Served")
             ],
           ),

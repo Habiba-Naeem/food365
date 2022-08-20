@@ -151,6 +151,9 @@ class MenuService {
         description: description,
         price: price,
         time: time,
+        categoryID: categoryID,
+        imagePath: imagePath
+
         //imagePath: "assets/images/menu_items/salad.png",
       );
 

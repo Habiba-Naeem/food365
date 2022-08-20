@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:food365/domain/services/order_status_service.dart';
+import 'package:food365/utils/custom_style.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:provider/provider.dart';
-import 'package:toggle_switch/toggle_switch.dart';
 
 import 'package:food365/domain/models/modules/ordering/order_item.dart';
 import 'package:food365/domain/services/order_service.dart';
+
+import '../../../utils/colors.dart';
+import '../../../utils/shared/widgets/toggle_switch.dart';
 
 class ItemsModal extends StatelessWidget {
   final List<OrderItem> orderItems;
@@ -32,7 +35,7 @@ class ItemsModal extends StatelessWidget {
         itemBuilder: (context, index) => Padding(
           padding: EdgeInsets.all(8.0),
           child: Card(
-            color: Color.fromRGBO(255, 215, 64, 1),
+            color: CustomColor.primaryColor,
             child: Myexpansiontile(
               orderItem: orderItems[index],
               orderID: orderID,
@@ -85,9 +88,11 @@ class _MyexpansiontileState extends State<Myexpansiontile> {
     return Column(
       children: <Widget>[
         ExpansionTile(
-          title: Text(widget.orderItem.menuName),
-          subtitle: Text('Quantity: ${widget.orderItem.quantity}'),
+          title: Text(widget.orderItem.menuName,style: CustomStyle.headingStyle.merge(TextStyle(color: CustomColor.whiteColor ) )),
+          subtitle: Text('Quantity: ${widget.orderItem.quantity}',style: CustomStyle.subHeadingStyle.merge(TextStyle(color: CustomColor.whiteColor ) ),),
+
           children: <Widget>[
+
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: ToggleSwitch(
@@ -96,6 +101,7 @@ class _MyexpansiontileState extends State<Myexpansiontile> {
                 activeFgColor: Colors.white,
                 inactiveBgColor: Colors.grey,
                 inactiveFgColor: Colors.white,
+disableindex: [3],
                 //totalSwitches: 4,
                 labels: ["Pending", "Cooking", "Ready", "Served"],
                 iconSize: 30.0,
@@ -108,7 +114,7 @@ class _MyexpansiontileState extends State<Myexpansiontile> {
                   [Colors.deepPurple]
                 ],
                 onToggle: (index) {
-                 
+
                   index == 1
                       ? OrderStatusService().updateOrderItemCookingStatus(
                           id: widget.orderItemID,

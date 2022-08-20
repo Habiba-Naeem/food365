@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:food365/domain/services/auth_service.dart';
 import 'package:food365/domain/services/inventory_service.dart';
@@ -8,8 +9,16 @@ import 'add_product/addProduct.dart';
 import 'edit_product/editproduct_screen.dart';
 import 'inventory/manage_inventory.dart';
 
-class AdminScreen extends StatelessWidget {
+class AdminScreen extends StatefulWidget {
   static const String id = "Admin screen";
+  const AdminScreen({Key key}) : super(key: key);
+
+  @override
+  State<AdminScreen> createState() => _AdminScreenState();
+}
+
+class _AdminScreenState extends State<AdminScreen> {
+  bool loader=false;
   Widget build(BuildContext context) {
     return Scaffold(
 
@@ -46,7 +55,7 @@ class AdminScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-            serviceCard(context, "Manage Inventory"),
+            loader?SpinKitCircle(color: Colors.red,):serviceCard(context, "Manage Inventory"),
             SizedBox(height: 10,),
             serviceCard(context, "View All Products"),
             SizedBox(height: 10,),
@@ -107,12 +116,20 @@ class AdminScreen extends StatelessWidget {
     );
   }
   void _viewInventory(BuildContext context) async {
+    setState(() {
+      loader=true;
+
+    });
     await InventoryService().postInventoryItem(
       itemName: "Tomatoes",
       quantity: 5,
       boughtDate: DateTime.now(),
       expiryDate: DateTime(2022, 1, 5),
     );
+setState(() {
+  loader=false;
+
+});
     Navigator.of(context)
         .push(MaterialPageRoute(builder: (context) => Inventory()));
   }

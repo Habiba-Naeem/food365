@@ -3,11 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:food365/domain/models/modules/ordering/order.dart';
 import 'package:food365/domain/services/order_service.dart';
 import 'package:food365/presentation/modules/KitchenStaff/items_modal.dart';
+import 'package:food365/utils/colors.dart';
+import 'package:food365/utils/custom_style.dart';
+import 'package:intl/intl.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
 
 class AllOrders extends StatelessWidget {
+  DateFormat date = new DateFormat("MM/dd/yyyy");
+  DateFormat time = new DateFormat("hh:mm:ss a");
   showAllItems(context, orderID, orderItems) {
     showModalBottomSheet(
       context: context,
@@ -37,16 +42,17 @@ class AllOrders extends StatelessWidget {
       child:
 
       DataTable(
+        columnSpacing: 18,
         columns: [
           const DataColumn(
               label: Text('OrderID',
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold))),
-          //const DataColumn(
-          // label: Text('Status',
-          //     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold))),
-          // const DataColumn(
-          //     label: const T ext('TimeLeft',
-          //         style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold))),
+          const DataColumn(
+              label: Text('Date',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold))),
+          const DataColumn(
+              label: Text('Time',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold))),
           DataColumn(
             label: Text(""),
           ),
@@ -57,17 +63,29 @@ class AllOrders extends StatelessWidget {
               cells: [
                 DataCell(
                   SizedBox(
-                    //width: 100,
-                    child: Column(
-                      children: [
-                        Text(
-                          e.orderID.toString(),
-                        ),
-                        Text(
 
-                          e.createdAgo,
-                        ),
-                      ],
+                    width: 80,
+
+                    child: Text(
+                      e.orderID.toString(),
+                      style: CustomStyle.subHeadingStyle,
+                    ),
+                  ),
+                ),
+                DataCell(
+                  SizedBox(
+                    //width: 100,
+                    child: Text(
+                      date.format(e.createdAt).toString(),
+                    ),
+                  ),
+                ),
+                DataCell(
+                  SizedBox(
+                    //width: 100,
+                    child: Text(
+
+                      time.format(e.createdAt).toString(),
                     ),
                   ),
                 ),
@@ -80,12 +98,14 @@ class AllOrders extends StatelessWidget {
                 //             : "Pending")),
                 //const DataCell(const Text('....')),
                 DataCell(
-                  ElevatedButton(
+                  MaterialButton(
                     onPressed: () {
                       print(e.items.first.cookingStatus);
                       showAllItems(context, e.orderID, e.items);
                     },
-                    child: Text("View"),
+
+                    child: Text("View",style: CustomStyle.appbarTitleStyle.merge(TextStyle(fontSize: 15)),),
+                    color: CustomColor.primaryColor,
                   ),
                 )
               ],
