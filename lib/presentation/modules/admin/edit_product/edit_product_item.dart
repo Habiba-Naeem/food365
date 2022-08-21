@@ -141,18 +141,18 @@ class MenuItemImage extends StatelessWidget {
       height: MediaQuery.of(context).size.width / 2.5,
       child: ClipRRect(
         borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
-        // child: Image.network(
+        child: Image.network(
+          imagePath,
+        // child: Image.asset(
         //   imagePath.toString(),
-        child: Image.asset(
-          imagePath.toString(),
           fit: BoxFit.cover,
-          // loadingBuilder: (BuildContext context, Widget child,
-          //     ImageChunkEvent loadingProgress) {
-          //   if (loadingProgress == null) {
-          //     return child;
-          //   }
-          //   return Loading();
-          // },
+          loadingBuilder: (BuildContext context, Widget child,
+              ImageChunkEvent loadingProgress) {
+            if (loadingProgress == null) {
+              return child;
+            }
+            return Loading();
+          },
         ),
 
         // child: Image.asset(
@@ -206,7 +206,7 @@ class MenuItemPrice extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
-      '\$ ${price}',
+      'PKR ${price}',
       style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
     );
   }

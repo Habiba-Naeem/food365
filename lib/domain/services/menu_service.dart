@@ -10,7 +10,7 @@ import 'package:http/http.dart' as http;
 import 'package:firebase_database/firebase_database.dart';
 
 var httpClient = http.Client();
-const baseURL = "https://food365-264fb-default-rtdb.firebaseio.com/";
+const baseURL = "https://food365-ffc14-default-rtdb.firebaseio.com/";
 const categoriesURL = "/Categories";
 const menuURL = "/MenuItems";
 const jsonVariable = '.json';
@@ -152,7 +152,7 @@ class MenuService {
         price: price,
         time: time,
         categoryID: categoryID,
-        imagePath: imagePath
+        //imagePath: imagePath
 
         //imagePath: "assets/images/menu_items/salad.png",
       );

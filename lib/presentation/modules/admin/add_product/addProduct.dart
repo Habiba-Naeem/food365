@@ -30,9 +30,6 @@ class AddProductScreen extends StatelessWidget {
                 color: CustomColor.whiteColor),
             onPressed: () => Navigator.of(context).pop(),
           ),
-          //headingText: "Home",
-          //height: 0,
-
         ),
         body: const Padding(
           padding: const EdgeInsets.all(8.0),
@@ -238,7 +235,7 @@ class _AddProductFormState extends State<AddProductForm> {
             decoration: InputDecoration(
               labelText: "Price",
               filled: true,
-              prefixIcon: Icon(Icons.currency_rupee,
+              prefixIcon: Icon(Icons.price_change_outlined,
                   color: Colors.orange[200], size: 20),
               border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(30.0),

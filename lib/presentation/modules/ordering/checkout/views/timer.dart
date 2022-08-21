@@ -172,11 +172,9 @@ class _TimePageState extends State<TimePage> {
             // ),
           ),
 
-          Text("Your order id is ${order.orderID}",style: CustomStyle.subHeadingStyle.merge(TextStyle(fontSize: 18,fontWeight: FontWeight.bold)),),
+          Center(child: Text("Order ID: ${order.orderID}",style: CustomStyle.subHeadingStyle.merge(TextStyle(fontSize: 30,fontWeight: FontWeight.bold)),)),
           SizedBox(height: 10,),
-          ElevatedButton(
-            child: Text("SHOW BILL",style: CustomStyle.headingStyle,),
-          )
+         
         ],
       ),
 

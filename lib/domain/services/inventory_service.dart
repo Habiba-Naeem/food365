@@ -9,7 +9,7 @@ import 'package:http/http.dart' as http;
 import '../models/modules/ordering/api_response.dart';
 
 var httpClient = http.Client();
-const baseURL = "https://food365-264fb-default-rtdb.firebaseio.com/";
+const baseURL = "https://food365-ffc14-default-rtdb.firebaseio.com/";
 const categoriesURL = "/Categories";
 const inventoryURL = "/Inventory";
 const jsonVariable = '.json';

@@ -47,33 +47,33 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyBEZrqKIaQmyvbw5_lExdqB9-Cgb-oeck4',
-    appId: '1:163079848220:web:d897878fa5e0f0c4f7bad9',
-    messagingSenderId: '163079848220',
-    projectId: 'food365-264fb',
-    authDomain: 'food365-264fb.firebaseapp.com',
-    databaseURL: 'https://food365-264fb-default-rtdb.firebaseio.com',
-    storageBucket: 'food365-264fb.appspot.com',
-    measurementId: 'G-9X6KDR5RN7',
+    apiKey: 'AIzaSyAMAgclvNn3bLId7AWF-hLOMt5IudiT-Yk',
+    appId: '1:76823499844:web:d1ea92b5bf1a6013ce5811',
+    messagingSenderId: '76823499844',
+    projectId: 'food365-ffc14',
+    authDomain: 'food365-ffc14.firebaseapp.com',
+    databaseURL: 'https://food365-ffc14-default-rtdb.firebaseio.com',
+    storageBucket: 'food365-ffc14.appspot.com',
+    measurementId: 'G-7242XGHLNM',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyCmAXSGi7HbKZA9zLkl8KBjXLjluEHrjtM',
-    appId: '1:163079848220:android:863dcc76f962a9fef7bad9',
-    messagingSenderId: '163079848220',
-    projectId: 'food365-264fb',
-    databaseURL: 'https://food365-264fb-default-rtdb.firebaseio.com',
-    storageBucket: 'food365-264fb.appspot.com',
+    apiKey: 'AIzaSyDYe6ZgESzs25O5Dz8MUbaFGMP4tuL-z-w',
+    appId: '1:76823499844:android:9fa05d13db301f1ece5811',
+    messagingSenderId: '76823499844',
+    projectId: 'food365-ffc14',
+    databaseURL: 'https://food365-ffc14-default-rtdb.firebaseio.com',
+    storageBucket: 'food365-ffc14.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyCBjXsSydgAWBdDDd5fWoT_JQpOUqVA1KA',
-    appId: '1:163079848220:ios:7d246926a08d1cbff7bad9',
-    messagingSenderId: '163079848220',
-    projectId: 'food365-264fb',
-    databaseURL: 'https://food365-264fb-default-rtdb.firebaseio.com',
-    storageBucket: 'food365-264fb.appspot.com',
-    iosClientId: '163079848220-ko3fc0rlp0ccrleanqpud346f4bh3oo6.apps.googleusercontent.com',
+    apiKey: 'AIzaSyCpAOEs2xlPP8_aqaHdtHhdkbAv-BK1XxI',
+    appId: '1:76823499844:ios:f6a01972efdb6704ce5811',
+    messagingSenderId: '76823499844',
+    projectId: 'food365-ffc14',
+    databaseURL: 'https://food365-ffc14-default-rtdb.firebaseio.com',
+    storageBucket: 'food365-ffc14.appspot.com',
+    iosClientId: '76823499844-15lb5n2ll0rkn9o0j31viepkh425rbi9.apps.googleusercontent.com',
     iosBundleId: 'com.example.food365',
   );
 }

@@ -9,23 +9,22 @@ import 'package:food365/domain/models/modules/ordering/menu_item_model.dart';
 
 class MenuItem extends StatelessWidget {
   final MenuItemModel menuItem;
-  MenuItem({ this.menuItem});
+  MenuItem({this.menuItem});
 
   //MenuItemModel get menuItem => widget.menuItem;
 
   @override
   Widget build(BuildContext context) {
-   var cartmodel= Provider.of<CartModel>(context);
+    var cartmodel = Provider.of<CartModel>(context);
     addItemToCard() {
       print("menuItem.imagePath");
       print(menuItem.imagePath);
-      bool isAddSuccess = cartmodel
-          .addItem(CartItem(
-              menuItemID: menuItem.itemID,
-              menuName: menuItem.name,
-              price: menuItem.price,
-              imageUrl: menuItem.imagePath,
-              quantity: 1));
+      bool isAddSuccess = cartmodel.addItem(CartItem(
+          menuItemID: menuItem.itemID,
+          menuName: menuItem.name,
+          price: menuItem.price,
+          imageUrl: menuItem.imagePath,
+          quantity: 1));
       print(Provider.of<CartModel>(context, listen: false).allCartItems);
       if (isAddSuccess) {
         final snackBar = SnackBar(
@@ -118,7 +117,7 @@ class MenuItem extends StatelessWidget {
 
 class MenuItemImage extends StatelessWidget {
   final String imagePath;
-  const MenuItemImage({Key key,  this.imagePath}) : super(key: key);
+  const MenuItemImage({Key key, this.imagePath}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -126,28 +125,17 @@ class MenuItemImage extends StatelessWidget {
       height: MediaQuery.of(context).size.width / 2.5,
       child: ClipRRect(
         borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
-        child: Image.asset(
+        child: Image.network(
           imagePath,
           fit: BoxFit.cover,
-          // loadingBuilder: (BuildContext context, Widget child,
-          //     ImageChunkEvent loadingProgress) {
-          //   if (loadingProgress == null) {
-          //     return child;
-          //   }
-          //   return Loading();
-          // },
+          loadingBuilder: (BuildContext context, Widget child,
+              ImageChunkEvent loadingProgress) {
+            if (loadingProgress == null) {
+              return child;
+            }
+            return Loading();
+          },
         ),
-        // child: Image.network(
-        //   imagePath.toString(),
-        //   fit: BoxFit.cover,
-        //   loadingBuilder: (BuildContext context, Widget child,
-        //       ImageChunkEvent? loadingProgress) {
-        //     if (loadingProgress == null) {
-        //       return child;
-        //     }
-        //     return Loading();
-        //   },
-        // ),
       ),
     );
   }
@@ -158,8 +146,8 @@ class MenuItemName extends StatelessWidget {
   final Duration time;
   const MenuItemName({
     Key key,
-     this.name,
-     this.time,
+    this.name,
+    this.time,
   }) : super(key: key);
 
   @override
@@ -175,8 +163,7 @@ class MenuItemName extends StatelessWidget {
 
 class MenuItemDescription extends StatelessWidget {
   final String description;
-  const MenuItemDescription({Key key,  this.description})
-      : super(key: key);
+  const MenuItemDescription({Key key, this.description}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -191,12 +178,12 @@ class MenuItemDescription extends StatelessWidget {
 
 class MenuItemPrice extends StatelessWidget {
   final double price;
-  const MenuItemPrice({Key key,  this.price}) : super(key: key);
+  const MenuItemPrice({Key key, this.price}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Text(
-      '\$ ${price}',
+      'PKR ${price}',
       style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
     );
   }

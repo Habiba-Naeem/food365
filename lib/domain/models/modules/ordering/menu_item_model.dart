@@ -32,7 +32,7 @@ class MenuItemModel {
     this.description,
     this.price,
     this.time,
-    this.imagePath
+    //this.imagePath
   });
 
   factory MenuItemModel.fromJson({

@@ -28,7 +28,10 @@ void main() async {
     name: "food365",
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(MyApp());
+
+  runApp(
+    MyApp(),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -46,6 +49,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider.value(value: CheckoutController())
       ],
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: Strings.appName,
         onGenerateRoute: RouteGenerator.generateRoute,
         home: FutureBuilder(

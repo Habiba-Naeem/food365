@@ -4,31 +4,32 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 
 class ImageService {
-  // final storageRef = FirebaseStorage.instance.ref();
+  final storageRef = FirebaseStorage.instance.ref();
 
   getImage({
-     menuItemId,
+    menuItemId,
   }) async {
-    //final _firebaseStorage = FirebaseStorage.instance;
-    // final imageUrl = await _firebaseStorage
-    //     .ref()
-    //     .child("images/" + menuItemId)
-    //     .getDownloadURL();
-    final imageUrl = "assets/images/menu_items/mexican.png";
+    print(menuItemId);
+    final _firebaseStorage = FirebaseStorage.instance;
+    final imageUrl = await _firebaseStorage
+        .ref()
+        .child("images/" + menuItemId)
+        .getDownloadURL();
+    // final imageUrl = "assets/images/menu_items/mexican.png";
     print(imageUrl);
     return imageUrl;
   }
 
   uploadImage({
-     image,
-     menuItemId,
+    File image,
+    menuItemId,
   }) async {
-    // final _firebaseStorage = FirebaseStorage.instance;
-    //var file = File(image);
+    final _firebaseStorage = FirebaseStorage.instance;
+    //var file = File(image.path);
     print(image);
     if (image != null) {
-      // var snapshot =
-      //     await _firebaseStorage.ref("images/" + menuItemId).putFile(image);
+      var snapshot =
+          await _firebaseStorage.ref("images/" + menuItemId).putFile(image);
     } else {
       print('No Image Path Received');
     }

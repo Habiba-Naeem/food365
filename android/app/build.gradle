@@ -69,8 +69,10 @@ flutter {
 }
 
 dependencies {
+    implementation platform('com.google.firebase:firebase-bom:30.3.2')
     implementation 'com.google.firebase:firebase-iid:17.0.0'
     implementation "com.google.firebase:firebase-auth:17.0.0"
+    
     implementation 'com.google.firebase:firebase-analytics:17.0.0'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.multidex:multidex: 2.0.1'

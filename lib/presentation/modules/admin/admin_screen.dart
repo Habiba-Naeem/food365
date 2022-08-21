@@ -120,12 +120,7 @@ class _AdminScreenState extends State<AdminScreen> {
       loader=true;
 
     });
-    await InventoryService().postInventoryItem(
-      itemName: "Tomatoes",
-      quantity: 5,
-      boughtDate: DateTime.now(),
-      expiryDate: DateTime(2022, 1, 5),
-    );
+    
 setState(() {
   loader=false;
 

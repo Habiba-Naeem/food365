@@ -1,38 +1,74 @@
 {
   "project_info": {
-    "project_number": "163079848220",
-    "firebase_url": "https://food365-264fb-default-rtdb.firebaseio.com",
-    "project_id": "food365-264fb",
-    "storage_bucket": "food365-264fb.appspot.com"
+    "project_number": "76823499844",
+    "firebase_url": "https://food365-ffc14-default-rtdb.firebaseio.com",
+    "project_id": "food365-ffc14",
+    "storage_bucket": "food365-ffc14.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:163079848220:android:863dcc76f962a9fef7bad9",
+        "mobilesdk_app_id": "1:76823499844:android:e3e19c7cd8e34f20ce5811",
         "android_client_info": {
-          "package_name": "com.example.food365"
+          "package_name": "com.android.application"
         }
       },
       "oauth_client": [
         {
-          "client_id": "163079848220-bmditgvbom0kdb1atpolmtr7u8qpstsg.apps.googleusercontent.com",
+          "client_id": "76823499844-kre4ihchfp8lm72lkfgoa4uep3v5vp01.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCmAXSGi7HbKZA9zLkl8KBjXLjluEHrjtM"
+          "current_key": "AIzaSyDYe6ZgESzs25O5Dz8MUbaFGMP4tuL-z-w"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "163079848220-bmditgvbom0kdb1atpolmtr7u8qpstsg.apps.googleusercontent.com",
+              "client_id": "76823499844-kre4ihchfp8lm72lkfgoa4uep3v5vp01.apps.googleusercontent.com",
               "client_type": 3
             },
             {
-              "client_id": "163079848220-ko3fc0rlp0ccrleanqpud346f4bh3oo6.apps.googleusercontent.com",
+              "client_id": "76823499844-15lb5n2ll0rkn9o0j31viepkh425rbi9.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.food365"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:76823499844:android:9fa05d13db301f1ece5811",
+        "android_client_info": {
+          "package_name": "com.example.food365"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "76823499844-kre4ihchfp8lm72lkfgoa4uep3v5vp01.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDYe6ZgESzs25O5Dz8MUbaFGMP4tuL-z-w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "76823499844-kre4ihchfp8lm72lkfgoa4uep3v5vp01.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "76823499844-15lb5n2ll0rkn9o0j31viepkh425rbi9.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
                 "bundle_id": "com.example.food365"

@@ -260,7 +260,7 @@ class _EditProductFormState extends State<EditProductForm> {
             decoration: InputDecoration(
               //labelText: "Price",
               filled: true,
-              prefixIcon: Icon(Icons.currency_rupee,
+              prefixIcon: Icon(Icons.price_change_outlined,
                   color: Colors.orange[200], size: 20),
               border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(5.0),

@@ -57,9 +57,7 @@ class CartItems extends StatelessWidget {
                   print("snapshot");
                   print(snapshot.data);
                   return snapshot.hasData
-                      ? Image.asset(
-                    snapshot.data.toString(),
-                  )
+                      ? CartItemImage(imagePath: snapshot.data.toString())
                       : Center(child: Loading());
                 }),
             Flexible(
