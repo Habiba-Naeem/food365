@@ -35,6 +35,7 @@ class _TimePageState extends State<TimePage> {
   bool loader = true;
   int time = 0;
   OrderModel order;
+  int i = 0;
   final CountDownController _controller = CountDownController();
 
   @override
@@ -48,13 +49,14 @@ class _TimePageState extends State<TimePage> {
   getTime() {
     order.allOrderItems.forEach(
       (item) async {
-        await MenuService()
-            .getMenuItem(menuItemID: item.menuItemID)
-            .then((value) {
-          print(value.time);
-          _duration = (_duration + value.time);
-        });
-        if (item == order.allOrderItems.last) {
+        await MenuService().getMenuItem(menuItemID: item.menuItemID).then(
+          (value) {
+            print(value.time);
+            _duration = (_duration + value.time);
+            i = i + 1;
+          },
+        );
+        if (i == order.allOrderItems.length) {
           setState(
             () {
               loader = false;
@@ -171,10 +173,15 @@ class _TimePageState extends State<TimePage> {
             //   },
             // ),
           ),
-
-          Center(child: Text("Order ID: ${order.orderID}",style: CustomStyle.subHeadingStyle.merge(TextStyle(fontSize: 30,fontWeight: FontWeight.bold)),)),
-          SizedBox(height: 10,),
-         
+          Center(
+              child: Text(
+            "Order ID: ${order.orderID}",
+            style: CustomStyle.subHeadingStyle
+                .merge(TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
+          )),
+          SizedBox(
+            height: 10,
+          ),
         ],
       ),
 
