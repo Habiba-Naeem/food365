@@ -1,23 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:food365/domain/services/order_status_service.dart';
-import 'package:food365/utils/custom_style.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:provider/provider.dart';
 
 import 'package:food365/domain/models/modules/ordering/order_item.dart';
 import 'package:food365/domain/services/order_service.dart';
+import 'package:food365/domain/services/order_status_service.dart';
+import 'package:food365/utils/custom_style.dart';
 
 import '../../../utils/colors.dart';
 import '../../../utils/shared/widgets/toggle_switch.dart';
 
 class ItemsModal extends StatelessWidget {
   final List<OrderItem> orderItems;
-
+  bool waiter;
   final String orderID;
-  const ItemsModal({
+  ItemsModal({
     Key key,
-     this.orderItems,
-     this.orderID,
+    this.orderItems,
+    this.waiter,
+    this.orderID,
   }) : super(key: key);
 
   @override
@@ -40,6 +41,7 @@ class ItemsModal extends StatelessWidget {
               orderItem: orderItems[index],
               orderID: orderID,
               orderItemID: index,
+              waiter: waiter,
             ),
           ),
         ),
@@ -52,12 +54,10 @@ class Myexpansiontile extends StatefulWidget {
   final OrderItem orderItem;
   final int orderItemID;
   final String orderID;
-  const Myexpansiontile({
-    Key key,
-     this.orderItem,
-     this.orderID,
-     this.orderItemID,
-  }) : super(key: key);
+  bool waiter;
+  Myexpansiontile(
+      {Key key, this.orderItem, this.orderID, this.orderItemID, this.waiter})
+      : super(key: key);
 
   @override
   State<Myexpansiontile> createState() => _MyexpansiontileState();
@@ -66,7 +66,7 @@ class Myexpansiontile extends StatefulWidget {
 class _MyexpansiontileState extends State<Myexpansiontile> {
   bool _myTileExpanded = false;
 
-   int initialIndex;
+  int initialIndex;
   @override
   initState() {
     initialIndex = getIndex();
@@ -83,16 +83,30 @@ class _MyexpansiontileState extends State<Myexpansiontile> {
                 : 0;
   }
 
+  disbale() {
+    if (widget.waiter == true) {
+      return [3];
+    }
+    else{
+      return [0, 1, 2];
+    }
+    
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
         ExpansionTile(
-          title: Text(widget.orderItem.menuName,style: CustomStyle.headingStyle.merge(TextStyle(color: CustomColor.whiteColor ) )),
-          subtitle: Text('Quantity: ${widget.orderItem.quantity}',style: CustomStyle.subHeadingStyle.merge(TextStyle(color: CustomColor.whiteColor ) ),),
-
+          title: Text(widget.orderItem.menuName,
+              style: CustomStyle.headingStyle
+                  .merge(TextStyle(color: CustomColor.whiteColor))),
+          subtitle: Text(
+            'Quantity: ${widget.orderItem.quantity}',
+            style: CustomStyle.subHeadingStyle
+                .merge(TextStyle(color: CustomColor.whiteColor)),
+          ),
           children: <Widget>[
-
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: ToggleSwitch(
@@ -101,7 +115,7 @@ class _MyexpansiontileState extends State<Myexpansiontile> {
                 activeFgColor: Colors.white,
                 inactiveBgColor: Colors.grey,
                 inactiveFgColor: Colors.white,
-disableindex: [3],
+                disableindex: disbale(),
                 //totalSwitches: 4,
                 labels: ["Pending", "Cooking", "Ready", "Served"],
                 iconSize: 30.0,
@@ -114,7 +128,6 @@ disableindex: [3],
                   [Colors.deepPurple]
                 ],
                 onToggle: (index) {
-
                   index == 1
                       ? OrderStatusService().updateOrderItemCookingStatus(
                           id: widget.orderItemID,
@@ -126,10 +139,11 @@ disableindex: [3],
                               orderItem: widget.orderItem,
                               orderID: widget.orderID)
                           : index == 3
-                              ? OrderStatusService().updateOrderItemServiceStatus(
-                                  id: widget.orderItemID,
-                                  orderItem: widget.orderItem,
-                                  orderID: widget.orderID)
+                              ? OrderStatusService()
+                                  .updateOrderItemServiceStatus(
+                                      id: widget.orderItemID,
+                                      orderItem: widget.orderItem,
+                                      orderID: widget.orderID)
                               : () {};
                 },
               ),

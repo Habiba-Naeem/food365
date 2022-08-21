@@ -16,7 +16,11 @@ class ReadyOrders extends StatelessWidget {
       isScrollControlled: true,
       builder: (context) => SingleChildScrollView(
         controller: ModalScrollController.of(context),
-        child: ItemsModal(orderItems: orderItems, orderID: orderID),
+        child: ItemsModal(
+          orderItems: orderItems,
+          orderID: orderID,
+          waiter: false,
+        ),
       ),
     );
   }
@@ -58,9 +62,12 @@ class ReadyOrders extends StatelessWidget {
                       print(e.items.first.cookingStatus);
                       showReadyItems(context, e.orderID, e.items);
                     },
-
-                    child: Text("View",style: CustomStyle.appbarTitleStyle.merge(TextStyle(fontSize: 15)),),
-                  color: CustomColor.primaryColor,
+                    child: Text(
+                      "View",
+                      style: CustomStyle.appbarTitleStyle
+                          .merge(TextStyle(fontSize: 15)),
+                    ),
+                    color: CustomColor.primaryColor,
                   ),
                 )
               ],
@@ -76,7 +83,7 @@ class ButtonStatus extends StatefulWidget {
   final OrderModel order;
   ButtonStatus({
     Key key,
-     this.order,
+    this.order,
   }) : super(key: key);
 
   @override

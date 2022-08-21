@@ -6,7 +6,6 @@ import 'package:food365/utils/custom_style.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
 
-
 class ServedOrders extends StatelessWidget {
   showServedItems(context, orderID, orderItems) {
     showModalBottomSheet(
@@ -14,10 +13,15 @@ class ServedOrders extends StatelessWidget {
       isScrollControlled: true,
       builder: (context) => SingleChildScrollView(
         controller: ModalScrollController.of(context),
-        child: ItemsModal(orderItems: orderItems, orderID: orderID),
+        child: ItemsModal(
+          orderItems: orderItems,
+          orderID: orderID,
+          waiter: true,
+        ),
       ),
     );
   }
+
   @override
   Widget build(BuildContext context) {
     final orders = Provider.of<List<OrderModel>>(context);
@@ -37,33 +41,34 @@ class ServedOrders extends StatelessWidget {
         ],
         rows: [
           ...orders.map((e) {
-            return 
-            DataRow(
-            cells: [
-              DataCell(
-                Container(
-                  width: 100,
-                  child: Text(
-                    e.orderID.toString(),
-                  style: CustomStyle.subHeadingStyle,
+            return DataRow(
+              cells: [
+                DataCell(
+                  Container(
+                    width: 100,
+                    child: Text(
+                      e.orderID.toString(),
+                      style: CustomStyle.subHeadingStyle,
+                    ),
                   ),
                 ),
-              ),
-              DataCell(
-                Text(e.serviceStatus.toString())
-              ),
-              DataCell(
+                DataCell(Text(e.serviceStatus.toString())),
+                DataCell(
                   MaterialButton(
                     onPressed: () {
                       print(e.items.first.cookingStatus);
                       showServedItems(context, e.orderID, e.items);
                     },
-                    child: Text("View",style: CustomStyle.appbarTitleStyle.merge(TextStyle(fontSize: 15)),),
+                    child: Text(
+                      "View",
+                      style: CustomStyle.appbarTitleStyle
+                          .merge(TextStyle(fontSize: 15)),
+                    ),
                     color: CustomColor.primaryColor,
                   ),
                 )
-            ],
-          );
+              ],
+            );
           })
         ],
       ),

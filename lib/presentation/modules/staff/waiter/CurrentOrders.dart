@@ -20,7 +20,7 @@ class CurrentOrders extends StatelessWidget {
       isScrollControlled: true,
       builder: (context) => SingleChildScrollView(
         controller: ModalScrollController.of(context),
-        child: ItemsModal(orderItems: orderItems, orderID: orderID),
+        child: ItemsModal(orderItems: orderItems, orderID: orderID, waiter: true,),
       ),
     );
   }
