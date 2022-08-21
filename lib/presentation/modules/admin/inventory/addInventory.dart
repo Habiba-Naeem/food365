@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_picker/Picker.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:food365/domain/models/modules/ordering/category.dart';
+import 'package:food365/domain/services/inventory_service.dart';
 import 'package:food365/domain/services/menu_service.dart';
 import 'package:food365/utils/shared/loading.dart';
 import 'package:image_picker/image_picker.dart';
@@ -36,87 +37,47 @@ class AddInventoryScreen extends StatelessWidget {
         ),
         body: const Padding(
           padding: const EdgeInsets.all(8.0),
-          child: const SingleChildScrollView(child: const AddProductForm()),
+          child: const SingleChildScrollView(child: const AddInventoryForm()),
         ),
       ),
     );
   }
 }
 
-class AddProductForm extends StatefulWidget {
-  const AddProductForm({Key key}) : super(key: key);
+class AddInventoryForm extends StatefulWidget {
+  const AddInventoryForm({Key key}) : super(key: key);
 
   @override
-  State<AddProductForm> createState() => _AddProductFormState();
+  State<AddInventoryForm> createState() => _AddInventoryFormState();
 }
 
-class _AddProductFormState extends State<AddProductForm> {
+class _AddInventoryFormState extends State<AddInventoryForm> {
   final _formKey = GlobalKey<FormState>();
-  File _image;
-  final ImagePicker picker = ImagePicker();
-  String imagePath = '';
-  String category = '';
-  String name = '';
-  String description = '';
-  double price = 0;
-  Duration time = Duration(minutes: 0);
+  // File _image;
+  // final ImagePicker picker = ImagePicker();
+  // String imagePath = '';
+  // String category = '';
+  // String name = '';
+  // String description = '';
+  // double price = 0;
+  // Duration time = Duration(minutes: 0);
+  String Name="";
+  int Quantity=0;
+  DateTime Boughtdate;
+  DateTime Expirydate;
+  bool expired=false;
   bool loading = false;
-
-  Future getImageCamera() async {
-    final pickedFile = await picker.pickImage(source: ImageSource.camera);
-
-    setState(() {
-      if (pickedFile != null) {
-        _image = File(pickedFile.path);
-      } else {
-        print('No image selected.');
-      }
-    });
-  }
-
-  Future getImageGallery() async {
-    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
-
-    setState(() {
-      if (pickedFile != null) {
-        _image = File(pickedFile.path);
-        print(pickedFile.path);
-      } else {
-        print('No image selected.');
-      }
-    });
-  }
-
-  void _showPicker(context) {
-    showModalBottomSheet(
+  TextEditingController _boughtdate=new TextEditingController();
+  TextEditingController _expirydate=new TextEditingController();
+  Future<DateTime> _selectDate(BuildContext context) async {
+    final DateTime picked = await showDatePicker(
         context: context,
-        builder: (BuildContext bc) {
-          return SafeArea(
-            child: Container(
-              child: Wrap(
-                children: <Widget>[
-                  ListTile(
-                      leading: const Icon(Icons.photo_library),
-                      title: const Text('Photo Library'),
-                      onTap: () {
-                        getImageGallery();
-                        Navigator.of(context).pop();
-                      }),
-                  ListTile(
-                    leading: const Icon(Icons.photo_camera),
-                    title: const Text('Camera'),
-                    onTap: () {
-                      getImageCamera();
-                      Navigator.of(context).pop();
-                    },
-                  ),
-                ],
-              ),
-            ),
-          );
-        });
+        initialDate: DateTime.now(),
+        initialDatePickerMode: DatePickerMode.day,
+        firstDate: DateTime(2015),
+        lastDate: DateTime(2101));
+   return picked;
   }
-
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -128,45 +89,14 @@ class _AddProductFormState extends State<AddProductForm> {
           const SizedBox(
             height: 32,
           ),
-          Center(
-            child: GestureDetector(
-              onTap: () {
-                _showPicker(context);
-              },
-              child: _image != null
-                  ? Container(width: 150,
-                height: 150,
-                    child: ClipRRect(
-                borderRadius: BorderRadius.circular(55),
-                child: Image.file(
-                    _image,
-                    fit: BoxFit.fill,
-                ),
-              ),
-                  )
-                  : Container(
-                decoration: BoxDecoration(
-                    color: Colors.grey[200],
-                    borderRadius: BorderRadius.circular(55)),
-                width: 150,
-                height: 150,
-                child: Icon(
-                  Icons.camera_alt,
-                  color: Colors.grey[800],
-                ),
-              ),
-            ),
-          ),
-          const SizedBox(
-            height: 16,
-          ),
+
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text("Name",style: CustomStyle.headingStyle,),
           ),
           TextFormField(
             cursorColor: const Color.fromARGB(255, 255, 128, 128),
-            onChanged: (val) => setState(() => name = val),
+            onChanged: (val) => setState(() => Name = val),
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return 'Please enter name';
@@ -182,37 +112,17 @@ class _AddProductFormState extends State<AddProductForm> {
                   borderSide: BorderSide.none),
             ),
           ),
+
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text("Description",style: CustomStyle.headingStyle,),
+            child: Text("Quantity",style: CustomStyle.headingStyle,),
           ),
           TextFormField(
+            keyboardType: TextInputType.number,
             cursorColor: Colors.orange[200],
-            onChanged: (val) => setState(() => description = val),
+            onChanged: (val) => setState(() => Quantity = int.parse(val)),
             decoration: InputDecoration(
-              labelText: "Description",
-           //   fillColor: const Color.fromARGB(255, 127, 228, 218),
-              filled: true,
-              border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(5.0),
-                  borderSide: BorderSide.none),
-            ),
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Please enter description';
-              }
-              return null;
-            },
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text("Category",style: CustomStyle.headingStyle,),
-          ),
-          TextFormField(
-            cursorColor: Colors.orange[200],
-            onChanged: (val) => setState(() => category = val),
-            decoration: InputDecoration(
-              labelText: "Category",
+              labelText: "Quantity",
               //fillColor: const Color.fromARGB(255, 127, 228, 218),
               filled: true,
               border: OutlineInputBorder(
@@ -221,115 +131,85 @@ class _AddProductFormState extends State<AddProductForm> {
             ),
             validator: (value) {
               if (value == null || value.isEmpty) {
-                return 'Please enter category';
+                return 'Please enter quantity';
               }
               return null;
             },
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text("Price",style: CustomStyle.headingStyle,),
+            child: Text("Bought Date",style: CustomStyle.headingStyle,),
           ),
-          TextFormField(
-            cursorColor: Colors.orange[200],
-            keyboardType: TextInputType.number,
-            onChanged: (val) =>
-                setState(() => price = double.tryParse(val) ?? 0),
-            decoration: InputDecoration(
-              labelText: "Price",
-              filled: true,
-              prefixIcon: Icon(Icons.currency_rupee,
-                  color: Colors.orange[200], size: 20),
-              border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(30.0),
-                  borderSide: BorderSide.none),
-            ),
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Please enter price';
-              }
-              return null;
+          InkWell(
+            onTap: () {
+              _selectDate(context).then((value) {
+setState(() {
+  Boughtdate=value;
+  _boughtdate.text=value.toString();
+
+});
+              });
             },
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text("Product Time",style: CustomStyle.headingStyle,),
-          ),
-          TextButton(
-            child: Container(
-              alignment: Alignment.center,
-              height: 50.0,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Row(
-                    children: <Widget>[
-                      Container(
-                        child: Row(
-                          children: <Widget>[
-                            Icon(
-                              Icons.timer,
-                              size: 18.0,
-                              color:CustomColor.primaryColor,
-                            ),
-                            Text(
-                              "${printDuration(time)}",
-                              style: CustomStyle.headingStyle,
-                            ),
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                  Text(
-                    "Change",
-                    style: CustomStyle.headingStyle,
-                  ),
-                ],
+            child: TextFormField(
+              cursorColor: Colors.orange[200],
+              enabled: false,
+              keyboardType: TextInputType.number,
+             controller:  _boughtdate,
+              decoration: InputDecoration(
+                labelText: "Bought Date",
+                filled: true,
+                prefixIcon: Icon(Icons.currency_rupee,
+                    color: Colors.orange[200], size: 20),
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(30.0),
+                    borderSide: BorderSide.none),
               ),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please select bought date';
+                }
+                return null;
+              },
             ),
-            onPressed: () {
-              Picker(
-                adapter: NumberPickerAdapter(
-                  data: <NumberPickerColumn>[
-                    const NumberPickerColumn(
-                      begin: 0,
-                      end: 999,
-                      suffix: Text(' hrs'),
-                    ),
-                    const NumberPickerColumn(
-                      begin: 0,
-                      end: 60,
-                      suffix: Text('min'),
-                    ),
-                  ],
-                ),
-                delimiter: <PickerDelimiter>[
-                  PickerDelimiter(
-                    child: Container(
-                      width: 30.0,
-                      alignment: Alignment.center,
-                      child: Icon(Icons.more_vert),
-                    ),
-                  ),
-                ],
-                hideHeader: true,
-                confirmText: 'OK',
-                confirmTextStyle:
-                    TextStyle(inherit: false, color: Colors.red, fontSize: 22),
-                title: const Text('Select duration'),
-                selectedTextStyle: TextStyle(color: Colors.blue),
-                onConfirm: (Picker picker, List<int> value) {
-                  // You get your duration here
-                  setState(() {
-                    time = Duration(
-                        hours: picker.getSelectedValues()[0],
-                        minutes: picker.getSelectedValues()[1]);
-                  });
-                },
-              ).showDialog(context);
-            },
           ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text("Expiry Date",style: CustomStyle.headingStyle,),
+          ),
+
+          InkWell(
+            onTap: () {
+              _selectDate(context).then((value) {
+                setState(() {
+                  Expirydate=value;
+                  _expirydate.text=value.toString();
+
+                });
+              });
+            },
+            child: TextFormField(
+              cursorColor: Colors.orange[200],
+              enabled: false,
+              keyboardType: TextInputType.number,
+              controller:  _expirydate,
+              decoration: InputDecoration(
+                labelText: "Expiry Date",
+                filled: true,
+                prefixIcon: Icon(Icons.currency_rupee,
+                    color: Colors.orange[200], size: 20),
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(30.0),
+                    borderSide: BorderSide.none),
+              ),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please select expiry date';
+                }
+                return null;
+              },
+            ),
+          ),
+
 SizedBox(height: 10,),
           MaterialButton(
             onPressed: () async {
@@ -339,19 +219,17 @@ SizedBox(height: 10,),
                 // you'd often call a server or save the information in a database.
 
               }
-              else if(_image==null){
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Please upload image')),);
-              }
-              else if(time==Duration(seconds: 0)){
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Please enter time')),);
 
-              }
               else{
 
-                // setState(() => loading = true);
-                // MenuService().postMenuItem(
+                 setState(() => loading = true);
+                InventoryService().postInventoryItem(
+                  itemName: Name,
+                  boughtDate: Boughtdate,
+                  expiryDate: Expirydate,
+                  quantity: Quantity
+                );
+                 // MenuService().postMenuItem(
                 //     categoryID: category,
                 //     description: description,
                 //     imagePath: imagePath,
