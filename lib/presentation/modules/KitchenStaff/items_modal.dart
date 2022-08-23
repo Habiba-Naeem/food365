@@ -85,12 +85,10 @@ class _MyexpansiontileState extends State<Myexpansiontile> {
 
   disbale() {
     if (widget.waiter == true) {
+      return [0, 1, 2];
+    } else {
       return [3];
     }
-    else{
-      return [0, 1, 2];
-    }
-    
   }
 
   @override

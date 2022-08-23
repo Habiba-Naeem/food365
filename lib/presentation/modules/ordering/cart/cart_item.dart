@@ -10,16 +10,11 @@ import 'package:provider/provider.dart';
 
 class CartItems extends StatelessWidget {
   final CartItem cartItem;
-  const CartItems({Key key,  this.cartItem}) : super(key: key);
+  const CartItems({Key key, this.cartItem}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final menuItems = Provider.of<List<MenuItemModel>>(context);
-
     final cartModel = Provider.of<CartModel>(context);
-    print("my menuitems in cart");
-    print(menuItems);
-    print(cartItem.imageUrl);
 
     return Card(
       margin: EdgeInsets.only(bottom: 16),
@@ -30,35 +25,15 @@ class CartItems extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            // ...menuItems.map((menuItem) {  print("menu item");
-            // print(menuItem);
-            //   if (menuItem.itemID == cartItem.menuItemID) {
-            //     FutureBuilder(
-            //       future: ImageService().getImage(menuItemId: menuItem.itemID),
-            //       builder: (context, snapshot) {
-            // print("snapshot");
-            // print(snapshot.data);
-            //         return snapshot.hasData
-            //             ? CartItemImage(
-            //                 imagePath: snapshot.data.toString(),
-            //               )
-            //             : Center(
-            //                 child: Loading(),
-            //               );
-            //       },
-            //     );
-            //   }
-            //   return Container();
-            // }),
-            //CartItemImage(imagePath: imagePath),
             FutureBuilder(
-                future: ImageService().getImage(menuItemId: cartItem.menuItemID),
+                future:
+                    ImageService().getImage(menuItemId: cartItem.menuItemID),
                 builder: (context, snapshot) {
-                  print("snapshot");
-                  print(snapshot.data);
                   return snapshot.hasData
                       ? CartItemImage(imagePath: snapshot.data.toString())
-                      : Center(child: Loading());
+                      : Center(
+                          child: Loading(),
+                        );
                 }),
             Flexible(
               flex: 3,
@@ -75,8 +50,7 @@ class CartItems extends StatelessWidget {
                       InkWell(
                         customBorder: roundedRectangle4,
                         onTap: () {
-                         cartModel
-                              .decreaseItem(cartItem);
+                          cartModel.decreaseItem(cartItem);
                         },
                         child: Icon(Icons.remove_circle),
                       ),
@@ -87,8 +61,8 @@ class CartItems extends StatelessWidget {
                       ),
                       InkWell(
                         customBorder: roundedRectangle4,
-                        onTap: () {cartModel
-                              .increaseItem(cartItem);
+                        onTap: () {
+                          cartModel.increaseItem(cartItem);
                         },
                         child: Icon(Icons.add_circle),
                       ),
@@ -124,16 +98,12 @@ class CartItems extends StatelessWidget {
 
 class CartItemImage extends StatelessWidget {
   final String imagePath;
-  const CartItemImage({Key key,  this.imagePath}) : super(key: key);
+  const CartItemImage({Key key, this.imagePath}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
       borderRadius: BorderRadius.all(Radius.circular(6)),
-      // child: Image.asset(
-      //     imagePath,
-      //     fit: BoxFit.cover,
-      //   ),
       child: Image.network(
         imagePath.toString(),
         fit: BoxFit.cover,
@@ -151,7 +121,7 @@ class CartItemImage extends StatelessWidget {
 
 class CartItemName extends StatelessWidget {
   final String name;
-  const CartItemName({Key key,  this.name}) : super(key: key);
+  const CartItemName({Key key, this.name}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -168,7 +138,7 @@ class CartItemName extends StatelessWidget {
 
 class CartItemPrice extends StatelessWidget {
   final double price;
-  const CartItemPrice({Key key,  this.price}) : super(key: key);
+  const CartItemPrice({Key key, this.price}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

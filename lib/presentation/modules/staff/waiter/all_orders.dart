@@ -1,12 +1,14 @@
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
 import 'package:food365/domain/models/modules/ordering/order.dart';
 import 'package:food365/domain/models/modules/ordering/order_item.dart';
 import 'package:food365/domain/providers/timer_provider.dart';
 import 'package:food365/domain/services/menu_service.dart';
-import 'package:food365/presentation/modules/staff/waiter/items_modal.dart';
+import 'package:food365/presentation/modules/KitchenStaff/items_modal.dart';
 import 'package:food365/presentation/style.dart';
 import 'package:food365/utils/colors.dart';
+import 'package:food365/utils/shared/loading.dart';
 import 'package:intl/intl.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
@@ -14,10 +16,27 @@ import 'package:provider/provider.dart';
 
 import '../../../../utils/custom_style.dart';
 
-class AllOrders extends StatelessWidget {
+class AllOrders extends StatefulWidget {
+  @override
+  State<AllOrders> createState() => _AllOrdersState();
+}
+
+class _AllOrdersState extends State<AllOrders> {
+  final CountDownController _controller = CountDownController();
+  Duration _duration = Duration();
+
+  bool loader = true;
+
+  int timer = 0;
+
+  OrderModel order;
+
+  int i = 0;
 
   DateFormat date = new DateFormat("MM/dd/yyyy");
+
   DateFormat time = new DateFormat("hh:mm:ss a");
+
   showAllItems(context, orderID, orderItems) {
     //final OrderModel order = e;
     print(orderItems.runtimeType);
@@ -27,7 +46,11 @@ class AllOrders extends StatelessWidget {
       isScrollControlled: true,
       builder: (context) => SingleChildScrollView(
         controller: ModalScrollController.of(context),
-        child: ItemsModal(orderItems: orderItems, orderID: orderID),
+        child: ItemsModal(
+          orderItems: orderItems,
+          orderID: orderID,
+          waiter: true,
+        ),
       ),
     );
   }
@@ -35,10 +58,28 @@ class AllOrders extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final orders = Provider.of<List<OrderModel>>(context, listen: false);
+    // getTime() {
+    //   order.allOrderItems.forEach(
+    //     (item) async {
+    //       await MenuService()
+    //           .getMenuItem(menuItemID: item.menuItemID)
+    //           .then((value) {
+    //         print(value.time);
+    //         _duration = (_duration + value.time);
+    //       });
+    //       if (item == order.allOrderItems.last) {
+    //         loader = false;
+    //         timer = (_duration.inSeconds ~/ order.allOrderItems.length).toInt();
+    //         print(time);
+    //       }
+    //     },
+    //   );
+    // }
 
-    return LoaderOverlay(
+    return SingleChildScrollView(
+      physics: BouncingScrollPhysics(),
       child: DataTable(
-        columnSpacing: 18,
+        columnSpacing: 15,
         columns: [
           const DataColumn(
               label: Text('OrderID',
@@ -49,20 +90,43 @@ class AllOrders extends StatelessWidget {
           const DataColumn(
               label: Text('Time',
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold))),
+          // const DataColumn(
+          //     label: Text('Time Left',
+          //         style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold))),
           DataColumn(
             label: Text(""),
           ),
         ],
         rows: [
           ...orders.map((e) {
+            // getTime();
+            // e.allOrderItems.forEach(
+            //   (item) async {
+            //     await MenuService()
+            //         .getMenuItem(menuItemID: item.menuItemID)
+            //         .then((value) {
+            //       print(value.time);
+            //       i = i + 1;
+
+            //       setState(() {
+            //         _duration = (_duration + value.time);
+            //       });
+            //     });
+            // if (i == e.allOrderItems.length) {
+            //   loader = false;
+            //   timer = (_duration.inSeconds ~/ e.allOrderItems.length)
+            //       .toInt();
+
+            //   print(time);
+            // }
+            //   },
+            // );
+
             return DataRow(
               cells: [
-
                 DataCell(
                   SizedBox(
-
                     width: 80,
-
                     child: Text(
                       e.orderID.toString(),
                       style: CustomStyle.subHeadingStyle,
@@ -81,30 +145,27 @@ class AllOrders extends StatelessWidget {
                   SizedBox(
                     //width: 100,
                     child: Text(
-
                       time.format(e.createdAt).toString(),
                     ),
                   ),
                 ),
-                // DataCell(Text(e.serviceStatus == true
-                //     ? "Served"
-                //     : e.readyStatus == true
-                //         ? "Ready"
-                //         : e.cookingStatus == true
-                //             ? "In progress"
-                //             : "Pending")),
-                //const DataCell(const Text('....')),
+                // DataCell(
+                //   Flexible(child: Text(_duration.toString())),
+                // ),
                 DataCell(
                   MaterialButton(
                     onPressed: () {
                       print(e.items.first.cookingStatus);
                       showAllItems(context, e.orderID, e.items);
                     },
-
-                    child: Text("View",style: CustomStyle.appbarTitleStyle.merge(TextStyle(fontSize: 15)),),
+                    child: Text(
+                      "View",
+                      style: CustomStyle.appbarTitleStyle
+                          .merge(TextStyle(fontSize: 15)),
+                    ),
                     color: CustomColor.primaryColor,
                   ),
-                )
+                ),
               ],
             );
           })
@@ -133,6 +194,7 @@ class _TimerState extends State<Timer> {
   bool loader = true;
   int time = 0;
   OrderModel order;
+  int i = 0;
   final CountDownController _controller = CountDownController();
 
   @override
@@ -182,8 +244,8 @@ class _TimerState extends State<Timer> {
       width: MediaQuery.of(context).size.width / 2,
 
       // Height of the Countdown Widget.
-      height: MediaQuery.of(context).size.height / 2,
-
+      // height: MediaQuery.of(context).size.height / 2,
+      height: 15,
       // Ring Color for Countdown Widget.
       ringColor: Colors.grey[300],
 

@@ -2,6 +2,7 @@ import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:food365/domain/models/modules/ordering/order_item.dart';
 import 'package:provider/provider.dart';
 
 import 'package:food365/domain/models/modules/ordering/order.dart';
@@ -31,10 +32,12 @@ class TimePage extends StatefulWidget {
 }
 
 class _TimePageState extends State<TimePage> {
-  Duration _duration = Duration();
+  Duration _duration = Duration(minutes: 15);
+  int numberofSameItems = 0;
   bool loader = true;
   int time = 0;
   OrderModel order;
+  bool rushHours = true;
   int i = 0;
   final CountDownController _controller = CountDownController();
 
@@ -46,7 +49,7 @@ class _TimePageState extends State<TimePage> {
     super.initState();
   }
 
-  getTime() {
+  getTime() async {
     order.allOrderItems.forEach(
       (item) async {
         await MenuService().getMenuItem(menuItemID: item.menuItemID).then(
@@ -163,15 +166,6 @@ class _TimePageState extends State<TimePage> {
                       debugPrint('Countdown Ended');
                     },
                   ),
-
-            // FutureBuilder(
-            //   future: TimerProvider().getTime(order: widget.order),
-            //   builder: (context, snapshot) {
-            //     print("timersnapshot data");
-            //     print(snapshot.hasData ? snapshot.data : "no data");
-            //     return
-            //   },
-            // ),
           ),
           Center(
               child: Text(
@@ -184,46 +178,6 @@ class _TimePageState extends State<TimePage> {
           ),
         ],
       ),
-
-      // floatingActionButton: Row(
-      //   mainAxisAlignment: MainAxisAlignment.center,
-      //   children: [
-      //     const SizedBox(
-      //       width: 30,
-      //     ),
-      //     _button(title: "Change Order", onPressed: () => _controller.start()),
-      //   ],
-      // ),
     );
-  }
-
-  getnoTime() {
-    order.allOrderItems.forEach((item) async {
-      MenuService().getMenuItem(menuItemID: item.menuItemID).then((value) {
-        _duration = (_duration + value.time);
-      }).whenComplete(() {
-        setState(() {
-          loader = false;
-          time = (_duration.inMinutes / order.allOrderItems.length).toInt();
-        });
-        //print("sum");
-        //print(_d.inMinutes / order.allOrderItems.length);
-        //return ((sum.inMinutes));
-      });
-    });
-  }
-
-  Widget _button({String title, VoidCallback onPressed}) {
-    return Expanded(
-        child: ElevatedButton(
-      child: Text(
-        title,
-        style: const TextStyle(color: Colors.white),
-      ),
-      style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all(Colors.teal),
-      ),
-      onPressed: onPressed,
-    ));
   }
 }

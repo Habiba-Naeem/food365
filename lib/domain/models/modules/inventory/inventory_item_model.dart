@@ -45,6 +45,6 @@ class InventoryItemModel {
       };
 
   int get daysTillExpiry {
-    return (expiryDate.difference(boughtDate).inHours / 24).round();
+    return (expiryDate.difference(DateTime.now()).inHours / 24).round();
   }
 }

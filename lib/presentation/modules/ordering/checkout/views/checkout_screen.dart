@@ -59,26 +59,17 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
               if (cartModel.totalPrice < 0) {
                 return;
               }
-              // CheckoutController(
-              //   cartItems: Provider.of<CartModel>(context).allCartItems,
-              //   total: Provider.of<CartModel>(context).totalPrice,
-              // ).checkOut();
-              // Provider.of<CheckoutController>(context).isLoading
-              //     ? context.loaderOverlay.show()
-              //     : context.loaderOverlay.hide();
-              context.loaderOverlay.show();
+
               try {
+                context.loaderOverlay.show();
                 var response = await OrderService().postOrder(
                     totalPrice: cartModel.totalPrice,
                     items: cartModel.allCartItems);
                 if (response["success"] == success) {
-                  context.loaderOverlay.hide();
+                   showAlertDialog(context);
+                   context.loaderOverlay.hide();
                   cartModel.resetState();
-                  await showAlertDialog(context);
-                  // FutureProvider<OrderModel>.value(
-                  //   value: response['order'],
-                  //   child: TimePage(order: response['order'],)
-                  // );
+
                   Navigator.of(context)
                       .pushNamed(TimePage.id, arguments: response["order"]);
                 }
@@ -119,55 +110,3 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     );
   }
 }
-
-// showAlertDialog(BuildContext context) {
-//   // Create button
-//   Widget okButton = FlatButton(
-//     child: Text("OK"),
-//     color: Colors.teal,
-//     onPressed: () {
-//       Navigator.of(context).pop();
-//     },
-//   );
-
-//   AlertDialog alert = AlertDialog(
-//     title: Text("Order Confirmation"),
-//     content: Text("Your Order has been placed. Thank you!"),
-//     actions: [
-//       okButton,
-//     ],
-//   );
-
-//   showDialog(
-//     context: context,
-//     builder: (BuildContext context) {
-//       return alert;
-//     },
-//   );
-// }
-
-// showErrorDialog(BuildContext context, String cause) {
-//   // Create button
-//   Widget okButton = FlatButton(
-//     child: Text("OK"),
-//     color: Colors.teal,
-//     onPressed: () {
-//       Navigator.of(context).pop();
-//     },
-//   );
-
-//   AlertDialog alert = AlertDialog(
-//     title: Text("Error Occured"),
-//     content: Text(cause),
-//     actions: [
-//       okButton,
-//     ],
-//   );
-
-//   showDialog(
-//     context: context,
-//     builder: (BuildContext context) {
-//       return alert;
-//     },
-//   );
-// }

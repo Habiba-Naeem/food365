@@ -31,7 +31,7 @@ showErrorDialog(BuildContext context, String cause) {
   // Create button
   Widget okButton = FlatButton(
     child: Text("OK"),
-    color: Colors.teal,
+    color: CustomColor.primaryColor2,
     onPressed: () {
       Navigator.of(context).pop();
     },

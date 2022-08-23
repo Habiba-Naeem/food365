@@ -3,10 +3,13 @@ import 'package:food365/domain/models/modules/ordering/order.dart';
 import 'package:food365/presentation/modules/KitchenStaff/items_modal.dart';
 import 'package:food365/utils/colors.dart';
 import 'package:food365/utils/custom_style.dart';
+import 'package:intl/intl.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
 
 class ServedOrders extends StatelessWidget {
+  DateFormat date = DateFormat("dd/MM");
+  DateFormat time = DateFormat("hh:mm:ss a");
   showServedItems(context, orderID, orderItems) {
     showModalBottomSheet(
       context: context,
@@ -25,19 +28,36 @@ class ServedOrders extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final orders = Provider.of<List<OrderModel>>(context);
-    return ListView(children: <Widget>[
-      DataTable(
-        columnSpacing: 20,
+    return SingleChildScrollView(
+      physics: BouncingScrollPhysics(),
+      child: DataTable(
+        columnSpacing: 15,
         columns: [
           DataColumn(
-              label: Text('OrderID',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold))),
+              label: Flexible(
+            child: Text('OrderID',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+          )),
           DataColumn(
-              label: Text('Served Items',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold))),
+              label: Flexible(
+            child: Text('Ready Items',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+          )),
           DataColumn(
-              label: Text('TimeTaken',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold))),
+              label: Flexible(
+            child: Text('Date',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+          )),
+          DataColumn(
+              label: Flexible(
+            child: Text('Time',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+          )),
+          DataColumn(
+              label: Flexible(
+            child: Text('',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+          )),
         ],
         rows: [
           ...orders.map((e) {
@@ -52,7 +72,23 @@ class ServedOrders extends StatelessWidget {
                     ),
                   ),
                 ),
-                DataCell(Text(e.serviceStatus.toString())),
+                DataCell(Text(e.serviceStatus.toString().toUpperCase())),
+                DataCell(
+                  SizedBox(
+                    //width: 100,
+                    child: Text(
+                      date.format(e.createdAt).toString(),
+                    ),
+                  ),
+                ),
+                DataCell(
+                  SizedBox(
+                    //width: 100,
+                    child: Text(
+                      time.format(e.createdAt).toString(),
+                    ),
+                  ),
+                ),
                 DataCell(
                   MaterialButton(
                     onPressed: () {
@@ -72,6 +108,6 @@ class ServedOrders extends StatelessWidget {
           })
         ],
       ),
-    ]);
+    );
   }
 }

@@ -11,15 +11,19 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
 
 class AllOrders extends StatelessWidget {
-  DateFormat date = new DateFormat("MM/dd/yyyy");
-  DateFormat time = new DateFormat("hh:mm:ss a");
+  DateFormat date = DateFormat("dd/MM/yyyy");
+  DateFormat time = DateFormat("hh:mm:ss a");
   showAllItems(context, orderID, orderItems) {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
       builder: (context) => SingleChildScrollView(
         controller: ModalScrollController.of(context),
-        child: ItemsModal(orderItems: orderItems, orderID: orderID, waiter: true,),
+        child: ItemsModal(
+          orderItems: orderItems,
+          orderID: orderID,
+          waiter: false,
+        ),
       ),
     );
   }
@@ -27,30 +31,20 @@ class AllOrders extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final orders = Provider.of<List<OrderModel>>(context);
-    // final service = OrderService().getbyRef();
 
-    // final orders = [];
-    // DatabaseReference ref = FirebaseDatabase.instance.ref();
-    // final snapshot =  ref.child("Menu").get();
-    // if (snapshot) {
-    //   print(snapshot.value);
-    // } else {
-    //   print('No data available.');
-    // }
-
-    return LoaderOverlay(
-      child:
-
-      DataTable(
+    return SingleChildScrollView(
+      physics: BouncingScrollPhysics(),
+      child: DataTable(
+        sortAscending: true,
         columnSpacing: 18,
         columns: [
-          const DataColumn(
+          DataColumn(
               label: Text('OrderID',
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold))),
-          const DataColumn(
+          DataColumn(
               label: Text('Date',
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold))),
-          const DataColumn(
+          DataColumn(
               label: Text('Time',
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold))),
           DataColumn(
@@ -63,9 +57,7 @@ class AllOrders extends StatelessWidget {
               cells: [
                 DataCell(
                   SizedBox(
-
                     width: 80,
-
                     child: Text(
                       e.orderID.toString(),
                       style: CustomStyle.subHeadingStyle,
@@ -84,27 +76,21 @@ class AllOrders extends StatelessWidget {
                   SizedBox(
                     //width: 100,
                     child: Text(
-
                       time.format(e.createdAt).toString(),
                     ),
                   ),
                 ),
-                // DataCell(Text(e.serviceStatus == true
-                //     ? "Served"
-                //     : e.readyStatus == true
-                //         ? "Ready"
-                //         : e.cookingStatus == true
-                //             ? "In progress"
-                //             : "Pending")),
-                //const DataCell(const Text('....')),
                 DataCell(
                   MaterialButton(
                     onPressed: () {
                       print(e.items.first.cookingStatus);
                       showAllItems(context, e.orderID, e.items);
                     },
-
-                    child: Text("View",style: CustomStyle.appbarTitleStyle.merge(TextStyle(fontSize: 15)),),
+                    child: Text(
+                      "View",
+                      style: CustomStyle.appbarTitleStyle
+                          .merge(TextStyle(fontSize: 15)),
+                    ),
                     color: CustomColor.primaryColor,
                   ),
                 )

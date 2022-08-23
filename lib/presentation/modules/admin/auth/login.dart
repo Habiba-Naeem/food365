@@ -8,15 +8,12 @@ import 'package:food365/utils/strings.dart';
 import '../../../../utils/colors.dart';
 import '../../../../utils/custom_style.dart';
 
-
-
 class LogIn extends StatefulWidget {
   @override
   _LogInState createState() => _LogInState();
 }
 
 class _LogInState extends State<LogIn> {
-
   TextEditingController emailEditingController = TextEditingController();
   TextEditingController passwordEditingController = TextEditingController();
   @override
@@ -26,24 +23,25 @@ class _LogInState extends State<LogIn> {
     double defaultIconSize = 17;
 
     return Scaffold(
-backgroundColor: Colors.white70,
+      backgroundColor: Colors.white70,
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
-
-        title: Text("",style: CustomStyle.appbarTitleStyle,),
+        title: Text(
+          "",
+          style: CustomStyle.appbarTitleStyle,
+        ),
         backgroundColor: CustomColor.primaryColor,
         leading: IconButton(
-          icon: Icon(FontAwesomeIcons.arrowAltCircleLeft, color: CustomColor.whiteColor),
+          icon: Icon(FontAwesomeIcons.arrowAltCircleLeft,
+              color: CustomColor.whiteColor),
           onPressed: () => Navigator.of(context).pop(),
         ),
         //headingText: "Home",
         //height: 0,
-        actions: [
-        ],
+        actions: [],
       ),
-      body:Container(
+      body: Container(
         padding: EdgeInsets.only(left: 20, right: 20, top: 5, bottom: 30),
-
         child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
@@ -51,9 +49,7 @@ backgroundColor: Colors.white70,
                 width: 230,
                 height: 200,
                 alignment: Alignment.center,
-                child: Image.asset(
-               Strings.logoUri
-                ),
+                child: Image.asset(Strings.logoUri),
               ),
               SizedBox(
                 height: 15,
@@ -147,7 +143,7 @@ backgroundColor: Colors.white70,
                       color: CustomColor.primaryColor,
                     ),
                     BoxShadow(
-                      color:CustomColor.primaryColor2,
+                      color: CustomColor.primaryColor2,
                     ),
                   ],
                   gradient: new LinearGradient(
@@ -159,11 +155,11 @@ backgroundColor: Colors.white70,
                 ),
                 child: MaterialButton(
                     highlightColor: Colors.transparent,
-                    splashColor: Color(0xFFf7418c),
+                    splashColor: CustomColor.primaryColor2,
                     //shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(5.0))),
                     child: Padding(
-                      padding:
-                      const EdgeInsets.symmetric(vertical: 10.0, horizontal: 42.0),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 10.0, horizontal: 42.0),
                       child: Text(
                         "SIGN IN",
                         style: TextStyle(
@@ -172,10 +168,11 @@ backgroundColor: Colors.white70,
                             fontFamily: "WorkSansBold"),
                       ),
                     ),
-                    onPressed: ()  {
-
-                    AuthService().signIn(email:emailEditingController.text , password: passwordEditingController.text);
-                }),
+                    onPressed: () {
+                      AuthService().signIn(
+                          email: emailEditingController.text,
+                          password: passwordEditingController.text);
+                    }),
               ),
               SizedBox(
                 height: 2,
@@ -187,5 +184,3 @@ backgroundColor: Colors.white70,
     );
   }
 }
-
-

@@ -20,19 +20,7 @@ class CookScreen extends StatelessWidget {
     return DefaultTabController(
       length: 4,
       child: Scaffold(
-        // appBar: AppBar(
-        //   backgroundColor: CustomColor.primaryColor,
-        //   title: Text('Kitchen',style: CustomStyle.appbarTitleStyle,),
-        //   bottom: TabBar(
-        //     tabs: [
-        //       Tab(icon: Icon(Icons.fastfood), text: "All Orders"),
-        //       Tab(icon: Icon(Icons.add_alert), text: "Current Orders"),
-        //       Tab(icon: Icon(Icons.add_alert), text: "Ready Orders"),
-        //       Tab(icon: Icon(Icons.fastfood_rounded), text: "Orders Served")
-        //     ],
-        //   ),
-        // ),
-
+       
         appBar: AppBar(
           title: Text(
             "Kitchen",
@@ -56,12 +44,7 @@ class CookScreen extends StatelessWidget {
         ),
         body: TabBarView(
           children: [
-            
-            // FutureProvider<List<OrderModel>>.value(
-            //   initialData: [],
-            //   value: OrderService().getAllOrders(),
-            //   child: AllOrders(),
-            // ),
+        
             StreamBuilder<List<OrderModel>>(
               stream: OrderService().getOrderStream(),
               builder: (context, snapshot) {
@@ -72,11 +55,7 @@ class CookScreen extends StatelessWidget {
                 );
               }
             ),
-            // FutureProvider<List<OrderModel>>.value(
-            //   initialData: [],
-            //   value: OrderService().getCurrentOrders(),
-            //   child: CurrentOrders(),
-            // ),
+         
             StreamBuilder<List<OrderModel>>(
               stream: OrderService().getCookingOrdersStream(),
               builder: (context, snapshot) {
@@ -108,20 +87,6 @@ class CookScreen extends StatelessWidget {
               }
             ),
 
-            // FutureProvider<List<OrderModel>>.value(
-            //   initialData: [],
-            //   value: OrderService().getReadyOrders(),
-            //   child: FutureBuilder(
-            //       future: OrderService().getReadyOrders(),
-            //       builder: (context, snapshot) {
-            //         return snapshot.hasData ? ReadyOrders() : Loading();
-            //       }),
-            // ),
-            // FutureProvider<List<OrderModel>>.value(
-            //   initialData: [],
-            //   value: OrderService().getServedOrders(),
-            //   child: ServedOrders(),
-            // ),
           ],
         ),
       ),

@@ -97,6 +97,7 @@ changeOnTap: false,
                 activeFgColor: Colors.white,
                 inactiveBgColor: Colors.grey,
                 inactiveFgColor: Colors.white,
+                
                 //totalSwitches: 4,
                 labels: ["Pending", "Cooking", "Ready", "Served"],
                 disableindex: [0,1,2],

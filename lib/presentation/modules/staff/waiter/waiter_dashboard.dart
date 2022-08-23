@@ -2,15 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:food365/domain/models/modules/ordering/order.dart';
 import 'package:food365/domain/services/order_service.dart';
+import 'package:food365/presentation/modules/staff/waiter/CurrentOrders.dart';
+import 'package:food365/presentation/modules/staff/waiter/ServedOrders.dart';
+import 'package:food365/presentation/modules/staff/waiter/all_orders.dart';
+import 'package:food365/presentation/modules/staff/waiter/ready_orders.dart';
 import 'package:food365/utils/shared/loading.dart';
+import 'package:loader_overlay/loader_overlay.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../utils/colors.dart';
 import '../../../../utils/custom_style.dart';
-import 'CurrentOrders.dart';
-import 'ServedOrders.dart';
-import 'all_orders.dart';
-import 'ready_orders.dart';
 
 class WaiterDashboard extends StatelessWidget {
   static const String id = 'waiter dashboard';
@@ -21,7 +22,6 @@ class WaiterDashboard extends StatelessWidget {
     return DefaultTabController(
       length: 4,
       child: Scaffold(
-
         appBar: AppBar(
           title: Text(
             "Waiter",
@@ -33,7 +33,6 @@ class WaiterDashboard extends StatelessWidget {
                 color: CustomColor.whiteColor),
             onPressed: () => Navigator.of(context).pop(),
           ),
-
           bottom: TabBar(
             tabs: [
               Tab(icon: Icon(Icons.fastfood), text: "All Orders"),
@@ -45,28 +44,16 @@ class WaiterDashboard extends StatelessWidget {
         ),
         body: TabBarView(
           children: [
-             
-            // FutureProvider<List<OrderModel>>.value(
-            //   initialData: [],
-            //   value: OrderService().getAllOrders(),
-            //   child: AllOrders(),
-            // ),
             StreamBuilder<List<OrderModel>>(
-              stream: OrderService().getOrderStream(),
-              builder: (context, snapshot) {
-                return StreamProvider<List<OrderModel>>.value(
-                  initialData:[],
-                  value: OrderService().getOrderStream(),
-                  child: AllOrders(),
-                );
-              }
-            ),
-            // FutureProvider<List<OrderModel>>.value(
-            //   initialData: [],
-            //   value: OrderService().getCurrentOrders(),
-            //   child: CurrentOrders(),
-            // ),
-            StreamBuilder<List<OrderModel>>(
+                stream: OrderService().getOrderStream(),
+                builder: (context, snapshot) {
+                  return StreamProvider<List<OrderModel>>.value(
+                     initialData: [],
+                    value: OrderService().getOrderStream(),
+                    child: AllOrders(),
+                  );
+                }),
+             StreamBuilder<List<OrderModel>>(
               stream: OrderService().getCookingOrdersStream(),
               builder: (context, snapshot) {
                 return StreamProvider<List<OrderModel>>.value(
@@ -77,40 +64,23 @@ class WaiterDashboard extends StatelessWidget {
               }
             ),
             StreamBuilder<List<OrderModel>>(
-              stream: OrderService().getReadyOrdersStream(),
-              builder: (context, snapshot) {
-                return StreamProvider<List<OrderModel>>.value(
-                  initialData:[],
-                  value: OrderService().getReadyOrdersStream(),
-                  child: ReadyOrders(),
-                );
-              }
-            ),
+                stream: OrderService().getReadyOrdersStream(),
+                builder: (context, snapshot) {
+                  return StreamProvider<List<OrderModel>>.value(
+                    initialData: [],
+                    value: OrderService().getReadyOrdersStream(),
+                    child: ReadyOrders(),
+                  );
+                }),
             StreamBuilder<List<OrderModel>>(
-              stream: OrderService().getServedOrdersStream(),
-              builder: (context, snapshot) {
-                return StreamProvider<List<OrderModel>>.value(
-                  initialData:[],
-                  value: OrderService().getServedOrdersStream(),
-                  child: ServedOrders(),
-                );
-              }
-            ),
-
-            // FutureProvider<List<OrderModel>>.value(
-            //   initialData: [],
-            //   value: OrderService().getReadyOrders(),
-            //   child: FutureBuilder(
-            //       future: OrderService().getReadyOrders(),
-            //       builder: (context, snapshot) {
-            //         return snapshot.hasData ? ReadyOrders() : Loading();
-            //       }),
-            // ),
-            // FutureProvider<List<OrderModel>>.value(
-            //   initialData: [],
-            //   value: OrderService().getServedOrders(),
-            //   child: ServedOrders(),
-            // ),
+                stream: OrderService().getServedOrdersStream(),
+                builder: (context, snapshot) {
+                  return StreamProvider<List<OrderModel>>.value(
+                    initialData: [],
+                    value: OrderService().getServedOrdersStream(),
+                    child: ServedOrders(),
+                  );
+                }),
           ],
         ),
       ),

@@ -34,9 +34,6 @@ class CartScreen extends StatelessWidget {
       bottomNavigationBar:CustomBottomNavBar(
         id: CartScreen.id,
       ),
-      // CustomBottomNavBar(
-      //   id: CartScreen.id,
-      // ),
       body: Container(
         margin: EdgeInsets.symmetric(horizontal: 16),
         child: Column(

@@ -18,7 +18,7 @@ FirebaseDatabase database = FirebaseDatabase.instance;
 class InventoryService {
   Stream<List<InventoryItemModel>> getInventoryItems() {
     Stream<DatabaseEvent> stream =
-        FirebaseDatabase.instance.ref(inventoryURL).onValue;
+        FirebaseDatabase.instance.ref(inventoryURL).orderByChild("expiryDate").onValue;
     final streamToPublish = stream.map((event) {
       List<InventoryItemModel> itemList = [];
       Map<String, dynamic>.from(event.snapshot.value as dynamic).forEach(

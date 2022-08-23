@@ -17,6 +17,7 @@ const jsonVariable = '.json';
 FirebaseDatabase database = FirebaseDatabase.instance;
 
 class OrderService {
+  bool rushHours = false;
   Stream<List<OrderModel>> getOrderStream() {
     final stream = FirebaseDatabase.instance
         .ref(ordersURL)
@@ -30,6 +31,7 @@ class OrderService {
         ),
       );
       print(ordersList);
+
       return ordersList;
     });
     return streamToPublish.asBroadcastStream();
@@ -88,6 +90,14 @@ class OrderService {
       throw parsedResponse.returnException();
     } catch (e) {}
   }
+
+  // bool rushHour() {
+  //   var orders = getCookingOrdersStream().length;
+  //   if (orders > 10) {
+  //     rushHours = true;
+  //   }
+  //   return rushHours;
+  // }
 
   Stream<List<OrderModel>> getCookingOrdersStream() {
     final stream = FirebaseDatabase.instance

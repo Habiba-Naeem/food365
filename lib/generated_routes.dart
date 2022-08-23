@@ -5,6 +5,7 @@ import 'package:food365/main.dart';
 import 'package:food365/presentation/modules/admin/admin_screen.dart';
 import 'package:food365/presentation/modules/KitchenStaff/cook_screen.dart';
 import 'package:food365/presentation/modules/admin/auth/auth.dart';
+import 'package:food365/presentation/modules/admin/inventory/manage_inventory.dart';
 import 'package:food365/presentation/modules/ordering/cart/cart_screen.dart';
 import 'package:food365/presentation/modules/ordering/checkout/views/checkout_screen.dart';
 import 'package:food365/presentation/modules/ordering/checkout/views/timer.dart';
@@ -45,7 +46,8 @@ class RouteGenerator {
             builder: (_) => TimePage(
                   order: settings.arguments as OrderModel,
                 ));
-
+      case Inventory.id:
+        return MaterialPageRoute(builder: (_) => Inventory());
       default:
         return _errorRoute();
     }
