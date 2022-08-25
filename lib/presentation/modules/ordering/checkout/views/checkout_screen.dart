@@ -66,8 +66,8 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                     totalPrice: cartModel.totalPrice,
                     items: cartModel.allCartItems);
                 if (response["success"] == success) {
-                   showAlertDialog(context);
-                   context.loaderOverlay.hide();
+                  //showAlertDialog(context);
+                  context.loaderOverlay.hide();
                   cartModel.resetState();
 
                   Navigator.of(context)

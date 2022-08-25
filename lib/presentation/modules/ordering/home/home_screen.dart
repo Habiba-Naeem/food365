@@ -62,36 +62,43 @@ class HomeScreen extends StatelessWidget {
             ),
           ],
         ),
-        body: Container(
-          margin: EdgeInsets.symmetric(horizontal: 16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(top: 24.0, bottom: 24),
-                child: Text('Popular Menu Items', style: headerStyle),
+        body: SingleChildScrollView(
+          physics: BouncingScrollPhysics(),
+          child: Container(
+            margin: EdgeInsets.symmetric(horizontal: 16),
+            child: Expanded(
+              child: ListView(
+                physics: BouncingScrollPhysics(),
+                shrinkWrap:true,
+                //crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.only(top: 24.0, bottom: 24),
+                    child: Text('Popular Menu Items', style: headerStyle),
+                  ),
+                  Expanded(
+                    child: StreamBuilder<List<MenuItemModel>>(
+                      stream: MenuService().getFamousMenuItems(),
+                      initialData: [],
+                      builder: (context, snapshot) {
+                        if (snapshot.data != null) {
+                          return ListView.builder(
+                            shrinkWrap: true,
+                            itemCount: snapshot.data.length,
+                            itemBuilder: (context, index) {
+                              return placesWidget(snapshot.data[index], context);
+                            },
+                          );
+                        } else {
+                          context.loaderOverlay.show();
+                          return const Loading();
+                        }
+                      },
+                    ),
+                  )
+                ],
               ),
-              Expanded(
-                child: StreamBuilder<List<MenuItemModel>>(
-                  stream: MenuService().getFamousMenuItems(),
-                  initialData: [],
-                  builder: (context, snapshot) {
-                    if (snapshot.data != null) {
-                      return ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: snapshot.data.length,
-                        itemBuilder: (context, index) {
-                          return placesWidget(snapshot.data[index], context);
-                        },
-                      );
-                    } else {
-                      context.loaderOverlay.show();
-                      return const Loading();
-                    }
-                  },
-                ),
-              )
-            ],
+            ),
           ),
         ),
       ),

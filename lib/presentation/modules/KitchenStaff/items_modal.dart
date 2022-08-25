@@ -85,10 +85,18 @@ class _MyexpansiontileState extends State<Myexpansiontile> {
 
   disbale() {
     if (widget.waiter == true) {
-      return [0, 1, 2];
-    } else {
-      return [3];
+      if (widget.orderItem.readyStatus == true &&
+          widget.orderItem.cookingStatus == true) {
+        return [0, 1, 2];
+      } else {
+        return [0, 1, 2, 3];
+      }
+    } else if (widget.orderItem.cookingStatus == true) {
+      return [0, 1, 3];
+    } else if (widget.orderItem.readyStatus == true) {
+      return [0, 1,2, 3];
     }
+    return [0, 2, 3];
   }
 
   @override
@@ -115,6 +123,7 @@ class _MyexpansiontileState extends State<Myexpansiontile> {
                 inactiveFgColor: Colors.white,
                 disableindex: disbale(),
                 //totalSwitches: 4,
+
                 labels: ["Pending", "Cooking", "Ready", "Served"],
                 iconSize: 30.0,
                 borderWidth: 2.0,
@@ -126,6 +135,7 @@ class _MyexpansiontileState extends State<Myexpansiontile> {
                   [Colors.deepPurple]
                 ],
                 onToggle: (index) {
+                  disbale();
                   index == 1
                       ? OrderStatusService().updateOrderItemCookingStatus(
                           id: widget.orderItemID,

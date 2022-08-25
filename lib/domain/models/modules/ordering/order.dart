@@ -63,8 +63,8 @@ class OrderModel extends ChangeNotifier {
         "serviceStatus": serviceStatus,
         "cookingStatus": cookingStatus,
         "readyStatus": readyStatus,
-        "createdAt": createdAt.toIso8601String(),
-        "updatedAt": updatedAt.toIso8601String(),
+        "createdAt": createdAt.toString(),
+        "updatedAt": updatedAt.toString(),
         "totalPrice": totalPrice,
         "items": items
       };

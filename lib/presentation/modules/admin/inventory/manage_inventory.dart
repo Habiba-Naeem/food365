@@ -24,7 +24,7 @@ class Inventory extends StatelessWidget {
             DataCell(Text(date.format(item.boughtDate))),
             DataCell(
               Text(
-               date.format(item.boughtDate),
+               date.format(item.expiryDate),
                 style: TextStyle(
                     color: (item.daysTillExpiry <= 3 && !item.expired)
                         ? Colors.orange

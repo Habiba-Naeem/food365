@@ -21,7 +21,7 @@ class OrderService {
   Stream<List<OrderModel>> getOrderStream() {
     final stream = FirebaseDatabase.instance
         .ref(ordersURL)
-        .orderByChild("createdAt")
+        .orderByChild("createdAt",)
         .onValue;
     final streamToPublish = stream.map((event) {
       List<OrderModel> ordersList = [];
@@ -98,6 +98,40 @@ class OrderService {
   //   }
   //   return rushHours;
   // }
+  bool get rushhour {
+    final stream = FirebaseDatabase.instance
+        .ref(ordersURL)
+        .orderByChild("cookingStatus")
+        .equalTo(false)
+        .orderByChild("cookingStatus")
+        .equalTo(false)
+        .onValue;
+    final streamToPublish = stream.map((event) {
+      List<OrderModel> ordersList = [];
+      Map<String, dynamic>.from(event.snapshot.value as dynamic).forEach(
+        (
+          key,
+          value,
+        ) {
+          var order = ordersList.add(
+            OrderModel.fromJson(json: value, key: key),
+          );
+        },
+      );
+      ordersList.forEach((order) {
+        OrderStatusService().updateCookingStatus(order: order);
+      });
+      print(ordersList);
+      if (ordersList.length > 10) {
+        rushHours = true;
+      } else {
+        rushHours = false;
+      }
+      return ordersList;
+    });
+
+    return rushHours;
+  }
 
   Stream<List<OrderModel>> getCookingOrdersStream() {
     final stream = FirebaseDatabase.instance

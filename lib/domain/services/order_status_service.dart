@@ -17,7 +17,7 @@ FirebaseDatabase database = FirebaseDatabase.instance;
 
 class OrderStatusService {
   updateCookingStatus({
-     OrderModel order,
+    OrderModel order,
   }) async {
     try {
       print(order.pendingItems);
@@ -43,13 +43,13 @@ class OrderStatusService {
   }
 
   updateReadyStatus({
-     OrderModel order,
+    OrderModel order,
   }) async {
     try {
       if (order.readyItems == order.allOrderItems.length) {
         order.readyStatus = true;
       }
-     // order.readyStatus = true;
+      // order.readyStatus = true;
       var response = await httpClient.patch(
           Uri.parse(baseURL +
               ordersURL +
@@ -69,11 +69,11 @@ class OrderStatusService {
   }
 
   updateServiceStatus({
-     OrderModel order,
+    OrderModel order,
   }) async {
     try {
       if (order.servedItems == order.allOrderItems.length) {
-        order.serviceStatus= true;
+        order.serviceStatus = true;
       }
       var response = await httpClient.patch(
           Uri.parse(baseURL +
@@ -94,9 +94,9 @@ class OrderStatusService {
   }
 
   updateOrderItemCookingStatus({
-     int id,
-     OrderItem orderItem,
-     String orderID,
+    int id,
+    OrderItem orderItem,
+    String orderID,
   }) async {
     try {
       orderItem.cookingStatus = true;
@@ -124,13 +124,15 @@ class OrderStatusService {
   }
 
   updateOrderItemReadyStatus({
-     int id,
-     OrderItem orderItem,
-     String orderID,
+    int id,
+    OrderItem orderItem,
+    String orderID,
   }) async {
     try {
+      if (orderItem.cookingStatus != true) {
+        return;
+      }
       orderItem.readyStatus = true;
-
       var response = await httpClient.patch(
           Uri.parse(baseURL +
               ordersURL +
@@ -154,13 +156,15 @@ class OrderStatusService {
   }
 
   updateOrderItemServiceStatus({
-     int id,
-     OrderItem orderItem,
-     String orderID,
+    int id,
+    OrderItem orderItem,
+    String orderID,
   }) async {
     try {
+      if (orderItem.cookingStatus != true && orderItem.readyStatus != true) {
+        return;
+      }
       orderItem.serviceStatus = true;
-
       var response = await httpClient.patch(
           Uri.parse(baseURL +
               ordersURL +

@@ -13,8 +13,8 @@ class ItemsModal extends StatelessWidget {
   final String orderID;
   const ItemsModal({
     Key key,
-     this.orderItems,
-     this.orderID,
+    this.orderItems,
+    this.orderID,
   }) : super(key: key);
 
   @override
@@ -51,9 +51,9 @@ class Myexpansiontile extends StatefulWidget {
   final String orderID;
   const Myexpansiontile({
     Key key,
-     this.orderItem,
-     this.orderID,
-     this.orderItemID,
+    this.orderItem,
+    this.orderID,
+    this.orderItemID,
   }) : super(key: key);
 
   @override
@@ -63,7 +63,7 @@ class Myexpansiontile extends StatefulWidget {
 class _MyexpansiontileState extends State<Myexpansiontile> {
   bool _myTileExpanded = false;
 
-   int initialIndex;
+  int initialIndex;
   @override
   initState() {
     initialIndex = getIndex();
@@ -91,16 +91,16 @@ class _MyexpansiontileState extends State<Myexpansiontile> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: ToggleSwitch(
-changeOnTap: false,
+                changeOnTap: false,
                 initialLabelIndex: initialIndex,
                 cornerRadius: 20.0,
                 activeFgColor: Colors.white,
                 inactiveBgColor: Colors.grey,
                 inactiveFgColor: Colors.white,
-                
+
                 //totalSwitches: 4,
                 labels: ["Pending", "Cooking", "Ready", "Served"],
-                disableindex: [0,1,2],
+                disableindex: [0, 1, 2],
                 iconSize: 30.0,
                 borderWidth: 2.0,
                 borderColor: [Colors.blueGrey],
@@ -110,7 +110,6 @@ changeOnTap: false,
                   [Colors.green],
                   [Colors.deepPurple]
                 ],
-                    
               ),
             ),
           ],

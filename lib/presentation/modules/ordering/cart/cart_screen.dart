@@ -34,76 +34,82 @@ class CartScreen extends StatelessWidget {
       bottomNavigationBar:CustomBottomNavBar(
         id: CartScreen.id,
       ),
-      body: Container(
-        margin: EdgeInsets.symmetric(horizontal: 16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(top: 24.0,bottom: 24),
-              child: Text('Menu Items', style: headerStyle),
-            ),
-            Expanded(
-              child: Consumer<CartModel>(
-                builder: (context, cart, child) {
-                  return ListView.builder(
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: cart.allCartItems.length,
-                    shrinkWrap: true,
-                    itemBuilder: (BuildContext context, int index) {
-                      return StreamProvider<List<MenuItemModel>>.value(
-                        initialData: [],
-                        value: MenuService().getMenuItems(),
-                        child: CartItems(cartItem: cart.allCartItems[index]),
+      body: SingleChildScrollView(
+        child: Container(
+          margin: EdgeInsets.symmetric(horizontal: 16),
+          child: Expanded(
+            child: ListView(
+              shrinkWrap: true,
+              physics: BouncingScrollPhysics(),
+             // crossAxisAlignment: CrossAxisAlignment.start,
+                
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.only(top: 24.0,bottom: 24),
+                  child: Text('Menu Items', style: headerStyle),
+                ),
+                Expanded(
+                  child: Consumer<CartModel>(
+                    builder: (context, cart, child) {
+                      return ListView.builder(
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: cart.allCartItems.length,
+                        shrinkWrap: true,
+                        itemBuilder: (BuildContext context, int index) {
+                          return StreamProvider<List<MenuItemModel>>.value(
+                            initialData: [],
+                            value: MenuService().getMenuItems(),
+                            child: CartItems(cartItem: cart.allCartItems[index]),
+                          );
+                        },
                       );
                     },
-                  );
-                },
-              ),
-            ),
-            SizedBox(height: 16),
-            Divider(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Text(
-                    'Total: ',
-                    style: headerStyle),
-                Text(
-                    '\$ ${cartModel.totalPrice}',
-                    style: headerStyle),
+                  ),
+                ),
+                SizedBox(height: 16),
+                Divider(),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Text(
+                        'Total: ',
+                        style: headerStyle),
+                    Text(
+                        '\$ ${cartModel.totalPrice}',
+                        style: headerStyle),
+                  ],
+                ),
+                
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Container(
+                    margin: EdgeInsets.only(top: 24, bottom: 64),
+                    width: double.infinity,
+                    child: RaisedButton(
+                      child: Text(
+                        'Checkout',
+                        style: CustomStyle.appbarTitleStyle,
+                      ),
+                      onPressed: () {
+                        if(cartModel.totalPrice>0) {
+                
+                          Navigator.of(context).pop();
+                          Navigator.of(context)
+                              .pushReplacementNamed(CheckoutScreen.id);
+                        }
+                        else{
+                
+                        }
+                      },
+                      padding: EdgeInsets.symmetric(horizontal: 64, vertical: 12),
+                      color: CustomColor.primaryColor,
+                      shape: StadiumBorder(),
+                    ),
+                  ),
+                ),
               ],
             ),
-
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Container(
-                margin: EdgeInsets.only(top: 24, bottom: 64),
-                width: double.infinity,
-                child: RaisedButton(
-                  child: Text(
-                    'Checkout',
-                    style: CustomStyle.appbarTitleStyle,
-                  ),
-                  onPressed: () {
-                    if(cartModel.totalPrice>0) {
-
-                      Navigator.of(context).pop();
-                      Navigator.of(context)
-                          .pushReplacementNamed(CheckoutScreen.id);
-                    }
-                    else{
-
-                    }
-                  },
-                  padding: EdgeInsets.symmetric(horizontal: 64, vertical: 12),
-                  color: CustomColor.primaryColor,
-                  shape: StadiumBorder(),
-                ),
-              ),
-            ),
-          ],
+          ),
         ),
       ),
     );
